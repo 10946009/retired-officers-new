@@ -1,0 +1,47 @@
+{% extends 'layout/app_admin.html' %}
+
+{% load static %}
+{% block stylesheet %}
+<style>
+    .bd-example {
+        padding: 1.5rem;
+        margin-right: 0;
+        margin-left: 0;
+        border-width: 1px;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    .bd-example {
+        position: relative;
+        padding: 1rem;
+        margin: 1rem -.75rem 0;
+        border: solid #dee2e6;
+        border-width: 1px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">刪除活動</h1>
+    <ol class="breadcrumb mb-4">
+        <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
+        <li class="breadcrumb-item active">Delete Activity</li>
+    </ol>
+    <div class="bd-example">
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+        <form action="{% url 'activity_delete' activity_id=activity.id %}" method="POST">
+            {% csrf_token %}
+            <p>{{activity.name}}</p>
+            <div class="mt-4 mb-0">
+                <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">確定刪除？</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "retired-officers"
+version = "0.1.0"
+description = ""
+authors = ["品 <10946009@ntub.edu.tw>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.2"
+pillow = "^10.2.0"
+django-widget-tweaks = "^1.5.0"
+xlwt = "^1.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

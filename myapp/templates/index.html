@@ -1,0 +1,65 @@
+{% extends 'layout/app_student.html' %}
+
+{% load static %}
+{% block body %}
+<div class="container-fluid px-4 ">
+    <h1 class="mt-4">退除役官兵系統</h1>
+
+    <div style="display: flex;">
+        <a class="btn btn-sm btn-success" href="{% url 'register' %}"
+            style="padding: 8px; float: right; background-color: green; color: white;">註冊</a>
+
+        <a class="btn btn-sm btn-success" href="{% url 'activity_list' %}"
+            style="padding: 8px; float: right; background-color: green; color: white;">登入</a>
+
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            招生表單
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>狀態</th>
+                        <th>活動名稱</th>
+                        <th>開始報名時間</th>
+                        <th>結束報名時間</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- for activity loop -->
+                    {% for activity in activities %}
+                    <tr>
+                        <td>報名中</td>
+                        <td>{{ activity.name }}</td>
+                        <td>{{ activity.sign_up_start_time }}</td>
+                        <td>{{ activity.sign_up_end_time }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="{% url 'activity_list' %}"
+                                style="padding: 8px; float: right; background-color: green; color: white;">報名活動</a>
+                            <a class="btn btn-sm btn-success" href="{% url 'activity_list' %}"
+                                style="padding: 8px; float: right; background-color: green; color: white;">進入</a>
+
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+{% endblock %}
