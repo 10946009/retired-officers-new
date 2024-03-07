@@ -31,7 +31,6 @@
                         <th>Email</th>
                         <th>性別</th>
                         <th>生日</th>
-                        <th>編輯</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +40,6 @@
                         <td>{{ student.user.email }}</td>
                         <td>{{ student.sex }}</td>
                         <td>{{ student.date_of_birth }}</td>
-                        <td>Edit</td>
 
                         <td>
                             <a class="btn btn-sm btn-warning" href="{% url 'student_update' student_id=student.id %}">

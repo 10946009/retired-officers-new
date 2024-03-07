@@ -5,7 +5,11 @@ from admin_panel.views.activity_update import activity_update
 from admin_panel.views.activity_delete import activity_delete
 from admin_panel.views.student_activity_list import student_activity_list
 from admin_panel.views.student_list import student_list, export_excel
-from admin_panel.views.score_list import score_list
+from admin_panel.views.score_list import (
+    score_list,
+    export_score_sample,
+    upload_and_read_excel,
+)
 
 urlpatterns = [
     # activity
@@ -22,4 +26,10 @@ urlpatterns = [
     # score
     path("score_activity_list/", student_activity_list, name="score_activity_list"),
     path("score_list/<int:activity_id>", score_list, name="score_list"),
+    path("export_score_sample/", export_score_sample, name="export_score_sample"),
+    path(
+        "upload_and_read_excel/<int:activity_id>",
+        upload_and_read_excel,
+        name="upload_and_read_excel",
+    ),
 ]

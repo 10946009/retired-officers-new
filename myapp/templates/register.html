@@ -25,8 +25,12 @@
                                     {% csrf_token %}
                                     {% include 'includes/bs4_form.html' with form=form %}
                                     <div class="form-group">
-                                        {{ user_form.as_p}}
-                                        {{ student_form.as_p }}
+                                        {% comment %} {{ user_form.as_p}}
+                                        {{ student_form.as_p }} {% endcomment %}
+                                        <div class="col-6">
+                                        {{ user_form.username.label_tag }}
+                                        {{ user_form.username }}
+                                        </div>
                                     </div>
                                     <div class="mt-4 mb-0">
                                         <div class="d-grid"><button type="submit"

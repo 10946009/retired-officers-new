@@ -19,6 +19,7 @@ class Activity(models.Model):
     activity_end_time = models.DateTimeField(blank=True, null=True)
     sign_up_start_time = models.DateTimeField(blank=True, null=True)
     sign_up_end_time = models.DateTimeField(blank=True, null=True)
+    score_open_time = models.DateTimeField(blank=True, null=True)
 
 
 class ScoreLabel(models.Model):

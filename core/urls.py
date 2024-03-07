@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.shortcuts import render
 
 # import views directly from the app
-from myapp.views import index, register
+from myapp.views import index, register,login
 from admin_panel import urls as admin_panel_urls
 
 def handler404(request, exception):
@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index.index,name="index"),
     path('register/', register.register, name='register'),
+    path('login/', login.login, name='login'),
     path('admin_panel/', include(admin_panel_urls)),
     # path('myapp/', include(myapp_urls)),
 
