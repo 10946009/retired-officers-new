@@ -101,7 +101,27 @@ class StudentForm(forms.ModelForm):
             "identity_back": forms.FileInput(attrs={"class": "form-control"}),
         }
 
-class LoginForm(AuthenticationForm):
-    username = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["email", "password"]
+        # 設定css
+        labels = {
+            "email": "Email",
+            "password": "密碼",
+        }
+        widgets = {
+            "email": forms.EmailInput(attrs={"class": "form-control hello"}),
+            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+        }
+        help_texts ={
+            "email": None,
+        }
+        error_messages = {
+            "email": {
+                "required": "請輸入帳號",
+            },
+            "password": {
+                "required": "請輸入密碼",
+            },
+        }

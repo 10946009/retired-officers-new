@@ -42,12 +42,19 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">登入</h3></div>
                                 <div class="card-body">
-                                    {{ login_form }}
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="/password/reset">忘記密碼?</a>
-                                            <button type="submit" class="btn btn-primary">登入</button>
+                                    <form method="POST" action="{% url 'student_login' %}">
+                                        <div class="form-group">
+                                            {% csrf_token %}
+                                            {{ login_form }}
+                                            {% if message %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ message }}
+                                            </div>
+                                            {% endif %}
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <a class="small" href="/password/reset">忘記密碼?</a>
+                                                <button type="submit" class="btn btn-primary">登入</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
