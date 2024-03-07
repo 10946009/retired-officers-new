@@ -1,14 +1,15 @@
 from myapp.views.index import index
 from myapp.views.register import register
 from myapp.views.student_login import student_login
+from myapp.views.student_join import student_join
 from django.urls import path
 
 urlpatterns = [
     path('', index, name='index'),
-    path('register', register, name='register'),
-    path('student_login', student_login, name='student_login'),
+    path('register/', register, name='register'),
+    path('student_login/', student_login, name='student_login'),
     # about activity
-    path('student_join',)
+    path('student_join/<int:activity_id>', student_join, name='student_join'),
 #------------------------------ 
     # path('create', views.create, name='create'),
     # path('list', views.list, name='list'),

@@ -34,7 +34,12 @@
             <td data-th="開始報名時間">{{ activity.sign_up_start_time }}</td>
             <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
             <td>
-              <a class="btn btn-bg col-12 btn-success" href="{% url 'activity_list' %}">報名活動</a>
+              {% if request.user.auth_user.is_authenticated %}
+                <a class="btn btn-bg col-12 btn-success" href="">列印報名表</a>
+                <a class="btn btn-bg col-12 btn-success" href="">查看成績</a>
+              {% else %}
+                <a class="btn btn-bg col-12 btn-success" href="{% url 'student_join'  activity.id %}">報名活動</a>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
