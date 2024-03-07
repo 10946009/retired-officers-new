@@ -24,8 +24,13 @@
         <!-- Sidebar Toggle-->
         <!-- Navbar Search-->
         <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            {% if request.user.is_authenticated %}
+            <a class="btn btn-sm btn-success" href="{% url 'logout' %}"
+                style="padding: 8px; float: right; background-color: green; color: white;">登出</a>
+            {% else %}
             <a class="btn btn-sm btn-success" href="{% url 'activity_list' %}"
                 style="padding: 8px; float: right; background-color: green; color: white;">管理者登入</a>
+            {% endif %}
         </div>
     </nav>
     <main>

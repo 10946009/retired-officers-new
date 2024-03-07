@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from myapp.forms import UserForm, StudentForm
 
 
@@ -22,7 +22,7 @@ def register(request):
             student.user = user
             student.save()
             print("success")
-            return render(request, "login.html")
+            return redirect('/student_login')
     else:
         user_form = UserForm()
         student_form = StudentForm()

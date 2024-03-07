@@ -4,7 +4,7 @@ from django import forms
 from user.models import Student
 from .models import *
 from user.models import User
-
+from django.contrib.auth.forms import AuthenticationForm
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -100,3 +100,8 @@ class StudentForm(forms.ModelForm):
             "identity_front": forms.FileInput(attrs={"class": "form-control"}),
             "identity_back": forms.FileInput(attrs={"class": "form-control"}),
         }
+
+class LoginForm(AuthenticationForm):
+    username = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    

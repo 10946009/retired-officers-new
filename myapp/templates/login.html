@@ -40,19 +40,19 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">登入</h3></div>
                                 <div class="card-body">
+                                    {{ login_form }}
                                     <form method="POST">
                                         {% csrf_token %}
-                                        {% include 'includes/bs4_form_all.html' with form=form %}
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="/password/reset">Forgot Password?</a>
-                                            <button type="submit" class="btn btn-primary">Login</button>
+                                            <a class="small" href="/password/reset">忘記密碼?</a>
+                                            <button type="submit" class="btn btn-primary">登入</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="{% url 'register' %}">Need an account? Sign up!</a></div>
+                                    <div class="small"><a href="{% url 'register' %}">沒有帳號嗎？註冊</a></div>
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from myapp.forms import UserForm, StudentForm
-
+from myapp.forms import LoginForm
 
 def student_login(request):
-
-    return render(request, "login.html")
+    login_form = LoginForm()
+    content = {"login_form": login_form}
+    
+    return render(request, "login.html",content)
