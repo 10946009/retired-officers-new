@@ -32,7 +32,7 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
     email = models.EmailField(unique=True)
-
+    username = models.CharField(unique=False, max_length=100, blank=False, null=False)
     objects = UserManager()
 
 
