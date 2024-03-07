@@ -21,7 +21,7 @@ def handler404(request, exception):
 
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # path('',index.index,name="index"),
     # path('register/', register.register, name='register'),
     # path('login/', login.login, name='login'),

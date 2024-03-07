@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from myapp.models import Activity
+from myapp.models import Activity, Score
 import openpyxl
 from django.http import HttpResponse
 from admin_panel.forms import UploadExcelForm
@@ -7,6 +7,22 @@ from openpyxl import Workbook
 
 # import custom User model
 from user.models import User
+
+
+def get_student_score(student, activity):
+    try:
+        score = student.score_set.get(activity=activity)
+        return score.score1, score.score2, score.score3
+    except Score.DoesNotExist:
+        print("Score does not exist for this student and activity.")
+        return 0, 0, 0
+
+def calculate_total_score(score1, score2, score3, score_label):
+    return (
+        score1 * score_label.score1_weight / 100 +
+        score2 * score_label.score2_weight / 100 +
+        score3 * score_label.score3_weight / 100
+    )
 
 
 def score_list(request, activity_id):
@@ -21,31 +37,26 @@ def score_list(request, activity_id):
     students = activity.student.all()
 
     # get all students with their scores
-    students = [
-        {
+
+    student_with_scores = []
+    for student in students:
+        score1, score2, score3 = get_student_score(student, activity)
+        total_score = calculate_total_score(score1, score2, score3, score_label)
+
+        student_with_scores.append({
             "id": student.id,
             "name": student.user.username,
             "email": student.user.email,
-            "score1": student.score_set.get(activity=activity).score1,
-            "score2": student.score_set.get(activity=activity).score2,
-            "score3": student.score_set.get(activity=activity).score3,
-            "total": student.score_set.get(activity=activity).score1
-            * score_label.score1_weight
-            / 100
-            + student.score_set.get(activity=activity).score2
-            * score_label.score2_weight
-            / 100
-            + student.score_set.get(activity=activity).score3
-            * score_label.score3_weight
-            / 100,
-        }
-        for student in students
-    ]
+            "score1": score1,
+            "score2": score2,
+            "score3": score3,
+            "total": total_score,
+        })
 
     return render(
         request,
         "score_list.html",
-        {"students": students, "score_label": score_label, "activity": activity},
+        {"student_with_scores": student_with_scores, "score_label": score_label, "activity": activity},
     )
 
 
