@@ -24,6 +24,19 @@ class UserForm(forms.ModelForm):
         help_texts ={
             "username": None,
         } 
+        error_messages = {
+            "username": {
+                "required": "請輸入姓名",
+            },
+            "email": {
+                "required": "請輸入電子郵件地址",
+                "invalid": "請輸入有效的電子郵件地址",
+                "unique": "此電子郵件地址已被註冊過了",
+            },
+            "password": {
+                "required": "請輸入密碼",
+            },
+        }
 
 
 
@@ -37,7 +50,6 @@ class StudentForm(forms.ModelForm):
         labels = {
             "sex": "性別",
             "date_of_birth": "出生年月日",
-            "phone": "電話",
             "address": "地址",
             "postal_code": "郵遞區號",
             "identity": "身分證字號",
@@ -63,7 +75,6 @@ class StudentForm(forms.ModelForm):
         widgets = {
             "sex": forms.Select(attrs={"class": "form-control"}),
             "date_of_birth": forms.DateInput(attrs={"class": "form-control" ,"type":"date"}),
-            "phone": forms.TextInput(attrs={"class": "form-control"}),
             "address": forms.TextInput(attrs={"class": "form-control"}),
             "postal_code": forms.TextInput(attrs={"class": "form-control"}),
             "identity": forms.TextInput(attrs={"class": "form-control"}),

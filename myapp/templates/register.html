@@ -17,12 +17,28 @@
             <div class="col-12">
               <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
-                  <h3 class="text-right font-weight-bold my-4">填寫資料</h3>
+                  <h3 class="text-right font-weight-bold my-4">填寫註冊資料</h3>
                 </div>
+                {% comment %} userform {% endcomment %}
+                {% for field in user_form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% comment %} student_form {% endcomment %}
+                {% for field in student_form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+                {% endfor %}
+                {% endfor %}
                 <div class="card-body">
-                  <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+                  <form method="post" action="{% url 'register' %}" enctype="multipart/form-data" id="registerForm" name="registerForm">
                     {% csrf_token %}
-
+                    <h3 class="text-right font-weight-bold mt-4">基本資料</h3>
                     <div class="form-group">
                       <div class="row">
                         <div class="col-md-3">{{ user_form.username.label }}
@@ -31,24 +47,25 @@
                           {{ student_form.identity }}</div>
                         <div class="col-md-3">{{ student_form.date_of_birth.label }}
                           {{ student_form.date_of_birth }}</div>
-                        <div class="col-md-3">                      {{ student_form.sex.label }}
+                        <div class="col-md-3">{{ student_form.sex.label }}
                           {{ student_form.sex }}</div>
                       </div>
                       {{ user_form.email.label }}
                       {{ user_form.email }}
                       {{ user_form.password.label }}
                       {{ user_form.password }}
-                      {{ student_form.phone.label }}
-                      {{ student_form.phone }}
-                      {{ student_form.address.label }}
-                      {{ student_form.address }}
-                      {{ student_form.postal_code.label }}
-                      {{ student_form.postal_code }}
-
-                      {{ student_form.home_phone.label }}
-                      {{ student_form.home_phone }}
-                      {{ student_form.mobile_phone.label }}
-                      {{ student_form.mobile_phone }}
+                      <div class="row">
+                        <div class="col-8">{{ student_form.address.label }}
+                          {{ student_form.address }}</div>
+                        <div class="col-4">{{ student_form.postal_code.label }}
+                          {{ student_form.postal_code }}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">{{ student_form.home_phone.label }}
+                          {{ student_form.home_phone }}</div>
+                        <div class="col-md-6">{{ student_form.mobile_phone.label }}
+                          {{ student_form.mobile_phone }}</div>
+                      </div>
                       <h3 class="text-right font-weight-bold mt-4">畢業學校</h3>
                       <div class="row">
                         <div class="col-md-3">{{ student_form.graduated_school.label }}
@@ -75,21 +92,26 @@
                       </div>
                       <h3 class="text-right font-weight-bold mt-4">兵役資訊</h3>
                       <div class="row">
-                        <div class="col-md-3">{{ student_form.military_service_number.label }}
+                        <div class="col-md-4">{{ student_form.military_service_number.label }}
                           {{ student_form.military_service_number }}</div>
-                        <div class="col-md-3">{{ student_form.military_service.label }}
+                        <div class="col-md-4">{{ student_form.military_service.label }}
                           {{ student_form.military_service }}</div>
-                        <div class="col-md-3">{{ student_form.military_rank.label }}
+                        <div class="col-md-4">{{ student_form.military_rank.label }}
                           {{ student_form.military_rank }}</div>
-                        <div class="col-md-2">{{ student_form.military_retired_date.label }}
+                        </div>
+                      <div class="row">
+                        <div class="col-md-4">{{ student_form.military_retired_date.label }}
                           {{ student_form.military_retired_date }}</div>
-                        <div class="col-md-1">{{ student_form.military_service_years.label }}
+                        <div class="col-md-8">{{ student_form.military_service_years.label }}
                           {{ student_form.military_service_years }}</div>
                       </div>
-                      {{ student_form.identity_front.label }}
-                      {{ student_form.identity_front }}
-                      {{ student_form.identity_back.label }}
-                      {{ student_form.identity_back }}
+                      <h3 class="text-right font-weight-bold mt-4">身分證正反面上傳</h3>
+                      <div class="row">
+                        <div class="col-md-6">{{ student_form.identity_front.label }}
+                          {{ student_form.identity_front }}</div>
+                        <div class="col-md-6">{{ student_form.identity_back.label }}
+                          {{ student_form.identity_back }}</div>
+                      </div>
                     </div>
                     <div class="mt-4 mb-0">
                       <div class="d-grid">
@@ -115,5 +137,11 @@
   <script type="text/javascript">
     $('#id_username').attr('placeholder', 'Enter Username')
     $('#id_password').attr('placeholder', 'Enter Password')
+    window.onload = function() {
+      document.getElementById('registerForm').addEventListener('submit', function(event) {
+          console.log('hello');
+      });
+  };
+
   </script>
 {% endblock %}
