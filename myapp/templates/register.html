@@ -2,56 +2,118 @@
 
 {% load static %}
 {% block stylesheet %}
-<style>
+  <style>
     .col-md-6 {
-        padding: 7px;
+      padding: 7px;
     }
-</style>
-
+  </style>
 {% endblock %}
 {% block body %}
-<div id="layoutAuthentication">
+  <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
-        <main>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header">
-                                <h3 class="text-right font-weight-light my-4">填寫資料</h3>
-                            </div>
-                            <div class="card-body">
-                                <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {% include 'includes/bs4_form.html' with form=form %}
-                                    <div class="form-group">
-                                        {% comment %} {{ user_form.as_p}}
-                                        {{ student_form.as_p }} {% endcomment %}
-                                        <div class="col-6">
-                                        {{ user_form.username.label_tag }}
-                                        {{ user_form.username }}
-                                        </div>
-                                    </div>
-                                    <div class="mt-4 mb-0">
-                                        <div class="d-grid"><button type="submit"
-                                                class="btn btn-primary btn-block">Create Account</button></div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-footer text-center py-3">
-                                <div class="small"><a href="/login">Have an account? Go to login</a></div>
-                            </div>
-                        </div>
-                    </div>
+      <main>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                  <h3 class="text-right font-weight-bold my-4">填寫資料</h3>
                 </div>
+                <div class="card-body">
+                  <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-3">{{ user_form.username.label }}
+                          {{ user_form.username }}</div>
+                        <div class="col-md-3">{{ student_form.identity.label }}
+                          {{ student_form.identity }}</div>
+                        <div class="col-md-3">{{ student_form.date_of_birth.label }}
+                          {{ student_form.date_of_birth }}</div>
+                        <div class="col-md-3">                      {{ student_form.sex.label }}
+                          {{ student_form.sex }}</div>
+                      </div>
+                      {{ user_form.email.label }}
+                      {{ user_form.email }}
+                      {{ user_form.password.label }}
+                      {{ user_form.password }}
+                      {{ student_form.phone.label }}
+                      {{ student_form.phone }}
+                      {{ student_form.address.label }}
+                      {{ student_form.address }}
+                      {{ student_form.postal_code.label }}
+                      {{ student_form.postal_code }}
+
+                      {{ student_form.home_phone.label }}
+                      {{ student_form.home_phone }}
+                      {{ student_form.mobile_phone.label }}
+                      {{ student_form.mobile_phone }}
+                      <h3 class="text-right font-weight-bold mt-4">畢業學校</h3>
+                      <div class="row">
+                        <div class="col-md-3">{{ student_form.graduated_school.label }}
+                          {{ student_form.graduated_school }}</div>
+                        <div class="col-md-2">{{ student_form.school_department.label }}
+                          {{ student_form.school_department }}</div>
+                        <div class="col-md-1">{{ student_form.graduated_department.label }}
+                          {{ student_form.graduated_department }}</div>
+                        <div class="col-md-1">{{ student_form.is_graduated.label }}
+                          {{ student_form.is_graduated }}</div>
+                        <div class="col-md-1">{{ student_form.graduated_year.label }}
+                          {{ student_form.graduated_year }}</div>
+                        <div class="col-md-4">{{ student_form.education.label }}
+                          {{ student_form.education }}</div>
+                      </div>
+                      <h3 class="text-right font-weight-bold mt-4">緊急聯絡人資訊</h3>
+                      <div class="row">
+                        <div class="col-md-4">{{ student_form.emergency_contact_relationship.label }}
+                          {{ student_form.emergency_contact_relationship }}</div>
+                        <div class="col-md-4">{{ student_form.emergency_contact.label }}
+                          {{ student_form.emergency_contact }}</div>
+                        <div class="col-md-4">{{ student_form.emergency_contact_phone.label }}
+                          {{ student_form.emergency_contact_phone }}</div>
+                      </div>
+                      <h3 class="text-right font-weight-bold mt-4">兵役資訊</h3>
+                      <div class="row">
+                        <div class="col-md-3">{{ student_form.military_service_number.label }}
+                          {{ student_form.military_service_number }}</div>
+                        <div class="col-md-3">{{ student_form.military_service.label }}
+                          {{ student_form.military_service }}</div>
+                        <div class="col-md-3">{{ student_form.military_rank.label }}
+                          {{ student_form.military_rank }}</div>
+                        <div class="col-md-2">{{ student_form.military_retired_date.label }}
+                          {{ student_form.military_retired_date }}</div>
+                        <div class="col-md-1">{{ student_form.military_service_years.label }}
+                          {{ student_form.military_service_years }}</div>
+                      </div>
+                      {{ student_form.identity_front.label }}
+                      {{ student_form.identity_front }}
+                      {{ student_form.identity_back.label }}
+                      {{ student_form.identity_back }}
+                    </div>
+                    <div class="mt-4 mb-0">
+                      <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-block">註冊</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                  <div class="small">
+                    <a href="/login">Have an account? Go to login</a>
+                  </div>
+                </div>
+              </div>
             </div>
-        </main>
+          </div>
+        </div>
+      </main>
     </div>
-</div>
+  </div>
 {% endblock %}
 {% block javascript %}
-<script type="text/javascript">
-    $("#id_username").attr("placeholder", "Enter Username");
-    $("#id_password").attr("placeholder", "Enter Password");
-</script>
+  <script type="text/javascript">
+    $('#id_username').attr('placeholder', 'Enter Username')
+    $('#id_password').attr('placeholder', 'Enter Password')
+  </script>
 {% endblock %}
