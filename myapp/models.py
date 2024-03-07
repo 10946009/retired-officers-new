@@ -3,7 +3,8 @@ from django.db import models
 
 class School(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False, default="")
-
+    def __str__(self):
+        return self.name
 
 # 活動
 class Activity(models.Model):
