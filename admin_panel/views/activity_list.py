@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from myapp.models import Activity
-from django.contrib.auth.decorators import login_required
-# import login
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render
+from myapp.models import Activity
+from django.contrib.auth.decorators import permission_required
 
 
-
-@login_required(login_url='/login')
+@permission_required('myapp.view_activity', login_url='/403')
 def activity_list(request):
-    # get all activties
+    # get all activities
     activities = Activity.objects.all()
-
 
     return render(request, 'activity_list.html', {'activities': activities})
 

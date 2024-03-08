@@ -1,0 +1,12 @@
+{% load static %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg">
+            Sign in with Google
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,3 +1,5 @@
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +26,7 @@
         <!-- Sidebar Toggle-->
         <!-- Navbar Search-->
         <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <a class="btn btn-sm btn-success" href="{% url 'activity_list' %}"
+            <a class="btn btn-sm btn-success" href="{% provider_login_url 'google' method='oauth2' %}"
                 style="padding: 8px; float: right; background-color: green; color: white;">管理者登入</a>
         </div>
     </nav>
