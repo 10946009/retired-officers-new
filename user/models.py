@@ -129,7 +129,7 @@ class Student(models.Model):
         max_length=15, blank=False, null=False, default=""
     )
 
-    # 服役年資 學歷 兵籍號碼 軍種 階級 退伍日期
+    # 兵籍號碼 軍種 階級 退伍日期 服役年資   
     military_service_number = models.CharField(max_length=15, blank=False, null=False)
     military_service = models.CharField(max_length=15, blank=False, null=False)
     military_rank = models.CharField(max_length=15, blank=False, null=False)
@@ -148,7 +148,17 @@ class Student(models.Model):
             self.date_of_birth.month,
             self.date_of_birth.day,
         )
+    def date_of_military_retired_tw(self):
+        return (
+            self.military_retired_date.year - 1911,
+            self.military_retired_date.month,
+            self.military_retired_date.day,
+        )
+    def get_username(self):
+        return self.user.username
 
+    def get_email(self):
+        return self.user.email
     class Meta:
         verbose_name = "Student"
         verbose_name_plural = "Students"

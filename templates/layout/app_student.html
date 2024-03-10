@@ -30,9 +30,8 @@
             <a class="btn btn-sm btn-success" href="{% url 'logout' %}"
                 style="padding: 8px; float: right; background-color: green; color: white;">登出</a>
             {% else %}
-            <a class="btn btn-sm btn-success" href="{% url 'activity_list' %}"
             <a class="btn btn-sm btn-success" href="{% provider_login_url 'google' method='oauth2' %}"
-                style="padding: 8px; float: right; background-color: green; color: white;">管理者登入</a>
+            style="padding: 8px; float: right; background-color: green; color: white;">管理者登入</a>
             {% endif %}
         </div>
     </nav>
