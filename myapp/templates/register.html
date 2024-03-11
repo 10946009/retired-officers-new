@@ -15,9 +15,9 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-12">
-              <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card shadow-lg border-0 rounded-lg">
                 <div class="card-header">
-                  <h3 class="text-right font-weight-bold my-4">填寫註冊資料</h3>
+                  <h3 class="text-right font-weight-bold">填寫註冊資料</h3>
                 </div>
                 {% comment %} userform {% endcomment %}
                 {% for field in user_form %}
@@ -122,7 +122,7 @@
                 </div>
                 <div class="card-footer text-center py-3">
                   <div class="small">
-                    <a href="/login">Have an account? Go to login</a>
+                    <a href="{% url 'student_login' %}">已經有帳號了嗎?點我登入</a>
                   </div>
                 </div>
               </div>
