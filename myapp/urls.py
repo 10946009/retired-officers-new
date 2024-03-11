@@ -3,6 +3,8 @@ from myapp.views.register import register
 from myapp.views.student_login import student_login
 from myapp.views.logout import logout
 from myapp.views.student_join import student_join
+from myapp.views.print_data import print_data
+from myapp.views.view_score import view_score
 from django.urls import path
 
 urlpatterns = [
@@ -12,6 +14,8 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     # about activity
     path('student_join/<int:activity_id>', student_join, name='student_join'),
+    path('print_data/<int:activity_id>', print_data, name='print_data'),
+    path('view_score/', view_score, name='view_score'),
 #------------------------------ 
     # path('create', views.create, name='create'),
     # path('list', views.list, name='list'),

@@ -21,6 +21,9 @@ class Activity(models.Model):
     sign_up_start_time = models.DateTimeField(blank=True, null=True)
     sign_up_end_time = models.DateTimeField(blank=True, null=True)
     score_open_time = models.DateTimeField(blank=True, null=True)
+    
+    def get_year_tw(self):
+        return self.activity_start_time.year - 1911
 
 
 class ScoreLabel(models.Model):

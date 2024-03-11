@@ -35,10 +35,10 @@
             <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
             <td>
               {% if request.user.is_authenticated %}
-                <a class="btn btn-bg col-4 btn-success" href="">列印報名表</a>
+                <button class="btn btn-bg col-4 btn-success"  onclick="printData({{activity.id}})">列印報名表</button>
                 <a class="btn btn-bg col-4 btn-success" href="">查看成績</a>
               {% else %}
-                <a class="btn btn-bg col-12 btn-success" href="{% url 'student_join'  activity.id %}">報名活動</a>
+                <a class="btn btn-bg col-12 btn-success" href="{% url 'student_join' activity.id %}">報名活動</a>
               {% endif %}
             </td>
           </tr>
@@ -53,4 +53,39 @@
   <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
   <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+  <script>
+    // download join form
+    function printData(activity){
+      $.ajax({
+        url: `{% url 'print_data' 123 %}`.replace('123', activity),
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        method: 'POST',
+        xhrFields: {
+          responseType: 'blob' // 设置响应类型为二进制流
+      },
+        success: function (data) {
+          CallMessage("下載PDF成功!","success");
+          // data is PDF  
+          const blob = new Blob([data], { type: 'application/pdf' });
+
+            // 创建 Blob 对象的 URL
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            // 创建下载链接
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = '報名表.pdf';
+            // 模拟用户点击下载链接
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+            // 移除下载链接和 Blob URL
+            document.body.removeChild(downloadLink);
+            window.URL.revokeObjectURL(blobUrl);
+        }
+    });
+  }
+  </script>
 {% endblock %}
