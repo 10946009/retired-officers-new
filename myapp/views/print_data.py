@@ -72,7 +72,7 @@ def print_data(request,activity_id):
 
         # remove the file
         os.remove(f'static/{data["number"]}.docx')
-        # os.remove(file_path)
+        os.remove(file_path)
         return response
     else:
         return redirect("/student_login")
