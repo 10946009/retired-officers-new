@@ -155,6 +155,7 @@ class Student(models.Model):
 
     notes = models.CharField(max_length=150, blank=True, null=False, default="")
     
+    join_time = models.DateTimeField(null= True)
 
     def date_of_birth_tw(self):
         return (

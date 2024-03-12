@@ -34,11 +34,14 @@
             <td data-th="開始報名時間">{{ activity.sign_up_start_time }}</td>
             <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
             <td>
-              {% if request.user.is_authenticated %}
+              {% if activity in request.user.student.activity.all %}
                 <button class="btn btn-bg col-4 btn-success"  onclick="printData({{activity.id}})">列印報名表</button>
                 <a class="btn btn-bg col-4 btn-success" href="">查看成績</a>
               {% else %}
-                <a class="btn btn-bg col-12 btn-success" href="{% url 'student_join' activity.id %}">報名活動</a>
+                <form method="post" action="{% url 'student_join' activity.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-bg col-12 btn-success">報名活動</button>
+                </form>
               {% endif %}
             </td>
           </tr>
@@ -57,7 +60,7 @@
     // download join form
     function printData(activity){
       $.ajax({
-        url: `{% url 'print_data' 123 %}`.replace('123', activity),
+        url: `{% url 'print_data' 0 %}`.replace('0', activity),
         headers: {
           'X-CSRFToken': '{{ csrf_token }}'
         },
