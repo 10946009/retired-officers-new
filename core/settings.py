@@ -180,6 +180,9 @@ AUTHENTICATION_BACKENDS = [
 # Google 登入後的首頁網址
 LOGIN_REDIRECT_URL = '/admin_panel/activity_list/'  
 
+
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+
 # 使用電子郵件進行登錄
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
