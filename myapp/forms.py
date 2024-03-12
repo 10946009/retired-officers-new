@@ -59,7 +59,8 @@ class StudentForm(forms.ModelForm):
             "is_graduated": "畢肄業",
             "graduated_department": "畢業部別",
             "graduated_year": "年制",
-            "education": "學歷",
+            "education": "同等學力",
+            "school_notes": "備註",
             "school_department": "畢業系所組",
             "emergency_contact": "緊急聯絡人",
             "emergency_contact_phone": "緊急聯絡人電話",
@@ -69,6 +70,7 @@ class StudentForm(forms.ModelForm):
             "military_rank": "階級",
             "military_retired_date": "退伍日期",
             "military_service_years": "服役年資",
+            "military_type": "幾類",
             "identity_front": "身分證正面",
             "identity_back": "身分證反面",
         }
@@ -84,6 +86,7 @@ class StudentForm(forms.ModelForm):
             "graduated_department": forms.Select(attrs={"class": "form-control"}),
             "graduated_year": forms.Select(attrs={"class": "form-control"}),
             "education": forms.Select(attrs={"class": "form-control"}),
+            "school_notes": forms.TextInput(attrs={"class": "form-control"}),
             "school_department": forms.TextInput(attrs={"class": "form-control"}),
             "mobile_phone": forms.TextInput(attrs={"class": "form-control"}),
             "emergency_contact": forms.TextInput(attrs={"class": "form-control"}),
@@ -97,8 +100,10 @@ class StudentForm(forms.ModelForm):
             "military_rank": forms.TextInput(attrs={"class": "form-control"}),
             "military_retired_date": forms.DateInput(attrs={"class": "form-control" ,"type":"date","type":"date"}),
             "military_service_years": forms.Select(attrs={"class": "form-control"}),
+            "military_type": forms.Select(attrs={"class": "form-control"}),
             "identity_front": forms.FileInput(attrs={"class": "form-control"}),
             "identity_back": forms.FileInput(attrs={"class": "form-control"}),
+
         }
 
 class LoginForm(forms.ModelForm):

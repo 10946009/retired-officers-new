@@ -36,7 +36,7 @@
                 {% endfor %}
                 {% endfor %}
                 <div class="card-body">
-                  <form method="post" action="{% url 'register' %}" enctype="multipart/form-data" id="registerForm" name="registerForm">
+                  <form method="post" class="needs-validation" action="{% url 'register' %}" enctype="multipart/form-data" id="registerForm" name="registerForm" novalidate>
                     {% csrf_token %}
                     <h3 class="text-right font-weight-bold mt-4">基本資料</h3>
                     <div class="form-group">
@@ -80,6 +80,8 @@
                           {{ student_form.graduated_year }}</div>
                         <div class="col-md-4">{{ student_form.education.label }}
                           {{ student_form.education }}</div>
+                          <div class="col-md-3">{{ student_form.school_notes.label }}
+                            {{ student_form.school_notes }}</div>
                       </div>
                       <h3 class="text-right font-weight-bold mt-4">緊急聯絡人資訊</h3>
                       <div class="row">
@@ -99,11 +101,14 @@
                         <div class="col-md-4">{{ student_form.military_rank.label }}
                           {{ student_form.military_rank }}</div>
                         </div>
+                      
                       <div class="row">
-                        <div class="col-md-4">{{ student_form.military_retired_date.label }}
+                        <div class="col-md-3">{{ student_form.military_retired_date.label }}
                           {{ student_form.military_retired_date }}</div>
-                        <div class="col-md-8">{{ student_form.military_service_years.label }}
+                        <div class="col-md-7">{{ student_form.military_service_years.label }}
                           {{ student_form.military_service_years }}</div>
+                          <div class="col-md-2">{{ student_form.military_type.label }}
+                            {{ student_form.military_type }}</div>
                       </div>
                       <h3 class="text-right font-weight-bold mt-4">身分證正反面上傳</h3>
                       <div class="row">
@@ -142,6 +147,24 @@
           console.log('hello');
       });
   };
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
 
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
   </script>
 {% endblock %}
