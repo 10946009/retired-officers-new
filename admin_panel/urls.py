@@ -5,6 +5,7 @@ from admin_panel.views.activity_update import activity_update
 from admin_panel.views.activity_delete import activity_delete
 from admin_panel.views.student_activity_list import student_activity_list
 from admin_panel.views.student_list import student_list, export_excel
+from admin_panel.views.redirect_user import redirect_user
 from admin_panel.views.score_list import (
     score_list,
     export_score_sample,
@@ -32,4 +33,5 @@ urlpatterns = [
         upload_and_read_excel,
         name="upload_and_read_excel",
     ),
+    path("redirect_user/", redirect_user, name="redirect_user")
 ]

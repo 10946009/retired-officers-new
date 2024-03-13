@@ -178,7 +178,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Google 登入後的首頁網址
-LOGIN_REDIRECT_URL = '/admin_panel/activity_list/'  
+LOGIN_REDIRECT_URL = '/admin_panel/redirect_user/'  
 
 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
