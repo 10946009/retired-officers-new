@@ -26,7 +26,11 @@ urlpatterns = [
     # score
     path("score_activity_list/", student_activity_list, name="score_activity_list"),
     path("score_list/<int:activity_id>", score_list, name="score_list"),
-    path("export_score_sample/", export_score_sample, name="export_score_sample"),
+    path(
+        "export_score_sample/<int:activity_id>",
+        export_score_sample,
+        name="export_score_sample",
+    ),
     path(
         "upload_and_read_excel/<int:activity_id>",
         upload_and_read_excel,
