@@ -34,6 +34,9 @@
     width: 6.5em;
     display: inline-block;
 }
+#no-width:before {
+    width:0;
+}
 
 .rwd-table th,
 .rwd-table td {
@@ -46,7 +49,7 @@
 }
 
 
-@media (min-width: 600px) {
+@media (min-width: 800px) {
     .rwd-table td:before {
         display: none;
     }

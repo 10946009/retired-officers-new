@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
-
-
+from django.forms import ValidationError
+from user.check_identity import is_valid_id_or_rc_number
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -32,7 +32,7 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
     email = models.EmailField(unique=True)
-    username = models.CharField(unique=False, max_length=100, blank=False, null=False)
+    username = models.CharField(unique=False, max_length=10, blank=False, null=False)
     objects = UserManager()
 
 
@@ -88,12 +88,7 @@ class Student(models.Model):
         (3, "四年制"),
         (4, "五年制"),
     ]
-    SERVICE_TYPE_CHOICES = [
-        (1, ""),
-        (2, "一類"),
-        (3, "二類")
-    ]   
-
+    SERVICE_TYPE_CHOICES = [(1, ""), (2, "一類"), (3, "二類")]
 
     # 性別,出生年月日,身分證字號,地址,郵遞區號,家用電話,手機
     sex = models.IntegerField(choices=SEX_CHOICES, blank=False, null=False)
@@ -136,17 +131,17 @@ class Student(models.Model):
         max_length=15, blank=False, null=False, default=""
     )
 
-    # 兵籍號碼 軍種 階級 退伍日期 服役年資   
+    # 兵籍號碼 軍種 階級 退伍日期 服役年資
     military_service_number = models.CharField(max_length=15, blank=False, null=False)
     military_service = models.CharField(max_length=15, blank=False, null=False)
     military_rank = models.CharField(max_length=15, blank=False, null=False)
     military_retired_date = models.DateField(blank=False, null=False)
     military_service_years = models.IntegerField(
-        choices=SERVICE_YEARS_CHOICES, blank=False, null=False 
+        choices=SERVICE_YEARS_CHOICES, blank=False, null=False
     )
     # 第一類 第二類
     military_type = models.IntegerField(
-    choices=SERVICE_TYPE_CHOICES, blank=False, null=False , default=1
+        choices=SERVICE_TYPE_CHOICES, blank=False, null=False, default=1
     )
 
     # 身分證正面 身分證反面
@@ -154,8 +149,8 @@ class Student(models.Model):
     identity_back = models.ImageField(blank=False, null=False)
 
     notes = models.CharField(max_length=150, blank=True, null=False, default="")
-    
-    join_time = models.DateTimeField(null= True)
+
+    join_time = models.DateTimeField(null=True)
 
     def date_of_birth_tw(self):
         return (
@@ -163,17 +158,25 @@ class Student(models.Model):
             self.date_of_birth.month,
             self.date_of_birth.day,
         )
+
     def date_of_military_retired_tw(self):
         return (
             self.military_retired_date.year - 1911,
             self.military_retired_date.month,
             self.military_retired_date.day,
         )
+
     def get_username(self):
         return self.user.username
 
+    def clean(self):
+        if not is_valid_id_or_rc_number(self.identity):
+            raise ValidationError({"identity": "身分證字號格式錯誤"})
+
+
     def get_email(self):
         return self.user.email
+
     class Meta:
         verbose_name = "Student"
         verbose_name_plural = "Students"

@@ -5,6 +5,7 @@ from user.models import Student
 from .models import *
 from user.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import ValidationError
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -38,6 +39,22 @@ class UserForm(forms.ModelForm):
             },
         }
 
+        
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["username"]
+        # 設定css
+        labels = {
+            "username": "姓名",
+        }
+        widgets = {
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        help_texts ={
+            "username": None,
+        } 
+
 
 
 class StudentForm(forms.ModelForm):
@@ -45,7 +62,7 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = "__all__"
 
-        exclude = ["user", "activity"]
+        exclude = ["user", "activity","join_time"]
         # 設定css
         labels = {
             "sex": "性別",
@@ -76,7 +93,7 @@ class StudentForm(forms.ModelForm):
         }
         widgets = {
             "sex": forms.Select(attrs={"class": "form-control"}),
-            "date_of_birth": forms.DateInput(attrs={"class": "form-control" ,"type":"date"}),
+            "date_of_birth": forms.DateInput(format=('%Y-%m-%d'),attrs={"class": "form-control" ,"type":"date"}),
             "address": forms.TextInput(attrs={"class": "form-control"}),
             "postal_code": forms.TextInput(attrs={"class": "form-control"}),
             "identity": forms.TextInput(attrs={"class": "form-control"}),
@@ -98,13 +115,13 @@ class StudentForm(forms.ModelForm):
             "military_service_number": forms.TextInput(attrs={"class": "form-control"}),
             "military_service": forms.TextInput(attrs={"class": "form-control"}),
             "military_rank": forms.TextInput(attrs={"class": "form-control"}),
-            "military_retired_date": forms.DateInput(attrs={"class": "form-control" ,"type":"date","type":"date"}),
+            "military_retired_date": forms.DateInput(format=('%Y-%m-%d'),attrs={"class": "form-control" ,"type":"date","type":"date"}),
             "military_service_years": forms.Select(attrs={"class": "form-control"}),
             "military_type": forms.Select(attrs={"class": "form-control"}),
             "identity_front": forms.FileInput(attrs={"class": "form-control"}),
             "identity_back": forms.FileInput(attrs={"class": "form-control"}),
-
         }
+        
 
 class LoginForm(forms.ModelForm):
     class Meta:

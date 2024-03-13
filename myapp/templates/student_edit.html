@@ -1,0 +1,174 @@
+{% extends 'layout/app_student.html' %}
+
+{% load static %}
+{% block stylesheet %}
+  <style>
+    .col-md-6 {
+      padding: 7px;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  <div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+      <main>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header">
+                  <h3 class="text-right font-weight-bold">變更基本資料</h3>
+                </div>
+                {% comment %} userform {% endcomment %}
+                {% for field in user_form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                  欄位：{{ field.label }}<br>
+                  —{{ error }}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% comment %} student_form {% endcomment %}
+                {% for field in student_form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                  欄位：{{ field.label }}<br>
+                  —{{ error }}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                <div class="card-body">
+                  <form method="post" class="needs-validation" action="{% url 'student_edit' %}" enctype="multipart/form-data" id="registerForm" name="registerForm" novalidate>
+                    {% csrf_token %}
+                    <h3 class="text-right font-weight-bold mt-4">基本資料</h3>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-3">{{ user_form.username.label }}
+                          {{ user_form.username }}</div>
+                        <div class="col-md-3">{{ student_form.identity.label }}
+                          {{ student_form.identity }}</div>
+                        <div class="col-md-3">{{ student_form.date_of_birth.label }}
+                          {{ student_form.date_of_birth }}</div>
+                        <div class="col-md-3">{{ student_form.sex.label }}
+                          {{ student_form.sex }}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-8">{{ student_form.address.label }}
+                          {{ student_form.address }}</div>
+                        <div class="col-4">{{ student_form.postal_code.label }}
+                          {{ student_form.postal_code }}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">{{ student_form.home_phone.label }}
+                          {{ student_form.home_phone }}</div>
+                        <div class="col-md-6">{{ student_form.mobile_phone.label }}
+                          {{ student_form.mobile_phone }}</div>
+                      </div>
+                      <h3 class="text-right font-weight-bold mt-4">畢業學校</h3>
+                      <div class="row">
+                        <div class="col-md-3">{{ student_form.graduated_school.label }}
+                          {{ student_form.graduated_school }}</div>
+                        <div class="col-md-2">{{ student_form.school_department.label }}
+                          {{ student_form.school_department }}</div>
+                        <div class="col-md-1">{{ student_form.graduated_department.label }}
+                          {{ student_form.graduated_department }}</div>
+                        <div class="col-md-1">{{ student_form.is_graduated.label }}
+                          {{ student_form.is_graduated }}</div>
+                        <div class="col-md-1">{{ student_form.graduated_year.label }}
+                          {{ student_form.graduated_year }}</div>
+                        <div class="col-md-4">{{ student_form.education.label }}
+                          {{ student_form.education }}</div>
+                          <div class="col-md-3">{{ student_form.school_notes.label }}
+                            {{ student_form.school_notes }}</div>
+                      </div>
+                      <h3 class="text-right font-weight-bold mt-4">緊急聯絡人資訊</h3>
+                      <div class="row">
+                        <div class="col-md-4">{{ student_form.emergency_contact_relationship.label }}
+                          {{ student_form.emergency_contact_relationship }}</div>
+                        <div class="col-md-4">{{ student_form.emergency_contact.label }}
+                          {{ student_form.emergency_contact }}</div>
+                        <div class="col-md-4">{{ student_form.emergency_contact_phone.label }}
+                          {{ student_form.emergency_contact_phone }}</div>
+                      </div>
+                      <h3 class="text-right font-weight-bold mt-4">兵役資訊</h3>
+                      <div class="row">
+                        <div class="col-md-4">{{ student_form.military_service_number.label }}
+                          {{ student_form.military_service_number }}</div>
+                        <div class="col-md-4">{{ student_form.military_service.label }}
+                          {{ student_form.military_service }}</div>
+                        <div class="col-md-4">{{ student_form.military_rank.label }}
+                          {{ student_form.military_rank }}</div>
+                        </div>
+                      
+                      <div class="row">
+                        <div class="col-md-3">{{ student_form.military_retired_date.label }}
+                          {{ student_form.military_retired_date }}</div>
+                        <div class="col-md-7">{{ student_form.military_service_years.label }}
+                          {{ student_form.military_service_years }}</div>
+                          <div class="col-md-2">{{ student_form.military_type.label }}
+                            {{ student_form.military_type }}</div>
+                      </div>
+                      <h3 class="text-right font-weight-bold mt-4">身分證正反面上傳</h3>
+                      <div class="row">
+                        <div class="col-md-6">{{ student_form.identity_front.label }}
+                          {% if request.user.student.identity_front.url %}
+                          <img src="{{ request.user.student.identity_front.url }}" class="img-thumbnail" alt="identity_front">
+                          {% endif %}
+                          {{ student_form.identity_front }}</div>
+                          <div class="col-md-6">{{ student_form.identity_back.label }}
+                            {% if request.user.student.identity_back.url %}
+                            <img src="{{ request.user.student.identity_back.url }}" class="img-thumbnail" alt="identity_back">
+                            {% endif %}
+                            {{ student_form.identity_back }}</div>
+                      </div>
+                    </div>
+                    <div class="mt-4 mb-0">
+                      <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-block">修改</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                  <div class="small">
+                    <a href="{% url 'student_login' %}">已經有帳號了嗎?點我登入</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+{% block javascript %}
+  <script type="text/javascript">
+    $('#id_username').attr('placeholder', 'Enter Username')
+    $('#id_password').attr('placeholder', 'Enter Password')
+    window.onload = function() {
+      document.getElementById('registerForm').addEventListener('submit', function(event) {
+          console.log('hello');
+      });
+  };
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+  </script>
+{% endblock %}

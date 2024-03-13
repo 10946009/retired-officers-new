@@ -3,8 +3,6 @@ from myapp.forms import UserForm, StudentForm
 
 
 def register(request):
-    user_form = UserForm()
-    student_form = StudentForm()
     if request.method == "POST":
         user_form = UserForm(request.POST)
         student_form = StudentForm(request.POST, request.FILES)

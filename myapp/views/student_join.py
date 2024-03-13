@@ -8,6 +8,11 @@ def student_join(request, activity_id):
     user = request.user
     print(user.id,activity_id)
     if user.is_authenticated:
+        
+        if not hasattr(user, 'student'):
+
+            return redirect("/student_edit")
+        
         activity = Activity.objects.get(id=activity_id)
         if request.method == "POST":
             user.student.activity.add(activity)

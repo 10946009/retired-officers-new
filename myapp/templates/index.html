@@ -33,10 +33,11 @@
             <td data-th="活動名稱">{{ activity.name }}</td>
             <td data-th="開始報名時間">{{ activity.sign_up_start_time }}</td>
             <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
-            <td>
+            <td id="no-width">
               {% if activity in request.user.student.activity.all %}
-                <button class="btn btn-bg col-4 btn-success"  onclick="printData({{activity.id}})">列印報名表</button>
-                <a class="btn btn-bg col-4 btn-success" href="">查看成績</a>
+                <a class="btn btn-bg col-sm-3 col-12 btn-primary mt-1" href="{% url 'student_edit' %}">修改資料</a>
+                <button class="btn btn-bg col-sm-4 col-12 btn-success mt-1"  onclick="printData({{activity.id}})">列印報名表</button>
+                <a class="btn btn-bg col-sm-4 col-12 btn-success mt-1" href="">查看成績</a>
               {% else %}
                 <form method="post" action="{% url 'student_join' activity.id %}">
                   {% csrf_token %}
