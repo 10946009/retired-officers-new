@@ -40,17 +40,12 @@ class Activity(models.Model):
 
     def is_score_open(self):
         now = timezone.now()
-        if now > self.score_open_time:
-            return True
-        else:
-            return False
+        return now > self.score_open_time
+        
     def is_sign_up_open(self):
         now = timezone.now()
-        if now > self.sign_up_start_time and now < self.sign_up_end_time:
-            return True
-        else:
-            return False
-        
+        return now >= self.sign_up_start_time and now < self.sign_up_end_time
+    
 class ScoreLabel(models.Model):
     label1 = models.CharField(max_length=100, blank=False, null=False, default="")
     score1_weight = models.IntegerField(blank=False, null=False, default=0)
