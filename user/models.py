@@ -36,6 +36,11 @@ class User(AbstractUser):
     username = models.CharField(unique=False, max_length=10, blank=False, null=False)
     objects = UserManager()
 
+class ActivityStudents(models.Model):
+    activity = models.ForeignKey('myapp.Activity', on_delete=models.CASCADE)
+    student = models.ForeignKey('user.Student', on_delete=models.CASCADE)
+    join_time = models.DateTimeField(auto_now_add=True)
+
 
 class Admin(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -47,7 +52,7 @@ class Admin(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    activity = models.ManyToManyField("myapp.Activity", related_name="student")
+    activity = models.ManyToManyField("myapp.Activity", related_name="student",through='ActivityStudents')
     # 服役年資
     SERVICE_YEARS_CHOICES = [
         (1, "未滿3年者"),
@@ -152,8 +157,6 @@ class Student(models.Model):
     identity_back = models.ImageField(blank=False, null=False)
 
     notes = models.CharField(max_length=150, blank=True, null=False, default="")
-
-    join_time = models.DateTimeField(null=True)
 
     def date_of_birth_tw(self):
         return (

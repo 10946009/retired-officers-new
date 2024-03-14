@@ -62,7 +62,7 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = "__all__"
 
-        exclude = ["user", "activity","join_time"]
+        exclude = ["user", "activity"]
         # 設定css
         labels = {
             "sex": "性別",
@@ -102,7 +102,7 @@ class StudentForm(forms.ModelForm):
             "home_phone": forms.TextInput(attrs={"class": "form-control"}),
             "graduated_school": forms.Select(attrs={"class": "form-control"}),
             "is_graduated": forms.Select(attrs={"class": "form-control"}),
-            "graduated_year_month": forms.DateInput(attrs={"class": "form-control" ,"type":"month"}),
+            "graduated_year_month": forms.DateInput(format=('%Y-%m-%d'),attrs={"class": "form-control" ,"type":"date"}),
             "graduated_department": forms.Select(attrs={"class": "form-control"}),
             "graduated_year": forms.Select(attrs={"class": "form-control"}),
             "education": forms.Select(attrs={"class": "form-control"}),
