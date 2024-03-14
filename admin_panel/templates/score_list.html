@@ -9,7 +9,7 @@
         <li class="breadcrumb-item active">Student Management</li>
     </ol>
 
-    <a href="{% url 'export_score_sample' %}" class="btn btn-primary">下載學生成績範本</a>
+    <a href="{% url 'export_score_sample' activity_id=activity.id %}" class="btn btn-primary">下載學生成績範本</a>
 
     <form action="{% url 'upload_and_read_excel' activity_id=activity.id %}" method="POST" enctype="multipart/form-data"
         style="display: inline;">
