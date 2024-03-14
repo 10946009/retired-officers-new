@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
@@ -118,6 +119,7 @@ class Student(models.Model):
     school_department = models.CharField(
         max_length=50, blank=False, null=False, default=""
     )
+    graduated_year_month = models.DateField(default=date.today)
     school_notes = models.CharField(max_length=150, blank=True, null=False, default="")
 
     # 緊急聯絡人,緊急聯絡人電話,緊急聯絡人關係
@@ -131,7 +133,7 @@ class Student(models.Model):
         max_length=15, blank=False, null=False, default=""
     )
 
-    # 兵籍號碼 軍種 階級 退伍日期 服役年資
+    # 兵籍號碼 軍種 階級 退伍日期 服役年資  年資(數字) 幾類
     military_service_number = models.CharField(max_length=15, blank=False, null=False)
     military_service = models.CharField(max_length=15, blank=False, null=False)
     military_rank = models.CharField(max_length=15, blank=False, null=False)
@@ -139,6 +141,7 @@ class Student(models.Model):
     military_service_years = models.IntegerField(
         choices=SERVICE_YEARS_CHOICES, blank=False, null=False
     )
+    military_service_years_int = models.IntegerField(blank=False, null=False)
     # 第一類 第二類
     military_type = models.IntegerField(
         choices=SERVICE_TYPE_CHOICES, blank=False, null=False, default=1
@@ -177,6 +180,10 @@ class Student(models.Model):
     def get_email(self):
         return self.user.email
 
+    def get_graduated_year_month_tw(self):
+        return f'{self.graduated_year_month.year - 1911}年{self.graduated_year_month.month}月'
+
+        
     class Meta:
         verbose_name = "Student"
         verbose_name_plural = "Students"
