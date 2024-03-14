@@ -53,6 +53,8 @@ class ScoreLabel(models.Model):
     score2_weight = models.IntegerField(blank=False, null=False, default=0)
     label3 = models.CharField(max_length=100, blank=False, null=False, default="")
     score3_weight = models.IntegerField(blank=False, null=False, default=0)
+    def __str__(self):
+        return "label" + str(self.id)
 
 class Score(models.Model):
     student = models.ForeignKey("user.Student", on_delete=models.CASCADE)

@@ -47,7 +47,7 @@
                   </div>
                   查看成績</button>
                   {% else %}
-                  <button class="btn btn-bg col-sm-4 col-12 btn-secondary mt-1" onclick="printData('{% url 'student_print_score' activity.id %}')">
+                  <button class="btn btn-bg col-sm-4 col-12 btn-secondary mt-1" disabled>
                     <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-score" >
                     </div>
                     查看成績</button>
