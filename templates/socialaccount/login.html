@@ -1,12 +1,51 @@
-{% load static %}
+{% extends 'layout/login.html' %}
+{% load socialaccount %}
 
-{% block content %}
-<div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
-    <form method="post" class="text-center">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary btn-lg">
-            Sign in with Google
-        </button>
-    </form>
-</div>
+{% load static %}
+{% block body %}
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">登入</h3></div>
+                                <div class="card-body">
+                                    <form method="POST" action="{% url 'student_login' %}">
+                                        <div class="form-group">
+                                            {% csrf_token %}
+                                            {{ login_form }}
+                                            {% if message %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ message }}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </form>
+                                    <form action="{% provider_login_url 'google' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger col-12 mt-3" href="{% provider_login_url 'google' method='oauth2' %}">
+                                            <span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span>
+                                        </button>
+                                      </form>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <div class="small"><a href="{% url 'register' %}">沒有帳號嗎？註冊</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        $("#id_username").attr("placeholder", "Enter Username");
+        $("#id_password").attr("placeholder", "Enter Password");
+    </script>
 {% endblock %}

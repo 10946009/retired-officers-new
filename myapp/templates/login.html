@@ -23,9 +23,14 @@
                                             {% endif %}
                                             <button type="submit" class="btn btn-primary col-12 mt-2">登入</button>
                                             <a class="small" href="/password/reset">忘記密碼?</a>
-                                            <a class="btn btn-danger  col-12 mt-3" href="{% provider_login_url 'google' method='oauth2' %}" ><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </a>
                                         </div>
                                     </form>
+                                    <form action="{% provider_login_url 'google' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger col-12 mt-3" href="{% provider_login_url 'google' method='oauth2' %}">
+                                            <span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span>
+                                        </button>
+                                      </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
