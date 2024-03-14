@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 
@@ -26,8 +27,30 @@ class Activity(models.Model):
     
     def get_student_in_activity(self):
         return self.student.all()
-        
+    
+    def get_status(self):
+        now = timezone.now()
+        print(now,"and",self.activity_start_time)
+        if now < self.sign_up_start_time:
+            return "尚未開始"
+        elif now >= self.sign_up_start_time and now < self.sign_up_end_time:
+            return "報名中"
+        else:
+            return "報名截止"
 
+    def is_score_open(self):
+        now = timezone.now()
+        if now > self.score_open_time:
+            return True
+        else:
+            return False
+    def is_sign_up_open(self):
+        now = timezone.now()
+        if now > self.sign_up_start_time and now < self.sign_up_end_time:
+            return True
+        else:
+            return False
+        
 class ScoreLabel(models.Model):
     label1 = models.CharField(max_length=100, blank=False, null=False, default="")
     score1_weight = models.IntegerField(blank=False, null=False, default=0)
@@ -35,7 +58,6 @@ class ScoreLabel(models.Model):
     score2_weight = models.IntegerField(blank=False, null=False, default=0)
     label3 = models.CharField(max_length=100, blank=False, null=False, default="")
     score3_weight = models.IntegerField(blank=False, null=False, default=0)
-
 
 class Score(models.Model):
     student = models.ForeignKey("user.Student", on_delete=models.CASCADE)

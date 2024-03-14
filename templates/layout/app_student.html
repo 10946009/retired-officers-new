@@ -25,14 +25,14 @@
         <a class="navbar-brand ps-3" href="{% url 'index' %}">退除役官兵系統</a>
         <!-- Sidebar Toggle-->
         <!-- Navbar Search-->
-        <div class="d-md-inline-block form-inline ms-auto me-2 me-md-3 my-2 my-md-0">
+        <div class=" ms-auto me-2 me-md-3 align-items-center d-flex">
             {% if request.user.is_authenticated %}
-            <span style="color:white;">{{request.user.email}}</span>
+            <span style="color:white; font-size:12px">{{request.user.email}}</span>
             <a class="btn btn-sm btn-success" href="{% url 'logout' %}"
-                style="padding: 8px; float: right; background-color: green; color: white;">登出</a>
+                style="padding: 8px; float: right; background-color: green; color: white;width:50px;">登出</a>
             {% else %}
             <a class="btn btn-sm btn-success" href="{% url 'student_login' %}"
-            style="padding: 8px; float: right; background-color: green; color: white;">登入</a>
+            style="padding: 8px; float: right; background-color: green; color: white; ">登入</a>
             {% endif %}
         </div>
     </nav>

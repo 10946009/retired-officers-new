@@ -77,6 +77,13 @@
                         <label for="dateInput">報名結束時間</label>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" type="datetime-local" name="score_open_time"
+                            value="{{form.score_open_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
+                        <label for="dateInput">成績公布時間</label>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-4 mb-0">
