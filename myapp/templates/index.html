@@ -36,8 +36,13 @@
             <td id="no-width">
               {% if activity in request.user.student.activity.all %}
                 <a class="btn btn-bg col-sm-3 col-12 btn-primary mt-1" href="{% url 'student_edit' %}">修改資料</a>
-                <button class="btn btn-bg col-sm-4 col-12 btn-success mt-1"  onclick="printData({{activity.id}})">列印報名表</button>
-                <a class="btn btn-bg col-sm-4 col-12 btn-success mt-1" href="">查看成績</a>
+                <button class="btn btn-bg col-sm-4 col-12 btn-success mt-1"  onclick="printData('{% url 'student_print_sign_up' activity.id %}')">
+                  <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-sign-up" >
+                  </div>列印報名表</button>
+                <button class="btn btn-bg col-sm-4 col-12 btn-success mt-1" onclick="printData('{% url 'student_print_score' activity.id %}')">
+                  <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-score" >
+                  </div>
+                  查看成績</button>
               {% else %}
                 <form method="post" action="{% url 'student_join' activity.id %}">
                   {% csrf_token %}
@@ -55,10 +60,10 @@
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
   <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
   <script>
-    // download join form
-    function printData(activity){
+    function printData(url){
+      url = url.toString();
       $.ajax({
-        url: `{% url 'print_data' 0 %}`.replace('0', activity),
+        url: url,
         headers: {
           'X-CSRFToken': '{{ csrf_token }}'
         },
@@ -68,6 +73,11 @@
       },
         success: function (data) {
           CallMessage("下載PDF成功!","success");
+          if(url.includes("sign_up")){
+            $("#spinner-sign-up").hide();
+          }else{
+            $("#spinner-score").hide();
+          }
           // data is PDF  
           const blob = new Blob([data], { type: 'application/pdf' });
 
@@ -77,7 +87,11 @@
             // 创建下载链接
             const downloadLink = document.createElement('a');
             downloadLink.href = blobUrl;
-            downloadLink.download = '報名表.pdf';
+            if(url.includes("sign_up")){
+              downloadLink.download = '報名表.pdf';
+            }else{
+              downloadLink.download = '成績表.pdf';
+            }
             // 模拟用户点击下载链接
             document.body.appendChild(downloadLink);
             downloadLink.click();
@@ -85,7 +99,21 @@
             // 移除下载链接和 Blob URL
             document.body.removeChild(downloadLink);
             window.URL.revokeObjectURL(blobUrl);
-        }
+            
+        },
+        error: function (data) {
+          CallMessage("下載PDF失敗!","error");
+        },
+        beforeSend: function(){
+          // Show image container
+          console.log(url);
+          if(url.includes("sign_up")){
+            $("#spinner-sign-up").show();
+          }else{
+            $("#spinner-score").show();
+          }
+          
+        },
     });
   }
   </script>
