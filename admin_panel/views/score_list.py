@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from admin_panel.forms import UploadExcelForm
 from openpyxl import Workbook
 from django.db import transaction
+from django.contrib import messages
 
 # import custom User model
 from user.models import Student, User
@@ -106,7 +107,7 @@ def export_score_sample(request, activity_id):
 
 
 def upload_and_read_excel(request, activity_id):
-    print(request.method)
+
     if request.method == "POST":
         form = UploadExcelForm(request.POST, request.FILES)
 
@@ -141,7 +142,10 @@ def upload_and_read_excel(request, activity_id):
                     )
 
                     if student is None:
-                        continue  # 或者添加一些錯誤處理
+                        messages.error(
+                            request, f"匯入失敗！ {row[0]} {row[1]} 學生不存在。"
+                        )
+                        return redirect("score_list", activity_id=activity_id)
 
                     score = next(
                         (sc for sc in scores if sc.student.id == student_id), None
@@ -168,6 +172,7 @@ def upload_and_read_excel(request, activity_id):
                     scores_to_update, ["score1", "score2", "score3"]
                 )
                 Score.objects.bulk_create(scores_to_create)
+                messages.success(request, "匯入成功！")
 
     # refresh the page
     return redirect("score_list", activity_id=activity_id)
