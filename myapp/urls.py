@@ -6,7 +6,8 @@ from myapp.views.student_join import student_join
 from myapp.views.student_print_sign_up import student_print_sign_up
 from myapp.views.student_print_score import student_print_score
 from myapp.views.student_edit import student_edit
-from django.urls import path
+from myapp.views.student_password_reset import student_password_reset
+from django.urls import path , include
 
 urlpatterns = [
     path('', index, name='index'),
@@ -18,6 +19,13 @@ urlpatterns = [
     path('student_join/<int:activity_id>', student_join, name='student_join'),
     path('student_print_sign_up/<int:activity_id>', student_print_sign_up, name='student_print_sign_up'),
     path('student_print_score/<int:activity_id>', student_print_score, name='student_print_score'),
+#     accounts/ password/reset/ [name='account_reset_password']
+# accounts/ password/reset/done/ [name='account_reset_password_done']
+# accounts/ ^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$ [name='account_reset_password_from_key']
+# accounts/ password/reset/key/done/ [name='account_reset_password_from_key_done']
+    # path('password/reset',student_password_reset,name='student_password_reset'),
+    path('accounts/password/reset',include('django.contrib.auth.urls')),
+    # path('accounts/password/reset',include('django.contrib.auth.urls')),
 #------------------------------ 
     # path('create', views.create, name='create'),
     # path('list', views.list, name='list'),

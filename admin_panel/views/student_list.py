@@ -5,10 +5,13 @@ from openpyxl import Workbook
 
 
 # import custom User model
-from user.models import Student, User
+from user.models import ActivityStudents
 
 
 def student_list(request, activity_id):
+    '''
+    顯示報名學生列表
+    '''
     # get all student of the activity
     activity = Activity.objects.get(id=activity_id)
     students = activity.student.all()
@@ -20,12 +23,15 @@ def student_delete(request, student_id):
     return redirect("student_list")
 
 def export_excel(request,activity_id):
+    '''
+    將報名資料匯出成Excel
+    '''
     # 創建一個 Excel 工作簿和工作表
     wb = Workbook()
     ws = wb.active
     ws.title = "MySheet"
 
-    # 將Activity的資料寫入工作表
+    # 將所需的標題資料寫入工作表
     title_list = [
         "編號",
         "姓名",
@@ -64,23 +70,27 @@ def export_excel(request,activity_id):
         "二類",
         "備註",
     ]
-    ws.append(title_list)
-    students = Activity.objects.get(id=activity_id).student.all()
-    for student in students:
+    ws.append(title_list) # 將標題資料寫入工作表
+
+    # 將學生資料寫入工作表
+    students = Activity.objects.get(id=activity_id).student.all() # 取得報名學生資料
+    # get student join_time
+    for student in students: 
         military_type1 = "一類" if student.military_type == 1 else ""
         military_type2 = "二類" if student.military_type == 2 else ""
+        print(student.get_join_time(activity_id))
         student_list = [
             student.id,  # "編號",
             student.user.username,  # "姓名",
-            student.id,  # "報名編號",
-            student.id,  # "虛擬帳號",
+            "",  # "報名編號",
+            "",  # "虛擬帳號",
             "國軍退除役官兵就讀大學暨技術校院",  # "報名系所",
             "待審",  # "審核",
             "免費",  # "繳費",
-            student.join_time,  # "報名時間",
-            student.get_sex_display(),  # "性別",
+            student.get_join_time(activity_id),  # "報名時間",
+            student.get_gender_display(),  # "性別",
             student.identity,  # "身分證號",
-            student.date_of_birth,  # "生日",
+            student.get_birth_tw(),  # "生日",
             student.home_phone,  # "住家電話",
             student.mobile_phone,  # "行動電話",
             student.emergency_contact,  # "緊急連絡人",
@@ -90,14 +100,14 @@ def export_excel(request,activity_id):
             student.postal_code,  # "郵地區號",
             student.address,  # "通訊地址",
             student.graduated_school.name,  # "畢業學校：",
-            student.graduated_department,  # "部別",
-            student.is_graduated,  # "畢肄業",
-            student.graduated_year,  # "年制",
-            student.education,  # "同等學力",
+            student.get_graduated_department_display(),  # "部別",
+            student.get_is_graduated_display(),  # "畢肄業",
+            student.get_graduated_year_display(),  # "年制",
+            student.get_education_display(),  # "同等學力",
             student.school_department,  # "畢業系所組",
             student.get_graduated_year_month_tw(),  # "畢(肄)業 年 月",
             student.school_notes,  # "備註",
-            student.military_service_years,  # "年資",
+            student.get_military_service_years_display(),  # "年資",
             student.military_service_number,  # "兵籍號碼",
             student.military_service,  # "軍種",
             student.military_rank,  # "階級",

@@ -21,7 +21,11 @@ class Activity(models.Model):
     activity_end_time = models.DateTimeField(blank=True, null=True)
     sign_up_start_time = models.DateTimeField(blank=True, null=True)
     sign_up_end_time = models.DateTimeField(blank=True, null=True)
+    sign_up_print_end_time = models.DateTimeField(blank=True, null=True)
     score_open_time = models.DateTimeField(blank=True, null=True)
+    def __str__(self):
+        return self.name
+
     def get_year_tw(self):
         return self.activity_start_time.year - 1911
     
@@ -54,7 +58,7 @@ class ScoreLabel(models.Model):
     label3 = models.CharField(max_length=100, blank=False, null=False, default="")
     score3_weight = models.IntegerField(blank=False, null=False, default=0)
     def __str__(self):
-        return "label" + str(self.id)
+        return self.label1 + " " + self.label2 + " " + self.label3
 
 class Score(models.Model):
     student = models.ForeignKey("user.Student", on_delete=models.CASCADE)

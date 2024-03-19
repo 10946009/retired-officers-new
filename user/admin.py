@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Admin, Student, User
+from .models import Admin, Student, User,ActivityStudents
 
 
 class CustomUserAdmin(UserAdmin):
@@ -24,9 +24,14 @@ class CustomUserAdmin(UserAdmin):
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
 
+class ActivityStudentsInline(admin.TabularInline):
+    model = ActivityStudents
 
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    inlines = [ActivityStudentsInline]
+    
 # 註冊自定義的 UserAdmin
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(Admin)
-admin.site.register(Student)

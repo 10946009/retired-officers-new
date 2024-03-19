@@ -8,12 +8,12 @@ from myapp.forms import UserEditForm, StudentForm
 @login_required(login_url="/student_login")
 def student_edit(request):
     if request.user.is_authenticated:
+        # 定義表單
+        user_form = UserEditForm(instance=request.user)
         # 如果使用者使用Google登入 沒有student的話，就建立一個student
         if hasattr(request.user, 'student'):
-            user_form = UserEditForm(instance=request.user)
             student_form = StudentForm(instance=request.user.student)
         else:
-            user_form = UserEditForm()
             student_form = StudentForm()
 
         if request.method == "POST":

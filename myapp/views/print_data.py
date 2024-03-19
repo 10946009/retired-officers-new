@@ -7,7 +7,7 @@ import os
 
 def generate_pdf(doc_path, path):
     subprocess.call(['soffice',
-                 # '--headless',
+                 '--headless',
                  '--convert-to',
                  'pdf',
                  '--outdir',

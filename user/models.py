@@ -85,7 +85,7 @@ class Student(models.Model):
         ),
         (12, "持國外或香港、澳門專科以上學校畢（肄）業學歷"),
     ]
-    SEX_CHOICES = [(1, "男"), (2, "女")]
+    gender_CHOICES = [(1, "男"), (2, "女")]
     DEPARTMENT_CHOICES = [(1, "日間部"), (2, "進修部")]
     IS_GRADUATED_CHOICES = [(1, "畢業"), (2, "應屆畢業"), (3, "未畢業(肄業或結業)")]
     GRADUATED_YEAR_CHOICES = [
@@ -97,7 +97,7 @@ class Student(models.Model):
     SERVICE_TYPE_CHOICES = [(1, ""), (2, "一類"), (3, "二類")]
 
     # 性別,出生年月日,身分證字號,地址,郵遞區號,家用電話,手機
-    sex = models.IntegerField(choices=SEX_CHOICES, blank=False, null=False)
+    gender = models.IntegerField(choices=gender_CHOICES, blank=False, null=False)
     date_of_birth = models.DateField()
     identity = models.CharField(max_length=15, blank=False, null=False, default="")
     address = models.CharField(max_length=150, blank=False, null=False, default="")
@@ -124,7 +124,7 @@ class Student(models.Model):
     school_department = models.CharField(
         max_length=50, blank=False, null=False, default=""
     )
-    graduated_year_month = models.DateField(default=date.today)
+    graduated_year_month = models.DateField()
     school_notes = models.CharField(max_length=150, blank=True, null=False, default="")
 
     # 緊急聯絡人,緊急聯絡人電話,緊急聯絡人關係
@@ -153,8 +153,8 @@ class Student(models.Model):
     )
 
     # 身分證正面 身分證反面
-    identity_front = models.ImageField(blank=False, null=False)
-    identity_back = models.ImageField(blank=False, null=False)
+    identity_front = models.ImageField(blank=True, null=False, default="")
+    identity_back = models.ImageField(blank=True, null=False, default="")
 
     notes = models.CharField(max_length=150, blank=True, null=False, default="")
 
@@ -165,6 +165,7 @@ class Student(models.Model):
             self.date_of_birth.day,
         )
 
+
     def date_of_military_retired_tw(self):
         return (
             self.military_retired_date.year - 1911,
@@ -172,19 +173,28 @@ class Student(models.Model):
             self.military_retired_date.day,
         )
 
+    def get_birth_tw(self):
+        return f"{self.date_of_birth.year - 1911}年{self.date_of_birth.month}月{self.date_of_birth.day}日"
+    
     def get_username(self):
         return self.user.username
-
-    def clean(self):
-        if not is_valid_id_or_rc_number(self.identity):
-            raise ValidationError({"identity": "身分證字號格式錯誤"})
-
 
     def get_email(self):
         return self.user.email
 
     def get_graduated_year_month_tw(self):
         return f'{self.graduated_year_month.year - 1911}年{self.graduated_year_month.month}月'
+
+    def get_join_time(self, activity_id):
+        join_time = ActivityStudents.objects.get(activity_id=activity_id, student_id=self.id).join_time
+        # 格式為2022/5/23 下午 07:11:49
+        join_time = join_time.strftime("%Y/%m/%d %p %I:%M:%S")
+        join_time = join_time.replace("AM", "上午").replace("PM", "下午")
+        return join_time
+    
+    def clean(self):
+        if not is_valid_id_or_rc_number(self.identity):
+            raise ValidationError({"identity": "身分證字號格式錯誤"})
 
         
     class Meta:
