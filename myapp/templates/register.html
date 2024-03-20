@@ -28,101 +28,18 @@
                 </div>
                 {% endfor %}
                 {% endfor %}
-                {% comment %} student_form {% endcomment %}
-                {% for field in student_form %}
-                {% for error in field.errors %}
-                <div class="alert alert-danger" role="alert">
-                  欄位：{{ field.label }}<br>
-                  —{{ error }}
-                </div>
-                {% endfor %}
-                {% endfor %}
+        
                 <div class="card-body">
                   <form method="post" class="needs-validation" action="{% url 'register' %}" enctype="multipart/form-data" id="registerForm" name="registerForm" novalidate>
                     {% csrf_token %}
                     <h3 class="text-right font-weight-bold mt-4">基本資料</h3>
                     <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-3">{{ user_form.username.label }}
-                          {{ user_form.username }}</div>
-                        <div class="col-md-3">{{ student_form.identity.label }}
-                          {{ student_form.identity }}</div>
-                        <div class="col-md-3">{{ student_form.date_of_birth.label }}
-                          {{ student_form.date_of_birth }}</div>
-                        <div class="col-md-3">{{ student_form.sex.label }}
-                          {{ student_form.sex }}</div>
-                      </div>
                       {{ user_form.email.label }}
                       {{ user_form.email }}
                       {{ user_form.password.label }}
                       {{ user_form.password }}
-                      <div class="row">
-                        <div class="col-8">{{ student_form.address.label }}
-                          {{ student_form.address }}</div>
-                        <div class="col-4">{{ student_form.postal_code.label }}
-                          {{ student_form.postal_code }}</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">{{ student_form.home_phone.label }}
-                          {{ student_form.home_phone }}</div>
-                        <div class="col-md-6">{{ student_form.mobile_phone.label }}
-                          {{ student_form.mobile_phone }}</div>
-                      </div>
-                      <h3 class="text-right font-weight-bold mt-4">畢業學校</h3>
-                      <div class="row">
-                        <div class="col-md-3">{{ student_form.graduated_school.label }}
-                          {{ student_form.graduated_school }}</div>
-                        <div class="col-md-2">{{ student_form.school_department.label }}
-                          {{ student_form.school_department }}</div>
-                        <div class="col-md-2">{{ student_form.graduated_department.label }}
-                          {{ student_form.graduated_department }}</div>
-                        <div class="col-md-2">{{ student_form.is_graduated.label }}
-                          {{ student_form.is_graduated }}</div>
-                        <div class="col-md-1">{{ student_form.graduated_year.label }}
-                          {{ student_form.graduated_year }}</div>
-                        <div class="col-md-2">{{ student_form.graduated_year_month.label }}
-                          {{ student_form.graduated_year_month }}</div>
-                        <div class="col-md-4">{{ student_form.education.label }}
-                          {{ student_form.education }}</div>
-                          <div class="col-md-3">{{ student_form.school_notes.label }}
-                            {{ student_form.school_notes }}</div>
-                      </div>
-                      <h3 class="text-right font-weight-bold mt-4">緊急聯絡人資訊</h3>
-                      <div class="row">
-                        <div class="col-md-4">{{ student_form.emergency_contact_relationship.label }}
-                          {{ student_form.emergency_contact_relationship }}</div>
-                        <div class="col-md-4">{{ student_form.emergency_contact.label }}
-                          {{ student_form.emergency_contact }}</div>
-                        <div class="col-md-4">{{ student_form.emergency_contact_phone.label }}
-                          {{ student_form.emergency_contact_phone }}</div>
-                      </div>
-                      <h3 class="text-right font-weight-bold mt-4">兵役資訊</h3>
-                      <div class="row">
-                        <div class="col-md-4">{{ student_form.military_service_number.label }}
-                          {{ student_form.military_service_number }}</div>
-                        <div class="col-md-4">{{ student_form.military_service.label }}
-                          {{ student_form.military_service }}</div>
-                        <div class="col-md-4">{{ student_form.military_rank.label }}
-                          {{ student_form.military_rank }}</div>
-                        </div>
-                      
-                      <div class="row">
-                        <div class="col-md-3">{{ student_form.military_retired_date.label }}
-                          {{ student_form.military_retired_date }}</div>
-                        <div class="col-md-5">{{ student_form.military_service_years.label }}
-                          {{ student_form.military_service_years }}</div>
-                        <div class="col-md-2">{{ student_form.military_service_years_int.label }}
-                          {{ student_form.military_service_years_int }}</div>
-                          <div class="col-md-2">{{ student_form.military_type.label }}
-                            {{ student_form.military_type }}</div>
-                      </div>
-                      <h3 class="text-right font-weight-bold mt-4">身分證正反面上傳</h3>
-                      <div class="row">
-                        <div class="col-md-6">{{ student_form.identity_front.label }}
-                          {{ student_form.identity_front }}</div>
-                        <div class="col-md-6">{{ student_form.identity_back.label }}
-                          {{ student_form.identity_back }}</div>
-                      </div>
+                      {{ user_form.password2.label }}
+                      {{ user_form.password2 }}
                     </div>
                     <div class="mt-4 mb-0">
                       <div class="d-grid">

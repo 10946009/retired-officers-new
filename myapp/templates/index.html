@@ -37,11 +37,6 @@
             <td data-th="成績公布時間">{{ activity.score_open_time }}</td>
             <td id="no-width">
               {% if activity in request.user.student.activity.all %}
-                {% if activity.is_sign_up_open %}
-                <a class="btn btn-bg col-sm-3 col-12 btn-primary mt-1" href="{% url 'student_edit' %}">修改資料</a>
-                {% else %}
-                <button class="btn btn-bg col-sm-3 col-12 btn-secondary mt-1" disabled>修改資料</button>
-                {% endif %}
                 <button class="btn btn-bg col-sm-4 col-12 btn-success mt-1"  onclick="printData('{% url 'student_print_sign_up' activity.id %}')">
                   <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-sign-up" >
                   </div>列印報名表</button>
@@ -58,10 +53,7 @@
                   {% endif %}
               {% else %}
               {% if activity.is_sign_up_open %}
-                <form method="post" action="{% url 'student_join' activity.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-bg col-12 btn-success">報名活動</button>
-                </form>
+                  <a class="btn btn-bg col-12 btn-success" href="{% url 'student_join' activity.id %}">報名活動</a>
               {% endif %}
               {% endif %}
             </td>

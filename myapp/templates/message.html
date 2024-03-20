@@ -1,0 +1,13 @@
+{% extends 'layout/login.html' %}
+{% load static %}
+{% block body %}
+{% endblock %}
+{% block javascript %}
+<script>
+    $(document).ready(function() {
+        alert("{{ message}} ");
+        // 導向next頁
+        window.location.href = "{{ next }}";
+    });
+</script>
+{% endblock %}
