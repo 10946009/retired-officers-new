@@ -1,0 +1,41 @@
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: upload-image
+    image: plugins/docker
+    settings:
+      registry: inc-harbor.ntub.edu.tw
+      tags:
+        - latest
+        - ${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: inc-harbor.ntub.edu.tw/ntub-retired-officers/retired-officers # 需要更改
+    when:
+      branch: main # 需要更改
+      event: push
+
+  - name: update-kustomization
+    image: zerox12311/drone-update-kustomize
+    pull: always
+    settings:
+      GIT_TOKEN:
+        from_secret: GITLAB_ACCESS_TOKEN
+      MANIFEST_HOST: gitlab.com
+      MANIFEST_USER: luxprotoss
+      MANIFEST_USER_EMAIL: luxprotoss@ntub.edu.tw
+      MANIFEST_NAMESPACE: ntub-inc
+      MANIFEST_GROUP: k8s-kustomizes
+      MANIFEST_REPO: kustomize-retired-officers # 需要更改
+      MANIFEST_BRANCH: main
+      IMAGES: inc-harbor.ntub.edu.tw/ntub-retired-officers/retired-officers:latest # 需要更改
+      IMAGE_TAG: ${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}
+      KUSTOMIZATION: overlays/production
