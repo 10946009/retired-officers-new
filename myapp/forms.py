@@ -1,4 +1,5 @@
 # forms.py
+from typing import Any
 from django import forms
 
 from user.models import Student
@@ -8,27 +9,21 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
 class UserForm(forms.ModelForm):
+    password2 = forms.CharField(label="確認密碼", widget=forms.PasswordInput(attrs={"class": "form-control"}))
     class Meta:
         model = User
-        fields = ["username", "email", "password"]
+        fields = ["email", "password"]
         # 設定css
         labels = {
-            "username": "姓名",
             "email": "電子郵件地址e-mail",
             "password": "密碼",
         }
         widgets = {
-            "username": forms.TextInput(attrs={"class": "form-control"}),
+            
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"}),
         }
-        help_texts ={
-            "username": None,
-        } 
         error_messages = {
-            "username": {
-                "required": "請輸入姓名",
-            },
             "email": {
                 "required": "請輸入電子郵件地址",
                 "invalid": "請輸入有效的電子郵件地址",
@@ -38,6 +33,15 @@ class UserForm(forms.ModelForm):
                 "required": "請輸入密碼",
             },
         }
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password2 = cleaned_data.get("password2")
+
+        if password != password2:
+            self.add_error("password2", "密碼和確認密碼不匹配")
+
+        return cleaned_data
 
         
 class UserEditForm(forms.ModelForm):
@@ -65,7 +69,7 @@ class StudentForm(forms.ModelForm):
         exclude = ["user", "activity"]
         # 設定css
         labels = {
-            "sex": "性別",
+            "gender": "性別",
             "date_of_birth": "出生年月日",
             "address": "地址",
             "postal_code": "郵遞區號",
@@ -90,11 +94,11 @@ class StudentForm(forms.ModelForm):
             "military_service_years_int": "年資",
             "military_service_years": "服役年資",
             "military_type": "幾類",
-            "identity_front": "身分證正面",
-            "identity_back": "身分證反面",
+            "identity_front": "身分證正面(選填)",
+            "identity_back": "身分證反面(選填)",
         }
         widgets = {
-            "sex": forms.Select(attrs={"class": "form-control"}),
+            "gender": forms.Select(attrs={"class": "form-control"}),
             "date_of_birth": forms.DateInput(format=('%Y-%m-%d'),attrs={"class": "form-control" ,"type":"date"}),
             "address": forms.TextInput(attrs={"class": "form-control"}),
             "postal_code": forms.TextInput(attrs={"class": "form-control"}),
@@ -137,7 +141,7 @@ class LoginForm(forms.ModelForm):
             "password": "密碼",
         }
         widgets = {
-            "email": forms.EmailInput(attrs={"class": "form-control hello"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"}),
         }
         help_texts ={
@@ -149,5 +153,22 @@ class LoginForm(forms.ModelForm):
             },
             "password": {
                 "required": "請輸入密碼",
+            },
+        }
+
+class PasswordResetForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["email"]
+        # 設定css
+        labels = {
+            "email": "Email",
+        }
+        widgets = {
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+        }
+        error_messages = {
+            "email": {
+                "required": "請輸入帳號",
             },
         }
