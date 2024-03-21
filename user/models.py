@@ -40,6 +40,10 @@ class ActivityStudents(models.Model):
     activity = models.ForeignKey('myapp.Activity', on_delete=models.CASCADE)
     student = models.ForeignKey('user.Student', on_delete=models.CASCADE)
     join_time = models.DateTimeField(auto_now_add=True)
+    join_number = models.IntegerField(blank=False, null=False)
+    is_get_print = models.BooleanField(default=False) # 已收到報名資料
+    is_checked = models.BooleanField(default=False) # 已審核
+    checked_number = models.IntegerField(blank=True, null=False , unique = True) # 手動填寫審核編號
 
 
 class Admin(models.Model):
@@ -158,6 +162,9 @@ class Student(models.Model):
 
     notes = models.CharField(max_length=150, blank=True, null=False, default="")
 
+    def __str__(self):
+        return self.user.email
+    
     def date_of_birth_tw(self):
         return (
             self.date_of_birth.year - 1911,

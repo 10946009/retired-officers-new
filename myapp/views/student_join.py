@@ -7,6 +7,7 @@ from myapp.forms import UserEditForm, StudentForm
 
 @login_required(login_url="/student_login")
 def student_join(request,activity_id):
+    print(request.POST)
     if request.user.is_authenticated:
         # 定義表單
         user_form = UserEditForm(instance=request.user)
@@ -30,8 +31,9 @@ def student_join(request,activity_id):
                 student.save()
                 if request.POST.get("saveValue") == "0":
                     activity = Activity.objects.get(id=activity_id)
-                    user.student.activity.add(activity)
-                    user.student.join_time = datetime.now()
+                    activty_student = user.student.activity.add(activity)
+                    # 報名編號從1300開始
+                    user.student.activity.join_number = 1000 + int(activty_student.id)
                     user.save()
                     return render(request, "message.html", {"next": "/", "message": "報名成功!至首頁列印報名表"})
                 else:

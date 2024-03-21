@@ -25,7 +25,12 @@ def student_print_sign_up(request,activity_id):
     # user宣告 & 檔名宣告
     user = request.user.student
     file_name = f"sign_up_{user.id}"
-
+    
+    # 身分證正反面宣告(避免有人沒上傳圖片)
+    identity_front_text = "【此處請黏貼身分證正面影本】\n未附身分證影本或影本不清晰而無法辨識者，視同報名資格不符，概不予受理。"
+    identity_back_text = "【此處請黏貼身分證反面影本】"
+    identity_front = identity_front_text if user.identity_front == "" else InlineImage(doc,user.identity_front.path, width=Mm(80))
+    identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.identity_back.path, width=Mm(80))
     data = {
         'activity_year' : activity.get_year_tw(),
         'number':user.id,
@@ -49,10 +54,11 @@ def student_print_sign_up(request,activity_id):
         'military_retired_month':user.date_of_military_retired_tw()[1],
         'military_retired_day':user.date_of_military_retired_tw()[2],
         'military_service_years':user.get_military_service_years_display(),
-        'identity_front':InlineImage(doc,user.identity_front.path, width=Mm(80)),   
-        'identity_back':InlineImage(doc,user.identity_back.path, width=Mm(80)),
+        'identity_front':identity_front,   
+        'identity_back':identity_back,
     }
 
     generate_docx(doc,data,file_name)
-    generate_pdf(f'static/{file_name}.docx', 'static')
+    # generate_pdf(f'static/{file_name}.docx', 'static')
+    generate_pdf(os.path.join(os.getcwd(), 'static',f'{file_name}.docx'), os.path.join(os.getcwd(), 'static'))
     return file_response(file_name) 
