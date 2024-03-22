@@ -6,13 +6,17 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 活動管理
             </a>
-            <a class="nav-link" href="{% url 'student_activity_list'%}">
+            {% comment %} <a class="nav-link" href="{% url 'student_activity_list'%}">
                 <div class="sb-nav-link-icon"><i class="fas fa-fw fa-database"></i></div>
                 學生資料管理
+            </a>
+            <a class="nav-link" href="{% url 'check_activity_list'%}">
+                <div class="sb-nav-link-icon"><i class="fas fa-fw fa-pen"></i></div>
+                學生資料審查
             </a>
             <a class="nav-link" href="{% url 'score_activity_list'%}">
                 <div class="sb-nav-link-icon"><i class="fas fa-fw fa-pen"></i></div>
                 學生成績管理
-            </a>
+            </a> {% endcomment %}
         </div>
 </nav>

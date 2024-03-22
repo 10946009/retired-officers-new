@@ -1,0 +1,20 @@
+{% extends 'layout/app_admin.html' %}
+
+{% load static %}
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">編輯活動：{{activity.name}}</h1>
+    <ol class="breadcrumb mb-4">
+        <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
+        <li class="breadcrumb-item active">Activity Edit</li>
+    </ol>
+        <div class="row justify-content-center">
+            {% for tool in tools %}
+            <a href="{% url tool.url activity.id %}" class="btn btn-sq-lg btn-outline-{{tool.style}} d-flex flex-column align-items-center justify-content-center mx-2">
+                <i class="{{tool.icon}} fa-5x mb-2 mr-2"></i>
+                <h4>{{tool.name}}</h4>
+            </a>
+            {% endfor %}
+        </div>
+</div>
+{% endblock %}
