@@ -1,0 +1,63 @@
+{% extends 'layout/app_admin.html' %}
+
+{% load static %}
+{% load zip %}
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">學生資料審查</h1>
+    <ol class="breadcrumb mb-4">
+        <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
+        <li class="breadcrumb-item active">確認學生資料</li>
+    </ol>
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            學生列表
+        </div>
+        <div class="card-body">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <table id="datatablesSimple" class="rwd-table">
+                    <thead>
+                    <tr>
+                        <th>人次</th>
+                        <th>報名編號</th>
+                        <th>報名時間</th>
+                        <th>報名證號</th>
+                        <th>收件紀錄</th>
+                        <th>審核狀況</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- for activity_students loop -->
+                    {{formset.management_form}}
+                    {% for form,activity_student in formset.forms|zip_lists:activity_students %}
+                        <tr>
+                        <td data-th="人次">{{forloop.counter}}</td>
+                        <td data-th="報名編號">{{ activity_student.join_number }}</td>
+                        <td data-th="報名時間">{{ activity_student.join_time }}</td>
+                        <td data-th="報名證號">{{ form.checked_number }}</td>
+                        <td data-th="收件紀錄">{{ form.is_get_print }}</td>
+                        <td data-th="審核狀況">{{ form.is_checked }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">送出</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

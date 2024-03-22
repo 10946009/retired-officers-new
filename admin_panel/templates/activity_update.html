@@ -50,7 +50,7 @@
                     <div class="form-floating mb-3 mb-md-0">
                         <input class="form-control" type="datetime-local" name="activity_start_time"
                             value="{{form.activity_start_time.value| date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">活動開始時間{{form.activity_start_time.value}}</label>
+                        <label for="dateInput">活動開始時間</label>
                     </div>
                 </div>
                 <div class="col">
@@ -77,6 +77,15 @@
                         <label for="dateInput">報名結束時間</label>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" type="datetime-local" name="sign_up_print_end_time"
+                            value="{{form.sign_up_print_end_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
+                        <label for="dateInput">報名表列印結束時間</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
                 <div class="col">
                     <div class="form-floating">
                         <input class="form-control" type="datetime-local" name="score_open_time"

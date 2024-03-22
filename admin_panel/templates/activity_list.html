@@ -29,6 +29,7 @@
                         <th>活動結束時間</th>
                         <th>報名開始時間</th>
                         <th>報名結束時間</th>
+                        <th>結束列印報名表</th>
                         <th>成績公布時間</th>
 
                     </tr>
@@ -41,11 +42,12 @@
                         <td>{{ activity.activity_end_time }}</td>
                         <td>{{ activity.sign_up_start_time }}</td>
                         <td>{{ activity.sign_up_end_time }}</td>
+                        <td>{{ activity.sign_up_print_end_time }}</td>
                         <td>{{ activity.score_open_time }}</td>
 
                         <td>
                             <a class="btn btn-sm btn-warning"
-                                href="{% url 'activity_update' activity_id=activity.id %}"> <span
+                                href="{% url 'activity_tool_menu' activity_id=activity.id %}"> <span
                                     class="fa fa-edit"></span> 更新</a>
                             <a class="btn btn-sm btn-danger"
                                 href="{% url 'activity_delete' activity_id=activity.id %}"><span

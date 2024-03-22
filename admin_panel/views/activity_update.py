@@ -12,7 +12,7 @@ def activity_update(request, activity_id):
         if form.is_valid():
             form.save() 
             
-            return redirect('activity_list')
+            return redirect(f'/admin_panel/activity_tool_menu/{activity_id}')
     else:
         form = ActivityForm(instance=activity)
                     

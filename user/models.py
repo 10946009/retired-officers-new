@@ -43,7 +43,7 @@ class ActivityStudents(models.Model):
     join_number = models.IntegerField(blank=False, null=False)
     is_get_print = models.BooleanField(default=False) # 已收到報名資料
     is_checked = models.BooleanField(default=False) # 已審核
-    checked_number = models.IntegerField(blank=True, null=False , unique = True) # 手動填寫審核編號
+    checked_number = models.IntegerField(blank=True, null=False) # 手動填寫審核編號
 
 
 class Admin(models.Model):
