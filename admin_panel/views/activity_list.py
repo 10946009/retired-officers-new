@@ -1,10 +1,6 @@
 from django.shortcuts import render
 from myapp.models import Activity
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from myapp.models import Activity
-from django.contrib.auth.decorators import permission_required
-
 
 @permission_required('myapp.view_activity', login_url='/403')
 def activity_list(request):
