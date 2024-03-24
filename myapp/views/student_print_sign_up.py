@@ -33,7 +33,7 @@ def student_print_sign_up(request,activity_id):
     identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.identity_back.path, width=Mm(80))
     data = {
         'activity_year' : activity.get_year_tw(),
-        'number':user.id,
+        'number':user.activitystudents_set.get(activity_id=activity_id).join_number,
         'year': user.date_of_birth_tw()[0],
         'month':user.date_of_birth_tw()[1],
         'day': user.date_of_birth_tw()[2],

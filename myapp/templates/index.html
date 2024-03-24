@@ -4,7 +4,7 @@
 {% block body %}
   <div class="container-fluid px-4">
     <h1 class="mt-4">國立臺北商業大學<br>退除役官兵系統</h1>
-
+    
     {% comment %} <div style="display: flex;">
       <a class="btn btn-sm btn-success" href="{% url 'register' %}" style="padding: 8px; float: right; background-color: green; color: white;">註冊</a>
 
@@ -35,13 +35,18 @@
             <td data-th="活動名稱">{{ activity.name }}</td>
             <td data-th="開始報名時間">{{ activity.sign_up_start_time }}</td>
             <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
-            <td data-th="結束報名表繳交時間">{{ activity.sign_up_end_time }}</td>
+            <td data-th="結束報名表繳交時間">{{ activity.sign_up_print_end_time }}</td>
             <td data-th="成績公布時間">{{ activity.score_open_time }}</td>
             <td id="no-width">
               {% if activity in request.user.student.activity.all %}
-                <button class="btn btn-bg col-sm-5 col-12 btn-success mt-1"  onclick="printData('{% url 'student_print_sign_up' activity.id %}')">
+                {% if activity.is_sign_up_print_open %}
+                <button class="btn btn-bg col-sm-5 col-12 btn-success mt-1" onclick="printData('{% url 'student_print_sign_up' activity.id %}')">
                   <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-sign-up" >
                   </div>列印報名表</button>
+                {% else %}
+                <button class="btn btn-bg col-sm-5 col-12 btn-secondary mt-1" disabled>
+                  </div>列印報名表</button>
+                {% endif %}
                 {% if activity.is_score_open %}
                 <button class="btn btn-bg col-sm-5 col-12 btn-success mt-1" onclick="printData('{% url 'student_print_score' activity.id %}')">
                   <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-score" >

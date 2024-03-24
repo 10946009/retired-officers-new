@@ -17,12 +17,12 @@ class Activity(models.Model):
         null=True,
         related_name="score_label",
     )
-    activity_start_time = models.DateTimeField(blank=True, null=True)
-    activity_end_time = models.DateTimeField(blank=True, null=True)
-    sign_up_start_time = models.DateTimeField(blank=True, null=True)
-    sign_up_end_time = models.DateTimeField(blank=True, null=True)
-    sign_up_print_end_time = models.DateTimeField(blank=True, null=True)
-    score_open_time = models.DateTimeField(blank=True, null=True)
+    activity_start_time = models.DateTimeField(blank=False, null=False)
+    activity_end_time = models.DateTimeField(blank=False, null=False)
+    sign_up_start_time = models.DateTimeField(blank=False, null=False)
+    sign_up_end_time = models.DateTimeField(blank=False, null=False)
+    sign_up_print_end_time = models.DateTimeField(blank=False, null=False)
+    score_open_time = models.DateTimeField(blank=False, null=False)
     def __str__(self):
         return self.name
 
@@ -49,6 +49,9 @@ class Activity(models.Model):
     def is_sign_up_open(self):
         now = timezone.now()
         return now >= self.sign_up_start_time and now < self.sign_up_end_time
+    def is_sign_up_print_open(self):
+        now = timezone.now()
+        return now >= self.sign_up_start_time and now < self.sign_up_print_end_time
     
 class ScoreLabel(models.Model):
     label1 = models.CharField(max_length=100, blank=False, null=False, default="")

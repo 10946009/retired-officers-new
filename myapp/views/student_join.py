@@ -2,8 +2,11 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from myapp.models import Activity 
+from user.models import ActivityStudents
 #forms
 from myapp.forms import UserEditForm, StudentForm
+
+default_number = 1000
 
 @login_required(login_url="/student_login")
 def student_join(request,activity_id):
@@ -31,10 +34,9 @@ def student_join(request,activity_id):
                 student.save()
                 if request.POST.get("saveValue") == "0":
                     activity = Activity.objects.get(id=activity_id)
-                    activty_student = user.student.activity.add(activity)
-                    # 報名編號從1300開始
-                    user.student.activity.join_number = 1000 + int(activty_student.id)
-                    user.save()
+                    join_number = default_number + ActivityStudents.objects.count() + 1
+                    activty_student = ActivityStudents.objects.create(activity=activity, student=student, join_number=join_number,checked_number="")
+                    activty_student.save()
                     return render(request, "message.html", {"next": "/", "message": "報名成功!至首頁列印報名表"})
                 else:
                     return render(request, "message.html", {"next": f"/student_join/{activity_id}", "message": "儲存成功"})
