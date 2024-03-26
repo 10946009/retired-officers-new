@@ -94,9 +94,10 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="form-floating">
-                        {{form.score_label}}
-                        <label for="dateInput">分數欄位標籤</label>
+                    <div class="form-floating mb-3 mb-md-0">
+                        <input class="form-control" id="inputFirstName" type="number" name="score_min" placeholder="最低分數標準"
+                            value="{{form.score_min.value}}" />
+                        <label for="inputFirstName">最低分數標準</label>
                     </div>
                 </div>
             </div>

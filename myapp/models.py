@@ -23,6 +23,8 @@ class Activity(models.Model):
     sign_up_end_time = models.DateTimeField(blank=False, null=False)
     sign_up_print_end_time = models.DateTimeField(blank=False, null=False)
     score_open_time = models.DateTimeField(blank=False, null=False)
+    score_min = models.FloatField(blank=False, null=False, default=0)
+
     def __str__(self):
         return self.name
 
@@ -70,5 +72,7 @@ class Score(models.Model):
     score2 = models.IntegerField(blank=False, null=False, default=0)
     score3 = models.IntegerField(blank=False, null=False, default=0)
 
+    def get_total_score(self):
+        return self.score1 + self.score2 + self.score3
     class Meta:
         unique_together = ("student", "activity")

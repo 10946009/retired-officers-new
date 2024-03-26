@@ -8,9 +8,9 @@
                 活動管理 
             </a>
             {% if '/activity_tool_menu/' in request.path %}
-            <a class="nav-link active " href="{% url 'activity_tool_menu' request.resolver_match.kwargs.activity_id %}">
-                <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
-                 活動編輯
+            <a class="nav-link active" style="padding-left:30px;" href="{% url 'activity_tool_menu' request.resolver_match.kwargs.activity_id %}">
+                ﹂<div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                 活動工具
             </a>
             {% endif %}
             {% comment %} <a class="nav-link" href="{% url 'student_activity_list'%}">

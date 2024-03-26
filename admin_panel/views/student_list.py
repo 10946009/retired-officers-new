@@ -6,8 +6,9 @@ from openpyxl import Workbook
 
 # import custom User model
 from user.models import ActivityStudents
+from django.contrib.auth.decorators import permission_required
 
-
+@permission_required('myapp.view_activity', login_url='/403')
 def student_list(request, activity_id):
     '''
     顯示報名學生列表
@@ -23,8 +24,7 @@ def student_delete(request, student_id):
 
     return redirect("student_list")
 
-
-
+@permission_required('myapp.view_activity', login_url='/403')
 def export_excel(request,activity_id):
     '''
     將報名資料匯出成Excel

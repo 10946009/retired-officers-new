@@ -2,7 +2,9 @@ from django.shortcuts import redirect, render
 
 from admin_panel.forms import ActivityForm
 from myapp.models import Activity
+from django.contrib.auth.decorators import permission_required
 
+@permission_required('myapp.view_activity', login_url='/403')
 def activity_update(request, activity_id):
     activity = Activity.objects.get(id=activity_id)
 

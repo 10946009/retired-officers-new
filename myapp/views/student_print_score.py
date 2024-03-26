@@ -26,11 +26,9 @@ def student_print_score(request,activity_id):
     user = request.user.student
     file_name = f"score{user.id}"
 
-    score_total = (score.score1*activity.score_label.score1_weight + score.score2*activity.score_label.score2_weight + score.score3*activity.score_label.score3_weight)/100
-
     data = {
         'activity_year' : activity.get_year_tw(),
-        "number" : user.id,
+        "number" : user.get_checked_number(activity_id),
         "name" : user.get_username(),
         "label_1" : activity.score_label.label1,
         "score1" : score.score1,
@@ -38,7 +36,8 @@ def student_print_score(request,activity_id):
         "score2" : score.score2,
         "label_3" : activity.score_label.label3,
         "score3" : score.score3,
-        "score_total" : score_total
+        "score_total" : score.get_total_score(),
+        "score_min" : activity.score_min,
     }
 
     generate_docx(doc,data,file_name)
