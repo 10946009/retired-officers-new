@@ -1,11 +1,18 @@
 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
     <div class="sb-sidenav-menu">
         <div class="nav">
+            
             <div class="sb-sidenav-menu-heading">Core</div>
-            <a class="nav-link" href="{% url 'activity_list'%}">
+            <a class="nav-link {% if  '/activity_list/' in request.path  %}active{% endif %} " href="{% url 'activity_list'%}">
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                活動管理
+                活動管理 
             </a>
+            {% if '/activity_tool_menu/' in request.path %}
+            <a class="nav-link active " href="{% url 'activity_tool_menu' request.resolver_match.kwargs.activity_id %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                 活動編輯
+            </a>
+            {% endif %}
             {% comment %} <a class="nav-link" href="{% url 'student_activity_list'%}">
                 <div class="sb-nav-link-icon"><i class="fas fa-fw fa-database"></i></div>
                 學生資料管理

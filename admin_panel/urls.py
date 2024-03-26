@@ -21,9 +21,10 @@ urlpatterns = [
     #活動功能選單
     path("activity_tool_menu/<int:activity_id>", activity_tool_menu, name="activity_tool_menu"),
     #活動功能
-    path("activity_update/<int:activity_id>", activity_update, name="activity_update"),
-    path("student_check_list/<int:activity_id>", student_check_list, name="student_check_list"), 
-    path("activity_delete/<int:activity_id>", activity_delete, name="activity_delete"),
+    path("activity_tool_menu/activity_update/<int:activity_id>", activity_update, name="activity_update"),
+    path("activity_tool_menu/student_check_list/<int:activity_id>", student_check_list, name="student_check_list"), 
+    path("activity_tool_menu/activity_delete/<int:activity_id>", activity_delete, name="activity_delete"),
+    path("activity_tool_menu/score_list/<int:activity_id>", score_list, name="score_list"),
     # student
     path("student_activity_list/", student_activity_list, name="student_activity_list"),
     path("student_list/<int:activity_id>", student_list, name="student_list"),
@@ -32,7 +33,6 @@ urlpatterns = [
     path("export_excel/<int:activity_id>", export_excel, name="export_excel"),
     # score
     path("score_activity_list/", student_activity_list, name="score_activity_list"),
-    path("score_list/<int:activity_id>", score_list, name="score_list"),
     path(
         "export_score_sample/<int:activity_id>",
         export_score_sample,

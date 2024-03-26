@@ -15,8 +15,9 @@ def student_list(request, activity_id):
     # get all student of the activity
     activity = Activity.objects.get(id=activity_id)
     students = activity.student.all()
-
-    return render(request, "student_list.html", {"students": students, "activity_id": activity_id})
+    content = {"students": students, "activity_id": activity_id}
+    
+    return render(request, "student_list.html", content )
 
 def student_delete(request, student_id):
 
