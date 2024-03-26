@@ -202,7 +202,13 @@ class Student(models.Model):
     def clean(self):
         if not is_valid_id_or_rc_number(self.identity):
             raise ValidationError({"identity": "身分證字號格式錯誤"})
-
+    def get_join_number(self,activity_id):
+        join_number = self.activitystudents_set.get(activity_id=activity_id).join_number
+        return join_number
+    
+    def get_checked_number(self,activity_id):
+        checked_number = self.activitystudents_set.get(activity_id=activity_id).checked_number
+        return checked_number
         
     class Meta:
         verbose_name = "Student"

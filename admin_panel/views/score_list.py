@@ -20,12 +20,8 @@ def get_student_score(student, activity):
         return 0, 0, 0
 
 
-def calculate_total_score(score1, score2, score3, score_label):
-    return (
-        score1 * score_label.score1_weight / 100
-        + score2 * score_label.score2_weight / 100
-        + score3 * score_label.score3_weight / 100
-    )
+def calculate_total_score(score1, score2, score3):
+    return score1 + score2 + score3
 
 
 def score_list(request, activity_id):
@@ -44,10 +40,11 @@ def score_list(request, activity_id):
     student_with_scores = []
     for student in students:
         score1, score2, score3 = get_student_score(student, activity)
-        total_score = calculate_total_score(score1, score2, score3, score_label)
+        total_score = calculate_total_score(score1, score2, score3)
 
         student_with_scores.append(
             {
+                "checked_number": student.get_checked_number(activity_id),
                 "id": student.id,
                 "name": student.user.username,
                 "email": student.user.email,
@@ -84,7 +81,7 @@ def export_score_sample(request, activity_id):
 
     ws.append(
         [
-            "編號",
+            "報名證號",
             "姓名",
             "email",
             "取得報考學歷(力)資格後年資審查(10%)",
@@ -92,9 +89,9 @@ def export_score_sample(request, activity_id):
             "書面審查／(2)職涯發展(45%)",
         ]
     )
-
     for student in students:
-        ws.append([student.id, student.user.username, student.user.email, 0, 0, 0])
+        join_number = student.get_checked_number(activity_id)
+        ws.append([join_number, student.user.username, student.user.email, 0, 0, 0])
 
     # 將工作簿保存到響應中
     response = HttpResponse(
@@ -117,7 +114,7 @@ def upload_and_read_excel(request, activity_id):
             ws = wb.active
             print("111")
             # 初始化數據列表並跳過首行
-            data = [row for row in ws.iter_rows(values_only=True) if row[0] != "編號"]
+            data = [row for row in ws.iter_rows(values_only=True) if row[0] != "報名證號"]
             print(data)
             activity = Activity.objects.get(id=activity_id)
             student_ids = [row[0] for row in data]
@@ -140,13 +137,13 @@ def upload_and_read_excel(request, activity_id):
                         (stu for stu in students if stu.id == student_id),
                         None,
                     )
-
+                    # check if student exists
                     if student is None:
                         messages.error(
                             request, f"匯入失敗！ {row[0]} {row[1]} 學生不存在。"
                         )
                         return redirect("score_list", activity_id=activity_id)
-
+                    # check if score is valid
                     score = next(
                         (sc for sc in scores if sc.student.id == student_id), None
                     )

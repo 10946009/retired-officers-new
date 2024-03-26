@@ -23,6 +23,8 @@ def student_delete(request, student_id):
 
     return redirect("student_list")
 
+
+
 def export_excel(request,activity_id):
     '''
     將報名資料匯出成Excel
@@ -84,8 +86,8 @@ def export_excel(request,activity_id):
         student_list = [
             student.id,  # "編號",
             student.user.username,  # "姓名",
-            student.activitystudents_set.get(activity_id=activity_id).join_number,  # "報名編號",
-            student.activitystudents_set.get(activity_id=activity_id).checked_number,  # "報名證號",
+            student.get_join_number(activity_id),  # "報名編號",
+            student.get_checked_number(activity_id),  # "報名證號",
             "",  # "虛擬帳號",
             "國軍退除役官兵就讀大學暨技術校院",  # "報名系所",
             "待審",  # "審核",
