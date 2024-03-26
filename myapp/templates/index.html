@@ -75,6 +75,9 @@
   <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
   <script>
     function printData(url){
+      //找出按鍵中的spinner
+      let thisSpinner  = $(event.target).find('.spinner-border');
+      console.log(thisSpinner);
       url = url.toString();
       $.ajax({
         url: url,
@@ -87,11 +90,7 @@
       },
         success: function (data) {
           CallMessage("下載PDF成功!","success");
-          if(url.includes("sign_up")){
-            $("#spinner-sign-up").hide();
-          }else{
-            $("#spinner-score").hide();
-          }
+          thisSpinner.hide();
           // data is PDF  
           const blob = new Blob([data], { type: 'application/pdf' });
 
@@ -116,19 +115,17 @@
             
         },
         error: function (data) {
+          thisSpinner.hide();
           CallMessage("下載PDF失敗!","error");
         },
         beforeSend: function(){
           // Show image container
-          console.log(url);
-          if(url.includes("sign_up")){
-            $("#spinner-sign-up").show();
-          }else{
-            $("#spinner-score").show();
-          }
-          
+
+          thisSpinner.show();
+
         },
     });
+    
   }
   </script>
 {% endblock %}
