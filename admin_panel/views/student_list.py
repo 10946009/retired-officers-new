@@ -36,6 +36,7 @@ def export_excel(request,activity_id):
         "編號",
         "姓名",
         "報名編號",
+        "報名證號",
         "虛擬帳號",
         "報名系所",
         "審核",
@@ -82,7 +83,8 @@ def export_excel(request,activity_id):
         student_list = [
             student.id,  # "編號",
             student.user.username,  # "姓名",
-            "",  # "報名編號",
+            student.activitystudents_set.get(activity_id=activity_id).join_number,  # "報名編號",
+            student.activitystudents_set.get(activity_id=activity_id).checked_number,  # "報名證號",
             "",  # "虛擬帳號",
             "國軍退除役官兵就讀大學暨技術校院",  # "報名系所",
             "待審",  # "審核",
@@ -123,7 +125,7 @@ def export_excel(request,activity_id):
     response = HttpResponse(
         content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
-    response["Content-Disposition"] = "attachment; filename=import_sample.xlsx"
+    response["Content-Disposition"] = "attachment; filename=student_data.xlsx"
     wb.save(response)
 
     return response

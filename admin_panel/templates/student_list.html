@@ -2,7 +2,8 @@
 
 {% load static %}
 {% block body %}
-<div class="container-fluid px-4">
+<div class="container-fluid">
+    <a href="{% url 'activity_tool_menu' activity_id %}" class="mt-4">回上頁</a>
     <h1 class="mt-4">學生資料管理</h1>
     <ol class="breadcrumb mb-4">
         <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->

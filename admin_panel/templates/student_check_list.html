@@ -23,6 +23,11 @@
             {% endfor %}
             <form method="post">
                 {% csrf_token %}
+                {{ formset.management_form }}
+                {{ formset.non_form_errors }}
+                {% for form in formset %}
+                <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.id }}">
+                {% endfor %}
                 <table id="datatablesSimple" class="rwd-table">
                     <thead>
                     <tr>
@@ -36,7 +41,7 @@
                     </thead>
                     <tbody>
                     <!-- for activity_students loop -->
-                    {{formset.management_form}}
+                    
                     {% for form,activity_student in formset.forms|zip_lists:activity_students %}
                         <tr>
                         <td data-th="人次">{{forloop.counter}}</td>
@@ -46,9 +51,10 @@
                         <td data-th="收件紀錄">{{ form.is_get_print }}</td>
                         <td data-th="審核狀況">{{ form.is_checked }}</td>
                         </tr>
-                    {% endfor %}
-
+                        {% endfor %}
+                        
                     </tbody>
+                    
                 </table>
                 <button type="submit" class="btn btn-primary">送出</button>
             </form>

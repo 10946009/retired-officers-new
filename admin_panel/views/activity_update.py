@@ -11,8 +11,9 @@ def activity_update(request, activity_id):
 
         if form.is_valid():
             form.save() 
-            
-            return redirect(f'/admin_panel/activity_tool_menu/{activity_id}')
+            message = "活動資料更新成功"
+            # return redirect(f'/admin_panel/activity_tool_menu/{activity_id}')
+            return render(request, 'message.html', {'next': f'/admin_panel/activity_tool_menu/{activity_id}', 'message': message})
     else:
         form = ActivityForm(instance=activity)
                     

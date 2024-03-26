@@ -18,8 +18,9 @@ urlpatterns = [
     # activity
     path("activity_list/", activity_list, name="activity_list"),
     path("activity_create/", activity_create, name="activity_create"),
-    #針對活動的操作
+    #活動功能選單
     path("activity_tool_menu/<int:activity_id>", activity_tool_menu, name="activity_tool_menu"),
+    #活動功能
     path("activity_update/<int:activity_id>", activity_update, name="activity_update"),
     path("student_check_list/<int:activity_id>", student_check_list, name="student_check_list"), 
     path("activity_delete/<int:activity_id>", activity_delete, name="activity_delete"),
