@@ -18,7 +18,6 @@ def export_excel(request, activity_id):
     title_list = [
         "編號",
         "姓名",
-        "報名編號",
         "報名證號",
         "虛擬帳號",
         "報名系所",
@@ -62,11 +61,11 @@ def export_excel(request, activity_id):
     for student in students:
         military_type1 = "一類" if student.military_type == 1 else ""
         military_type2 = "二類" if student.military_type == 2 else ""
+        
         print(student.get_join_time(activity_id))
         student_list = [
-            student.id,  # "編號",
+            student.get_join_number(activity_id),  # "編號",
             student.user.username,  # "姓名",
-            student.get_join_number(activity_id),  # "報名編號",
             student.get_checked_number(activity_id),  # "報名證號",
             "",  # "虛擬帳號",
             "國軍退除役官兵就讀大學暨技術校院",  # "報名系所",
