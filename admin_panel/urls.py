@@ -6,7 +6,10 @@ from admin_panel.views.activity_update import activity_update
 from admin_panel.views.activity_delete import activity_delete
 from admin_panel.views.student_check_list import student_check_list
 from admin_panel.views.student_activity_list import student_activity_list
-from admin_panel.views.student_list import student_list, export_excel,student_delete
+from admin_panel.views.student_list import student_list
+from admin_panel.views.export_excel import export_excel
+from admin_panel.views.student_delete import student_delete
+from admin_panel.views.student_update import student_update
 from admin_panel.views.redirect_user import redirect_user
 from admin_panel.views.score_list import (
     score_list,
@@ -28,8 +31,8 @@ urlpatterns = [
     # student
     path("student_activity_list/", student_activity_list, name="student_activity_list"),
     path("student_list/<int:activity_id>", student_list, name="student_list"),
-    path("student_update/<int:student_id>", student_list, name="student_update"),
-    path("student_delete<int:student_id>", student_delete, name="student_delete"),
+    path("student_update/<int:activity_id>/<int:student_id>", student_update, name="student_update"),
+    path("student_delete/<int:activity_id>/<int:student_id>", student_delete, name="student_delete"),
     path("export_excel/<int:activity_id>", export_excel, name="export_excel"),
     # score
     path("score_activity_list/", student_activity_list, name="score_activity_list"),

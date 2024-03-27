@@ -165,6 +165,7 @@
 
     function joinActivity(){
       // ask for confirmation
+      event.preventDefault();
       if(confirm("確定送出報名表？送出後無法再變更內容!")){
         let saveValue = document.getElementById("saveValue");
         saveValue.value = 0;

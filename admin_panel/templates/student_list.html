@@ -40,11 +40,12 @@
                         <td>{{ student.date_of_birth }}</td>
 
                         <td>
-                            <a class="btn btn-sm btn-warning" href="{% url 'student_update' student_id=student.id %}">
+                            <a class="btn btn-sm btn-warning" href="{% url 'student_update' activity_id=activity_id student_id=student.id %}">
                                 <span class="fa fa-edit"></span> 更新</a>
-                            <a class="btn btn-sm btn-danger"
-                                href="{% url 'student_delete' student_id=student.id %}"><span
-                                    class="fa fa-trash"></span> 刪除</a>
+                            <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger" onclick="studentDeleteButton()"><span class="fa fa-trash"></span> 刪除</button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
@@ -53,4 +54,15 @@
         </div>
     </div>
 </div>
+{% block script %}
+<script type="text/javascript">
+function studentDeleteButton() {
+    // if confirm is true, submit form
+    event.preventDefault();
+    if (confirm("確定要刪除學生資料嗎?")) {
+        document.getElementById("studentDeleteForm").submit();
+    }
+}
+</script>
+{% endblock %}
 {% endblock %}
