@@ -2,7 +2,6 @@ from django.shortcuts import render
 from user.models import ActivityStudents
 from django.contrib.auth.decorators import permission_required
 from admin_panel.forms import StudentFormSet
-from django.forms import formset_factory
 
 @permission_required("myapp.view_activity", login_url="/403")
 def student_check_list(request, activity_id):

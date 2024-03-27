@@ -28,9 +28,9 @@ urlpatterns = [
     # path('login/', login.login, name='login'),
     path('', include(student_urls)),
     path('admin_panel/', include(admin_panel_urls)),
-    path('accounts/', include('allauth.urls')),  # django-allauth網址
+    # path('accounts/', include('allauth.urls')),  # django-allauth網址
     path('403', TemplateView.as_view(template_name='403.html'), name='403'),
-
+    
     # path("accounts/login/", RedirectView.as_view(pattern_name="index")),
     # path('myapp/', include(myapp_urls)),
 

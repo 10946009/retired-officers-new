@@ -6,7 +6,7 @@ from admin_panel.forms import UploadExcelForm
 from openpyxl import Workbook
 from django.db import transaction
 from django.contrib import messages
-
+from django.contrib.auth.decorators import permission_required
 # import custom User model
 from user.models import Student, User
 
@@ -23,7 +23,7 @@ def get_student_score(student, activity):
 def calculate_total_score(score1, score2, score3):
     return score1 + score2 + score3
 
-
+@permission_required('myapp.view_activity', login_url='/403')
 def score_list(request, activity_id):
 
     activity = (
@@ -65,7 +65,7 @@ def score_list(request, activity_id):
         },
     )
 
-
+@permission_required('myapp.view_activity', login_url='/403')
 def export_score_sample(request, activity_id):
     # 創建一個 Excel 工作簿和工作表
     wb = Workbook()
@@ -102,7 +102,7 @@ def export_score_sample(request, activity_id):
 
     return response
 
-
+@permission_required('myapp.view_activity', login_url='/403')
 def upload_and_read_excel(request, activity_id):
 
     if request.method == "POST":
