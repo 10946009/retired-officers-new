@@ -20,13 +20,13 @@ class ActivityStudentJoinForm(forms.ModelForm):
     is_get_print = forms.TypedChoiceField(
         coerce=lambda x: x == 'True',
         choices=((False, '未收到'), (True, '收到')),
-        widget=forms.RadioSelect,
+        widget=forms.RadioSelect(attrs={"class": "is-get-print"}),
         initial='False',
     )
     is_checked = forms.TypedChoiceField(
         coerce=lambda x: x == 'True',
         choices=((False, '待審'), (True, '審畢')),
-        widget=forms.RadioSelect,
+        widget=forms.RadioSelect(attrs={"class": "is-checked"}),
         initial='False',
     )
     class Meta:
@@ -34,7 +34,7 @@ class ActivityStudentJoinForm(forms.ModelForm):
         fields = ["is_get_print", "is_checked", "checked_number"]
         
         widgets={
-            "checked_number": forms.NumberInput(attrs={"class": "form-control"}),
+            "checked_number": forms.NumberInput(attrs={"class": "form-control, checked-number-input"}),
         }
         
     def clean(self):

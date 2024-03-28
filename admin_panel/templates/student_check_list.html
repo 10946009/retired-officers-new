@@ -43,13 +43,13 @@
                     <!-- for activity_students loop -->
                     
                     {% for form,activity_student in formset.forms|zip_lists:activity_students %}
-                        <tr>
+                        <tr id="trChecked" >
                         <td data-th="人次">{{forloop.counter}}</td>
                         <td data-th="報名編號">{{ activity_student.join_number }}</td>
                         <td data-th="報名時間">{{ activity_student.join_time }}</td>
-                        <td data-th="報名證號">{{ form.checked_number }}</td>
-                        <td data-th="收件紀錄">{{ form.is_get_print }}</td>
-                        <td data-th="審核狀況">{{ form.is_checked }}</td>
+                        <td id="checkedNumber" data-th="報名證號">{{ form.checked_number }}</td>
+                        <td id="isGetPrint" data-th="收件紀錄">{{ form.is_get_print }}</td>
+                        <td id="isChecked" data-th="審核狀況">{{ form.is_checked }}</td>
                         </tr>
                         {% endfor %}
                         
@@ -64,6 +64,36 @@
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+<script>
+    // if isGetPrint radio and isChecked radio is true, then checkedNumber can be edit
+    window.onload = function() {
+        // 取得元素
+        let trChecked = document.querySelectorAll('#trChecked');
+        for(let i = 0; i < trChecked.length; i++) {
+            // get radio element class = is-get-print, is-checked
+            let isGetPrint = trChecked[i].querySelectorAll('[type="radio"][class="is-get-print"]')[1];
+            let isChecked = trChecked[i].querySelectorAll('[type="radio"][class="is-checked"]')[1];
+            let isGetPrint_2 = trChecked[i].querySelectorAll('[type="radio"][class="is-get-print"]')[0];
+            let isChecked_2 = trChecked[i].querySelectorAll('[type="radio"][class="is-checked"]')[0];
+            let checkedNumber = trChecked[i].querySelector('.checked-number-input');
+
+            function updateCheckedNumberState() {
+                console.log(isGetPrint.checked, isChecked.checked);
+                checkedNumber.disabled = !(isGetPrint.checked && isChecked.checked);
+            }
+
+            isGetPrint.addEventListener('change', updateCheckedNumberState);
+            isChecked.addEventListener('change', updateCheckedNumberState);
+            isGetPrint_2.addEventListener('change', updateCheckedNumberState);
+            isChecked_2.addEventListener('change', updateCheckedNumberState);
+
+            // 初始化狀態
+            updateCheckedNumberState();
+        }
+    };
+
+</script>
+
 {% endblock %}
 
 {% endblock %}
