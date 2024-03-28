@@ -11,14 +11,14 @@
     <div class="col">
         <div class="form-floating mb-3 mb-md-0">
             <input class="form-control" type="datetime-local" name="activity_start_time"
-                value="{{form.activity_start_time.value}}" id="dateInput">
+                value="{{form.activity_start_time.value| date:'Y-m-d\TH:i'}}" id="dateInput">
             <label for="dateInput">活動開始時間</label>
         </div>
     </div>
     <div class="col">
         <div class="form-floating">
             <input class="form-control" type="datetime-local" name="activity_end_time"
-                value="{{form.activity_end_time.value}}" id="dateInput">
+                value="{{form.activity_end_time.value| date:'Y-m-d\TH:i'}}" id="dateInput">
             <label for="dateInput">活動結束時間</label>
         </div>
     </div>
@@ -28,26 +28,33 @@
     <div class="col">
         <div class="form-floating mb-3 mb-md-0">
             <input class="form-control" type="datetime-local" name="sign_up_start_time"
-                value="{{form.sign_up_start_time.value}}" id="dateInput">
+                value="{{form.sign_up_start_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
             <label for="dateInput">報名開始時間</label>
         </div>
     </div>
     <div class="col">
         <div class="form-floating">
-            <input class="form-control" type="datetime-local" name="sign_up_end_time" value="{{now}}"
-                id="dateInput">
+            <input class="form-control" type="datetime-local" name="sign_up_end_time"
+                value="{{form.sign_up_end_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
             <label for="dateInput">報名結束時間</label>
         </div>
     </div>
     <div class="col">
         <div class="form-floating">
-            <input class="form-control" type="datetime-local" name="score_open_time" value="{{now}}"
-                id="dateInput">
-            <label for="dateInput">成績公布時間</label>
+            <input class="form-control" type="datetime-local" name="sign_up_print_end_time"
+                value="{{form.sign_up_print_end_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
+            <label for="dateInput">報名表列印結束時間</label>
         </div>
     </div>
 </div>
 <div class="row mb-3">
+    <div class="col">
+        <div class="form-floating">
+            <input class="form-control" type="datetime-local" name="score_open_time"
+                value="{{form.score_open_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
+            <label for="dateInput">成績公布時間</label>
+        </div>
+    </div>
     <div class="col">
         <div class="form-floating">
             {{form.score_label}}
@@ -55,10 +62,10 @@
         </div>
     </div>
     <div class="col">
-        <div class="form-floating">
-            <input class="form-control" id="inputFirstScore" type="number" name="score" placeholder="活動名稱"
+        <div class="form-floating mb-3 mb-md-0">
+            <input class="form-control" id="inputFirstName" type="number" name="score_min" placeholder="最低分數標準"
                 value="{{form.score_min.value}}" />
-            <label for="inputFirstScore">分數最低標準</label>
+            <label for="inputFirstName">最低分數標準</label>
         </div>
     </div>
 </div>

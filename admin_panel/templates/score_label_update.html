@@ -23,10 +23,10 @@
 {% endblock %}
 {% block body %}
 <div class="container-fluid px-4">
-    <h1 class="mt-4">新增成績標籤</h1>
+    <h1 class="mt-4">修改成績標籤</h1>
     <ol class="breadcrumb mb-4">
         <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
-        <li class="breadcrumb-item active">Add Score Label</li>
+        <li class="breadcrumb-item active">Edit Score Label</li>
     </ol>
     <div class="bd-example">
         {% if form.errors %}
@@ -34,10 +34,10 @@
             {{ form.errors }}
         </div>
         {% endif %}
-        <form action="{% url 'score_label_create' %}" method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
             {% include 'elements/score_label_form.html' %}
-            <button class="btn btn-primary" type="submit">新增</button>
+            <button class="btn btn-primary" type="submit">更正</button>
         </form>
     </div>
 </div>

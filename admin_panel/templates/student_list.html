@@ -44,7 +44,7 @@
                                 <span class="fa fa-edit"></span> 更新</a>
                             <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-danger" onclick="studentDeleteButton()"><span class="fa fa-trash"></span> 刪除</button>
+                                <button class="btn btn-sm btn-danger" onclick="studentDeleteButton.call(this)"><span class="fa fa-trash"></span> 刪除</button>
                             </form>
                         </td>
                     </tr>
@@ -60,7 +60,7 @@ function studentDeleteButton() {
     // if confirm is true, submit form
     event.preventDefault();
     if (confirm("確定要刪除學生資料嗎?")) {
-        document.getElementById("studentDeleteForm").submit();
+        this.form.submit();
     }
 }
 </script>

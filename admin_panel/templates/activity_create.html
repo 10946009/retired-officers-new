@@ -36,7 +36,7 @@
         {% endif %}
         <form action="{% url 'activity_create' %}" method="POST">
             {% csrf_token %}
-            {% include 'activity_form.html' %}
+            {% include 'elements/activity_form.html' %}
 
             <div class="mt-4 mb-0">
                 <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">新增</button>

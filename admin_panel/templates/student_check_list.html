@@ -16,11 +16,11 @@
             學生列表
         </div>
         <div class="card-body">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
-                {{ message }}
+            {% if formset.errors %}
+            <div class="alert alert-danger">
+                {{ formset.errors.0 }}
             </div>
-            {% endfor %}
+            {% endif %}
             <form method="post">
                 {% csrf_token %}
                 {{ formset.management_form }}

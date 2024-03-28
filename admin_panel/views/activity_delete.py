@@ -1,6 +1,5 @@
 from django.shortcuts import redirect, render
 from myapp.models import Activity
-from admin_panel.forms import ActivityForm
 from django.contrib.auth.decorators import permission_required
 
 @permission_required('myapp.view_activity', login_url='/403')

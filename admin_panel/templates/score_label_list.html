@@ -40,14 +40,18 @@
                         <td>{{ label.label3 }}</td>
                         <td></td>
 
-                        {% comment %} <td>
+                        <td>
                             <a class="btn btn-sm btn-warning"
-                                href="{% url 'activity_tool_menu' activity_id=activity.id %}"> <span
+                                href="{% url 'score_label_update' score_label_id=label.id %}"> <span
                                     class="fa fa-edit"></span> 編輯</a>
-                            <a class="btn btn-sm btn-danger"
-                                href="{% url 'activity_delete' activity_id=activity.id %}"><span
-                                    class="fa fa-trash"></span> 刪除</a>
-                        </td> {% endcomment %}
+                            <form id="scorelabelDeleteForm" method="post"
+                                action="{% url 'score_label_delete' score_label_id=label.id %}"
+                                style="display: inline;">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger" onclick="scorelabelDeleteButton.call(this)"> <span
+                                        class="fa fa-trash"></span> 刪除</button>
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -55,4 +59,17 @@
         </div>
     </div>
 </div>
+{% block script %}
+<script type="text/javascript">
+function scorelabelDeleteButton() {
+    // if confirm is true, submit form
+    event.preventDefault();
+    if (confirm("確定要刪除該標籤嗎?")) {
+        // submit
+        this.form.submit();
+        
+    }
+}
+</script>
+{% endblock %}
 {% endblock %}

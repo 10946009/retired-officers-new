@@ -8,7 +8,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 # import custom User model
-from user.models import Student, User
+from user.models import Student, User,ActivityStudents
 
 
 def get_student_score(student, activity):
@@ -25,20 +25,24 @@ def calculate_total_score(score1, score2, score3):
 
 @permission_required('myapp.view_activity', login_url='/403')
 def score_list(request, activity_id):
-
+    '''
+    顯示學生成績列表
+    '''
     activity = (
         Activity.objects.select_related("score_label")
         .prefetch_related("student")
         .get(id=activity_id)
     )
-
+    # get have checked_number student
     score_label = activity.score_label
-    students = activity.student.all()
-
+    students  = ActivityStudents.get_is_checked_student(activity_id)
+    print(students)
+    
     # get all students with their scores
 
     student_with_scores = []
     for student in students:
+        student = student.student
         score1, score2, score3 = get_student_score(student, activity)
         total_score = calculate_total_score(score1, score2, score3)
 

@@ -44,7 +44,13 @@ class ActivityStudents(models.Model):
     is_get_print = models.BooleanField(default=False) # 已收到報名資料
     is_checked = models.BooleanField(default=False) # 已審核
     checked_number = models.CharField(max_length=6, blank=True, null=False, default="") # 審核編號
-
+    def __str__(self):
+        return f"{self.activity} {self.student}"
+    
+    @classmethod
+    def get_is_checked_student(self,activity):
+        students = ActivityStudents.objects.filter(activity=activity,is_checked=True).select_related('student')
+        return students
 
 class Admin(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
