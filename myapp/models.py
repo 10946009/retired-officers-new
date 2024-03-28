@@ -57,11 +57,8 @@ class Activity(models.Model):
     
 class ScoreLabel(models.Model):
     label1 = models.CharField(max_length=100, blank=False, null=False, default="")
-    score1_weight = models.IntegerField(blank=False, null=False, default=0)
     label2 = models.CharField(max_length=100, blank=False, null=False, default="")
-    score2_weight = models.IntegerField(blank=False, null=False, default=0)
     label3 = models.CharField(max_length=100, blank=False, null=False, default="")
-    score3_weight = models.IntegerField(blank=False, null=False, default=0)
     def __str__(self):
         return self.label1 + " " + self.label2 + " " + self.label3
 

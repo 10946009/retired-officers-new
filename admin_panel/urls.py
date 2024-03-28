@@ -11,6 +11,8 @@ from admin_panel.views.export_excel import export_excel
 from admin_panel.views.student_delete import student_delete
 from admin_panel.views.student_update import student_update
 from admin_panel.views.redirect_user import redirect_user
+from admin_panel.views.score_label_list import score_label_list
+from admin_panel.views.score_label_create import score_label_create
 from admin_panel.views.score_list import (
     score_list,
     export_score_sample,
@@ -25,7 +27,7 @@ urlpatterns = [
     path("activity_tool_menu/<int:activity_id>", activity_tool_menu, name="activity_tool_menu"),
     #活動功能
     path("activity_tool_menu/activity_update/<int:activity_id>", activity_update, name="activity_update"),
-    path("activity_tool_menu/student_check_list/<int:activity_id>", student_check_list, name="student_check_list"), 
+    path("activity_tool_menu/student_check_list/<int:activity_id>", student_check_list, name="student_check_list"), # check student data
     path("activity_tool_menu/activity_delete/<int:activity_id>", activity_delete, name="activity_delete"),
     path("activity_tool_menu/score_list/<int:activity_id>", score_list, name="score_list"),
     # student
@@ -46,7 +48,8 @@ urlpatterns = [
         upload_and_read_excel,
         name="upload_and_read_excel",
     ),
-    # check student data
-
+    path("score_label_list", score_label_list, name="score_label_list"),
+    path("score_label_create", score_label_create, name="score_label_create"),
+    # redirect
     path("redirect_user/", redirect_user, name="redirect_user"),
 ]

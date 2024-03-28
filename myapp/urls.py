@@ -22,7 +22,7 @@ urlpatterns = [
     #socialaccount_login
     # ...
 
-    path('accounts/password/reset',auth_views.PasswordResetView.as_view(template_name="password_reset.html"),name='password_reset'),
+    path('accounts/password/reset',auth_views.PasswordResetView.as_view(template_name="password_reset.html", email_template_name = 'password_reset_email.html'),name='password_reset'),
     path('accounts/password/reset/done',auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"),name='password_reset_done'),
     path('accounts/password/reset/key/<uidb64>/<token>/',
      auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),

@@ -1,0 +1,58 @@
+{% extends 'layout/app_admin.html' %}
+
+{% load static %}
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">成績標籤管理</h1>
+    <ol class="breadcrumb mb-4">
+        <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
+        <li class="breadcrumb-item active">Score Management</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            標籤列表
+            <a class="btn btn-sm btn-success" href="{% url 'score_label_create' %}"
+                style="padding: 8px; float: right; background-color: green; color: white;">新增</a>
+        </div>
+        <div class="card-body">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>成績標籤1</th>
+                        <th>成績標籤2</th>
+                        <th>成績標籤3</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for label in score_labels %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ label.label1 }}</td>
+                        <td>{{ label.label2 }}</td>
+                        <td>{{ label.label3 }}</td>
+                        <td></td>
+
+                        {% comment %} <td>
+                            <a class="btn btn-sm btn-warning"
+                                href="{% url 'activity_tool_menu' activity_id=activity.id %}"> <span
+                                    class="fa fa-edit"></span> 編輯</a>
+                            <a class="btn btn-sm btn-danger"
+                                href="{% url 'activity_delete' activity_id=activity.id %}"><span
+                                    class="fa fa-trash"></span> 刪除</a>
+                        </td> {% endcomment %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

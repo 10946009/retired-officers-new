@@ -1,6 +1,6 @@
 from django import forms
 
-from myapp.models import Activity
+from myapp.models import Activity,ScoreLabel
 from user.models import ActivityStudents
 
 
@@ -39,3 +39,15 @@ class ActivityStudentJoinForm(forms.ModelForm):
         
 
 StudentFormSet = forms.modelformset_factory(ActivityStudents, form=ActivityStudentJoinForm, extra=0)
+
+
+class ScoreLabelForm(forms.ModelForm):
+    class Meta:
+        model = ScoreLabel
+        fields = "__all__"
+        widgets = {
+            "label": forms.TextInput(attrs={"class": "form-control"}),
+            "score1": forms.NumberInput(attrs={"class": "form-control"}),
+            "score2": forms.NumberInput(attrs={"class": "form-control"}),
+            "score3": forms.NumberInput(attrs={"class": "form-control"}),
+        }

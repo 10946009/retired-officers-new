@@ -1,0 +1,64 @@
+{% extends 'layout/app_admin.html' %}
+
+{% load static %}
+{% block stylesheet %}
+<style>
+    .bd-example {
+        padding: 1.5rem;
+        margin-right: 0;
+        margin-left: 0;
+        border-width: 1px;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    .bd-example {
+        position: relative;
+        padding: 1rem;
+        margin: 1rem -.75rem 0;
+        border: solid #dee2e6;
+        border-width: 1px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">新增成績標籤</h1>
+    <ol class="breadcrumb mb-4">
+        <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
+        <li class="breadcrumb-item active">Add Score Label</li>
+    </ol>
+    <div class="bd-example">
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+        <form action="{% url 'score_label_create' %}" method="POST">
+            {% csrf_token %}
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" id="inputScore1" type="text" name="label1" placeholder="分數標籤1"
+                        value="{{form.score1.value}}" />
+                    <label for="inputFirstScore">分數標籤1</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" id="inputScore2" type="text" name="label2" placeholder="分數標籤2"
+                        value="{{form.score2.value}}" />
+                    <label for="inputFirstScore">分數標籤2</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" id="inputScore3" type="text" name="label3" placeholder="分數標籤3"
+                        value="{{form.score3.value}}" />
+                    <label for="inputFirstScore">分數標籤3</label>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">新增</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
