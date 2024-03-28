@@ -36,71 +36,7 @@
         {% endif %}
         <form action="{% url 'activity_update' activity_id=activity.id %}" method="POST">
             {% csrf_token %}
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="form-floating mb-3 mb-md-0">
-                        <input class="form-control" id="inputFirstName" type="text" name="name" placeholder="活動名稱"
-                            value="{{form.name.value}}" />
-                        <label for="inputFirstName">活動名稱</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="form-floating mb-3 mb-md-0">
-                        <input class="form-control" type="datetime-local" name="activity_start_time"
-                            value="{{form.activity_start_time.value| date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">活動開始時間</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating">
-                        <input class="form-control" type="datetime-local" name="activity_end_time"
-                            value="{{form.activity_end_time.value| date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">活動結束時間</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="form-floating mb-3 mb-md-0">
-                        <input class="form-control" type="datetime-local" name="sign_up_start_time"
-                            value="{{form.sign_up_start_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">報名開始時間</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating">
-                        <input class="form-control" type="datetime-local" name="sign_up_end_time"
-                            value="{{form.sign_up_end_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">報名結束時間</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating">
-                        <input class="form-control" type="datetime-local" name="sign_up_print_end_time"
-                            value="{{form.sign_up_print_end_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">報名表列印結束時間</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="form-floating">
-                        <input class="form-control" type="datetime-local" name="score_open_time"
-                            value="{{form.score_open_time.value | date:'Y-m-d\TH:i'}}" id="dateInput">
-                        <label for="dateInput">成績公布時間</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3 mb-md-0">
-                        <input class="form-control" id="inputFirstName" type="number" name="score_min" placeholder="最低分數標準"
-                            value="{{form.score_min.value}}" />
-                        <label for="inputFirstName">最低分數標準</label>
-                    </div>
-                </div>
-            </div>
+            {% include 'activity_form.html' %}
 
             <div class="mt-4 mb-0">
                 <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">更新</button>
