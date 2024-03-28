@@ -13,12 +13,13 @@ def student_join(request,activity_id):
     print(request.POST)
     if request.user.is_authenticated:
         # 如果已經報名過，就導回首頁
-        if ActivityStudents.objects.filter(activity_id=activity_id, student_id=request.user.student.id).exists():
-            return redirect("/")
+
         # 定義表單
         user_form = UserEditForm(instance=request.user)
         # 如果使用者使用Google登入 沒有student的話，就建立一個student
         if hasattr(request.user, 'student'):
+            if ActivityStudents.objects.filter(activity_id=activity_id, student_id=request.user.student.id).exists():
+                return redirect("/")
             student_form = StudentForm(instance=request.user.student)
         else:
             student_form = StudentForm()
