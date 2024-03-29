@@ -4,6 +4,12 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
 from django.forms import ValidationError
 from user.check_identity import is_valid_id_or_rc_number
+from django.core.validators import FileExtensionValidator
+
+def file_size_check(value):  # add this to some file where you can import it from
+    limit = 10485760
+    if value.size > limit:
+        raise ValidationError('檔案過大，不可超過10MB')
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -163,14 +169,28 @@ class Student(models.Model):
     )
 
     # 身分證正面 身分證反面
-    identity_front = models.ImageField(blank=True, null=False, default="")
-    identity_back = models.ImageField(blank=True, null=False, default="")
+    # upload to aws s3
+    identity_front = models.ImageField(
+        upload_to='uploads/%Y-%m-%d', 
+        blank=True, 
+        null=True,
+        validators=[FileExtensionValidator(['png', 'jpg', 'jpeg']), file_size_check]
+    )
+    identity_back = models.ImageField(
+        upload_to='uploads/%Y-%m-%d', 
+        blank=True, 
+        null=True,
+        validators=[FileExtensionValidator(['png', 'jpg', 'jpeg']), file_size_check]
+    )
 
+    # 備註
     notes = models.CharField(max_length=150, blank=True, null=False, default="")
 
     def __str__(self):
         return self.user.email
     
+
+
     def date_of_birth_tw(self):
         return (
             self.date_of_birth.year - 1911,

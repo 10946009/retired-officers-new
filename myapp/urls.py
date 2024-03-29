@@ -5,6 +5,7 @@ from myapp.views.logout import logout
 from myapp.views.student_print_sign_up import student_print_sign_up
 from myapp.views.student_print_score import student_print_score
 from myapp.views.student_join import student_join
+from myapp.views.veteran import veteran
 from django.urls import path , include
 from django.contrib.auth import views as auth_views
 urlpatterns = [
