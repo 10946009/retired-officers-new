@@ -5,6 +5,7 @@ from myapp.views.logout import logout
 from myapp.views.student_print_sign_up import student_print_sign_up
 from myapp.views.student_print_score import student_print_score
 from myapp.views.student_join import student_join
+from myapp.views.password_reset import PasswordReset
 from myapp.views.veteran import veteran
 from django.urls import path , include
 from django.contrib.auth import views as auth_views
@@ -24,7 +25,7 @@ urlpatterns = [
     #socialaccount_login
     # ...
 
-    path('accounts/password/reset',auth_views.PasswordResetView.as_view(template_name="password_reset.html", email_template_name = 'password_reset_email.html'),name='password_reset'),
+    path('accounts/password/reset',PasswordReset.as_view(template_name="password_reset.html", email_template_name = 'password_reset_email.html'),name='password_reset'),
     path('accounts/password/reset/done',auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"),name='password_reset_done'),
     path('accounts/password/reset/key/<uidb64>/<token>/',
      auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
