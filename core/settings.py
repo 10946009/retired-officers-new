@@ -35,7 +35,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
@@ -102,8 +102,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.postgresql',  #PostgreSQL
+        'NAME': env('DB_NAME'),  #資料庫名稱
+        'USER': env('DB_USER'),  #資料庫帳號
+        'PASSWORD': env('DB_PWD'),  #資料庫密碼   修改為自己的密碼
+        'HOST': env('DB_HOST'),  #Server(伺服器)位址
+        'PORT': env('DB_PORT')  #PostgreSQL Port號
     }
 }
 
