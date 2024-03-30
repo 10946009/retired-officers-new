@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     # google provider
     "allauth.socialaccount.providers.google",
     # AWS
-    'storages',
+    "storages",
 ]
 
 SITE_ID = 1
@@ -104,12 +104,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql',  #PostgreSQL
-        'NAME': env('DB_NAME'),  #資料庫名稱
-        'USER': env('DB_USER'),  #資料庫帳號
-        'PASSWORD': env('DB_PWD'),  #資料庫密碼   修改為自己的密碼
-        'HOST': env('DB_HOST'),  #Server(伺服器)位址
-        'PORT': env('DB_PORT')  #PostgreSQL Port號
+        "ENGINE": "django.db.backends.postgresql",  # PostgreSQL
+        "NAME": env("DB_NAME"),  # 資料庫名稱
+        "USER": env("DB_USER"),  # 資料庫帳號
+        "PASSWORD": env("DB_PWD"),  # 資料庫密碼   修改為自己的密碼
+        "HOST": env("DB_HOST"),  # Server(伺服器)位址
+        "PORT": env("DB_PORT"),  # PostgreSQL Port號
     }
 }
 
@@ -177,7 +177,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Google 登入後的首頁網址
-LOGIN_REDIRECT_URL = '/admin_panel/redirect_user/'  
+LOGIN_REDIRECT_URL = "/admin_panel/redirect_user/"
 
 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
@@ -208,21 +208,23 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # TLS Port
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 # Application Key
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # AWS
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 AWS_QUERYSTRING_EXPIRE = 7200
-AWS_ACCESS_KEY_ID=env.str('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY=env.str('AWS_SECRET_ACCESS_KEY')
-AWS_S3_ENDPOINT_URL=env.str('AWS_S3_ENDPOINT_URL')
-AWS_STORAGE_BUCKET_NAME=env.str('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME=env.str('AWS_S3_REGION_NAME')
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY")
+AWS_S3_ENDPOINT_URL = env.str("AWS_S3_ENDPOINT_URL")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
