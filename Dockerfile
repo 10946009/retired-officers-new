@@ -8,12 +8,12 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libffi-dev \
     python3-dev \
-    libreoffice \
     fonts-arphic-bkai00mp \
 
 # 安装Poetry
 RUN curl -sSL https://install.python-poetry.org | python3
 
+RUN apt-get install -y libreoffice
 # 设置工作目录
 WORKDIR /app
 
@@ -24,6 +24,9 @@ COPY . /app
 RUN pip install poetry
 ENV PATH="${PATH}:/root/.local/bin"
 RUN poetry install
+
+# Set the environment variable to the path of soffice
+ENV PATH="/path/to/soffice:${PATH}"
 
 # Set the entrypoint to run the server
 ENTRYPOINT ["poetry", "run", "python3", "manage.py", "runserver", "0.0.0.0:8000"]
