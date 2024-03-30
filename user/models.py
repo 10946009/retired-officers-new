@@ -1,8 +1,10 @@
 from datetime import date
+import io
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
 from django.forms import ValidationError
+import requests
 from user.check_identity import is_valid_id_or_rc_number
 from django.core.validators import FileExtensionValidator
 
@@ -189,8 +191,20 @@ class Student(models.Model):
     def __str__(self):
         return self.user.email
     
+    @property
+    def get_identity_front(self):
+        url = self.identity_front.url
+        response = requests.get(url)
+        image_bytes = io.BytesIO(response.content)
+        return image_bytes
 
-
+    @property
+    def get_identity_back(self):
+        url = self.identity_back.url
+        response = requests.get(url)
+        image_bytes = io.BytesIO(response.content)
+        return image_bytes
+    
     def date_of_birth_tw(self):
         return (
             self.date_of_birth.year - 1911,

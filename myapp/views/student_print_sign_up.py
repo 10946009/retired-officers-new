@@ -29,8 +29,8 @@ def student_print_sign_up(request,activity_id):
     # 身分證正反面宣告(避免有人沒上傳圖片)
     identity_front_text = "【此處請黏貼身分證正面影本】\n未附身分證影本或影本不清晰而無法辨識者，視同報名資格不符，概不予受理。"
     identity_back_text = "【此處請黏貼身分證反面影本】"
-    identity_front = identity_front_text if user.identity_front == "" else InlineImage(doc,user.identity_front.path, width=Mm(80))
-    identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.identity_back.path, width=Mm(80))
+    identity_front = identity_front_text if user.identity_front == "" else InlineImage(doc,user.get_identity_front, width=Mm(80))
+    identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.get_identity_back, width=Mm(80))
     data = {
         'activity_year' : activity.get_year_tw(),
         'number':user.activitystudents_set.get(activity_id=activity_id).join_number,
