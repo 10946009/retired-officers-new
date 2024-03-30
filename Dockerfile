@@ -12,11 +12,8 @@ RUN apt-get update && apt-get install -y \
 # 安装Poetry
 RUN curl -sSL https://install.python-poetry.org | python3
 
-RUN apt-get install -y \
-    libreoffice \
-    fonts-arphic-bkai00mp \
-
-
+RUN apt-get install -y libreoffice
+RUN apt-get install -y fonts-arphic-bkai00mp
 # 设置工作目录
 WORKDIR /app
 
