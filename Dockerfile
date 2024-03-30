@@ -14,7 +14,8 @@ RUN curl -sSL https://install.python-poetry.org | python3
 
 RUN apt-get install -y \
     libreoffice \
-    fonts-arphic-bkai00mp 
+    fonts-arphic-bkai00mp \
+    fonts-arphic-ukai
 
 
 # 设置工作目录
