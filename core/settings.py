@@ -123,6 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -179,6 +182,7 @@ AUTHENTICATION_BACKENDS = [
 # Google 登入後的首頁網址
 LOGIN_REDIRECT_URL = '/admin_panel/redirect_user/'  
 
+ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 
