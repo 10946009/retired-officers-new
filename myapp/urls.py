@@ -31,7 +31,8 @@ urlpatterns = [
      auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
      name='password_reset_confirm'),
     path('accounts/password/reset/key/done',auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),name='password_reset_complete'),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
+    path('accounts/google/', include('allauth.socialaccount.providers.google.urls')),
     #social/ google/
     #social/ google/login/token/ [name='google_login_by_token']
 ]
