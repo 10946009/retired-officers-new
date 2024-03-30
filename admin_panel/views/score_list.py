@@ -12,6 +12,9 @@ from user.models import Student, User,ActivityStudents
 
 
 def get_student_score(student, activity):
+    '''
+    Get student score
+    '''
     try:
         score = student.score_set.get(activity=activity)
         return score.score1, score.score2, score.score3
@@ -19,9 +22,6 @@ def get_student_score(student, activity):
         print("Score does not exist for this student and activity.")
         return 0, 0, 0
 
-
-def calculate_total_score(score1, score2, score3):
-    return score1 + score2 + score3
 
 @permission_required('myapp.view_activity', login_url='/403')
 def score_list(request, activity_id):
@@ -44,7 +44,7 @@ def score_list(request, activity_id):
     for student in students:
         student = student.student
         score1, score2, score3 = get_student_score(student, activity)
-        total_score = calculate_total_score(score1, score2, score3)
+        total_score = sum([score1, score2, score3])
 
         student_with_scores.append(
             {
@@ -71,6 +71,10 @@ def score_list(request, activity_id):
 
 @permission_required('myapp.view_activity', login_url='/403')
 def export_score_sample(request, activity_id):
+    '''
+    匯出成績範本
+    '''
+
     # 創建一個 Excel 工作簿和工作表
     wb = Workbook()
     ws = wb.active
@@ -108,7 +112,9 @@ def export_score_sample(request, activity_id):
 
 @permission_required('myapp.view_activity', login_url='/403')
 def upload_and_read_excel(request, activity_id):
-
+    '''
+    匯入成績
+    '''
     if request.method == "POST":
         form = UploadExcelForm(request.POST, request.FILES)
 

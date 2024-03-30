@@ -6,6 +6,9 @@ from django.urls import reverse
 
 @permission_required('myapp.view_activity', login_url='/403')
 def score_label_create(request):
+    '''
+    Create a new score label
+    '''
     if request.method == "POST":
         form = ScoreLabelForm(request.POST)
         if form.is_valid():
@@ -17,6 +20,9 @@ def score_label_create(request):
 
 @permission_required('myapp.view_activity', login_url='/403')
 def score_label_update(request, score_label_id):
+    '''
+    score label update
+    '''
     score_label = ScoreLabel.objects.get(id=score_label_id)
     if request.method == "POST":
         form = ScoreLabelForm(request.POST, instance=score_label)

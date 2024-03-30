@@ -2,7 +2,10 @@ from django.shortcuts import redirect
 from user.models import Admin
 
 def redirect_user(request):
-    print(request.user.groups)
+    '''
+    google 登入後導向不同頁面
+    school-admin -> activity_list, user -> index
+    '''
     if request.user.is_authenticated:
         
         # if user in admin-school group

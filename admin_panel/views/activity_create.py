@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import permission_required
 
 @permission_required('myapp.view_activity', login_url='/403')
 def activity_create(request):
+    '''
+    Create a new activity
+    '''
 
     if request.method == 'POST':
         form = ActivityForm(request.POST)

@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import permission_required
 
 @permission_required("myapp.view_activity", login_url="/403")
 def student_activity_list(request):
+    '''
+    
+    '''
     # get all activties
     activities = Activity.objects.all()
 

@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import permission_required
 
 @permission_required('myapp.view_activity', login_url='/403')
 def activity_update(request, activity_id):
+    '''
+    Update activity
+    '''
     activity = Activity.objects.get(id=activity_id)
 
     if request.method == 'POST':
