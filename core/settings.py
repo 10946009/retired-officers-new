@@ -182,8 +182,6 @@ AUTHENTICATION_BACKENDS = [
 # Google 登入後的首頁網址
 LOGIN_REDIRECT_URL = "/admin_panel/redirect_user/"
 
-ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
-
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 
 # 使用電子郵件進行登錄
