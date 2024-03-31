@@ -89,6 +89,7 @@ def export_score_sample(request, activity_id):
 
     ws.append(
         [
+            "ID",
             "報名證號",
             "姓名",
             "email",
@@ -99,7 +100,7 @@ def export_score_sample(request, activity_id):
     )
     for student in students:
         join_number = student.get_checked_number(activity_id)
-        ws.append([join_number, student.user.username, student.user.email, 0, 0, 0])
+        ws.append([student.id,join_number, student.user.username, student.user.email, 0, 0, 0])
 
     # 將工作簿保存到響應中
     response = HttpResponse(
@@ -124,7 +125,7 @@ def upload_and_read_excel(request, activity_id):
             ws = wb.active
             print("111")
             # 初始化數據列表並跳過首行
-            data = [row for row in ws.iter_rows(values_only=True) if row[0] != "報名證號"]
+            data = [row for row in ws.iter_rows(values_only=True) if row[0] != "ID"]
             print(data)
             activity = Activity.objects.get(id=activity_id)
             student_ids = [row[0] for row in data]
@@ -141,7 +142,7 @@ def upload_and_read_excel(request, activity_id):
 
             with transaction.atomic():
                 for row in data:
-                    student_id, score1, score2, score3 = row[0], row[3], row[4], row[5]
+                    student_id, score1, score2, score3 = row[0], row[4], row[5], row[6]
 
                     student = next(
                         (stu for stu in students if stu.id == student_id),
