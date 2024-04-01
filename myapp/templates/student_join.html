@@ -6,7 +6,17 @@
     .col-md-6 {
       padding: 7px;
     }
+
   </style>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+
+
 {% endblock %}
 {% block body %}
   <div id="layoutAuthentication">
@@ -16,6 +26,7 @@
           <div class="row justify-content-center">
             <div class="col-12">
               <div class="card shadow-lg border-0 rounded-lg">
+
                 {% comment %} userform {% endcomment %}
                 {% for field in user_form %}
                 {% for error in field.errors %}
@@ -142,7 +153,13 @@
   </div>
 {% endblock %}
 {% block javascript %}
+<!-- Latest compiled and minified JavaScript -->
+
   <script type="text/javascript">
+  // To style only selects with the my-select class
+  $(document).ready(function () {
+    var choices = new Choices('.choices');
+  });
   // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
       'use strict'

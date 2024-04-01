@@ -104,7 +104,7 @@ class StudentForm(forms.ModelForm):
             "postal_code": forms.TextInput(attrs={"class": "form-control"}),
             "identity": forms.TextInput(attrs={"class": "form-control"}),
             "home_phone": forms.TextInput(attrs={"class": "form-control"}),
-            "graduated_school": forms.Select(attrs={"class": "form-control"}),
+            "graduated_school": forms.Select(attrs={"class": "form-control choices"}),
             "is_graduated": forms.Select(attrs={"class": "form-control"}),
             "graduated_year_month": forms.DateInput(format=('%Y-%m-%d'),attrs={"class": "form-control" ,"type":"date"}),
             "graduated_department": forms.Select(attrs={"class": "form-control"}),
