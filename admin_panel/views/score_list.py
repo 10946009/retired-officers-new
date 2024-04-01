@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 # import custom User model
 from user.models import Student, User,ActivityStudents
+from decimal import Decimal
 
 
 def get_student_score(student, activity):
@@ -142,8 +143,8 @@ def upload_and_read_excel(request, activity_id):
 
             with transaction.atomic():
                 for row in data:
-                    student_id, score1, score2, score3 = row[0], row[4], row[5], row[6]
-
+                    student_id, score1, score2, score3 = row[0], Decimal(row[4]), Decimal(row[5]), Decimal(row[6])
+                    print(score1, score2, score3)
                     student = next(
                         (stu for stu in students if stu.id == student_id),
                         None,
