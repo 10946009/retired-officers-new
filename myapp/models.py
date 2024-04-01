@@ -69,9 +69,9 @@ class ScoreLabel(models.Model):
 class Score(models.Model):
     student = models.ForeignKey("user.Student", on_delete=models.CASCADE)
     activity = models.ForeignKey("Activity", on_delete=models.CASCADE)
-    score1 = models.IntegerField(blank=False, null=False, default=0)
-    score2 = models.IntegerField(blank=False, null=False, default=0)
-    score3 = models.IntegerField(blank=False, null=False, default=0)
+    score1 = models.FloatField(blank=False, null=False, default=0)
+    score2 = models.FloatField(blank=False, null=False, default=0)
+    score3 = models.FloatField(blank=False, null=False, default=0)
 
     def get_total_score(self):
         return self.score1 + self.score2 + self.score3
