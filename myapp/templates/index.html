@@ -30,6 +30,7 @@
       <tbody>
         <!-- for activity loop -->
         {% for activity in activities %}
+        {% if activity.is_show %}
           <tr>
             <td data-th="狀態">{{activity.get_status}}</td>
             <td data-th="活動名稱">{{ activity.name }}</td>
@@ -65,6 +66,7 @@
               {% endif %}
             </td>
           </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
     </table>

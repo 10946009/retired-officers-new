@@ -34,6 +34,10 @@ class Activity(models.Model):
     def get_student_in_activity(self):
         return self.student.all()
     
+    def is_show(self):
+        now = timezone.now()
+        return now >= self.activity_start_time and now < self.activity_end_time
+
     def get_status(self):
         now = timezone.now()
         print(now,"and",self.activity_start_time)
