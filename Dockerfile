@@ -14,9 +14,7 @@ RUN curl -sSL https://install.python-poetry.org | python3
 
 RUN apt-get install -y \
     libreoffice \
-    fonts-arphic-bkai00mp \
     fonts-arphic-ukai
-
 
 # 设置工作目录
 WORKDIR /app
@@ -32,8 +30,14 @@ RUN poetry install
 # Set the environment variable to the path of soffice
 ENV PATH="/path/to/soffice:${PATH}"
 
-# Set the entrypoint to run the server
-ENTRYPOINT ["poetry", "run", "python3", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copy entrypoint script into the image
+COPY entrypoint.sh /entrypoint.sh
+
+# Make the script executable
+RUN chmod +x /entrypoint.sh
+
+# Set the entrypoint to run the script
+ENTRYPOINT ["/entrypoint.sh"]
 
 # docker build -t retired-0320 .
 # container name is retired-0320 docker run -p 8000:8000 retired-0320
