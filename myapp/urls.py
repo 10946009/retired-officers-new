@@ -6,11 +6,17 @@ from myapp.views.student_print_sign_up import student_print_sign_up
 from myapp.views.student_print_score import student_print_score
 from myapp.views.student_join import student_join
 from myapp.views.password_reset import PasswordReset
-from myapp.views.veteran import veteran
+from myapp.views.veteran import veteran,not_open
 from django.urls import path , include
 from django.contrib.auth import views as auth_views
 urlpatterns = [
-    path('', index, name='index'),
+        #test...
+    path('',not_open),
+    path('veteran',not_open,name='veteran'),
+    #test...
+    path('2BkSDAqYaRhXRfIU/', index, name='index'),
+    # 正式
+    # path('veteran/', index, name='index'),
     path('register/', register, name='register'),
     path('student_login/', student_login, name='student_login'),
     path('logout/', logout, name='user_logout'),
@@ -23,13 +29,12 @@ urlpatterns = [
     # path('accounts/google/login/', include(google_urlpatterns)),
     #socialaccount_login
     # ...
-
-    path('accounts/password/reset',PasswordReset.as_view(template_name="password_reset.html", email_template_name = 'password_reset_email.html'),name='password_reset'),
-    path('accounts/password/reset/done',auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"),name='password_reset_done'),
+    path('accounts/password/reset/',PasswordReset.as_view(template_name="password_reset.html", email_template_name = 'password_reset_email.html'),name='password_reset'),
+    path('accounts/password/reset/done/',auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"),name='password_reset_done'),
     path('accounts/password/reset/key/<uidb64>/<token>/',
      auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
      name='password_reset_confirm'),
-    path('accounts/password/reset/key/done',auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),name='password_reset_complete'),
+    path('accounts/password/reset/key/done/',auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),name='password_reset_complete'),
     # path('accounts/', include('allauth.urls')),
     path('accounts/', include('allauth.socialaccount.providers.google.urls')),
     #social/ google/

@@ -31,13 +31,13 @@ RUN poetry install
 ENV PATH="/path/to/soffice:${PATH}"
 
 # Copy entrypoint script into the image
-COPY entrypoint.sh /entrypoint.sh
+COPY django.sh /django.sh
 
 # Make the script executable
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /django.sh
 
 # Set the entrypoint to run the script
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/django.sh"]
 
 # docker build -t retired-0320 .
 # container name is retired-0320 docker run -p 8000:8000 retired-0320

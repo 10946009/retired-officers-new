@@ -23,13 +23,7 @@ def handler404(request, exception):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #test...
-    path('',veteran.not_open),
-    path('veteran/',veteran.not_open,name='veteran'),
-    path('2BkSDAqYaRhXRfIU/', include(student_urls)),
-
-    # # 正式
-    # path('',veteran.veteran),
+    path('', include(student_urls)),
     # path('veteran/',include(student_urls)),
 
     path('admin_panel/', include(admin_panel_urls)),
