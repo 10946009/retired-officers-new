@@ -165,7 +165,7 @@ STORAGES = {
 }
 
 
-STATIC_URL = "/static/"
+STATIC_URL = "assets/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -244,4 +244,4 @@ AWS_S3_FILE_OVERWRITE = False
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
