@@ -11,4 +11,4 @@ def redirect_user(request):
         # if user in admin-school group
         if request.user.groups.filter(name='admin-school').exists():
             return redirect('activity_list')
-    return redirect('/')
+    return redirect('index')

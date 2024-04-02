@@ -6,4 +6,4 @@ def logout(request):
     # logout the user
     request.session.flush()
 
-    return redirect("/")
+    return redirect("index")
