@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import environ
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("application/javascript", ".js", True)
 
 env = environ.Env(
     # set casting, default value
@@ -241,4 +244,4 @@ AWS_S3_FILE_OVERWRITE = False
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
