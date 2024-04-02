@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",  # whitenoise
     "django.contrib.staticfiles",
     "myapp",
     "admin_panel",
@@ -153,15 +152,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / "assets/"
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 
@@ -225,7 +230,7 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # AWS
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 AWS_QUERYSTRING_EXPIRE = 7200
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY")
@@ -235,3 +240,5 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
