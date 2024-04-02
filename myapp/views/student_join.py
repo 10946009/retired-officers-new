@@ -8,7 +8,7 @@ from myapp.forms import UserEditForm, StudentForm
 
 default_number = 1000
 
-@login_required(login_url="/student_login")
+@login_required
 def student_join(request,activity_id):
     print(request.POST)
     if request.user.is_authenticated:

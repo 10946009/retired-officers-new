@@ -7,7 +7,7 @@ from myapp.models import Activity,Score
 import os
 from myapp.views.print_data import generate_pdf,generate_docx, file_response
 
-@login_required(login_url="/student_login")
+@login_required
 def student_print_score(request,activity_id):
     if not request.user.is_authenticated:
         return redirect("/student_login")
