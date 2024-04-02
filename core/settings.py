@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import environ
-import mimetypes
-mimetypes.add_type("text/css", ".css", True)
-mimetypes.add_type("application/javascript", ".js", True)
 
 env = environ.Env(
     # set casting, default value
@@ -49,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # whitenoise
     "django.contrib.staticfiles",
     "myapp",
     "admin_panel",
@@ -165,13 +163,15 @@ STORAGES = {
 }
 
 
-STATIC_URL = "/static/"
+STATIC_URL = "assets/"
+
+STATIC_ROOT = BASE_DIR / "assets/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -243,5 +243,3 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
