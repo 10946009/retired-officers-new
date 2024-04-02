@@ -11,7 +11,7 @@ from django.shortcuts import render
 from myapp import urls as student_urls
 from admin_panel import urls as admin_panel_urls
 from admin_panel import urls as admin_panel_urls
-
+from myapp.views import veteran
 def handler404(request, exception):
     if request.user.is_authenticated:
         print('True')
@@ -23,10 +23,15 @@ def handler404(request, exception):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('',index.index,name="index"),
-    # path('register/', register.register, name='register'),
-    # path('login/', login.login, name='login'),
-    path('', include(student_urls)),
+    #test...
+    path('',veteran.not_open),
+    path('veteran/',veteran.not_open,name='veteran'),
+    path('2BkSDAqYaRhXRfIU/', include(student_urls)),
+
+    # # 正式
+    # path('',veteran.veteran),
+    # path('veteran/',include(student_urls)),
+
     path('admin_panel/', include(admin_panel_urls)),
     # path('accounts/', include('allauth.urls')),  # django-allauth網址
     path('403', TemplateView.as_view(template_name='403.html'), name='403'),

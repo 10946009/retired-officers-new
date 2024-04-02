@@ -11,7 +11,6 @@ from django.urls import path , include
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', index, name='index'),
-    path('veteran/', veteran, name='veteran'),
     path('register/', register, name='register'),
     path('student_login/', student_login, name='student_login'),
     path('logout/', logout, name='user_logout'),

@@ -126,10 +126,24 @@ class StudentForm(forms.ModelForm):
             "military_service_years_int": forms.TextInput(attrs={"class": "form-control"}),
             "military_service_years": forms.Select(attrs={"class": "form-control"}),
             "military_type": forms.Select(attrs={"class": "form-control"}),
-            "identity_front": forms.FileInput(attrs={"class": "form-control"}),
-            "identity_back": forms.FileInput(attrs={"class": "form-control"}),
+            "identity_front": forms.FileInput(attrs={"class": "form-control","accept":".jpg, .jpeg, .png"}),
+            "identity_back": forms.FileInput(attrs={"class": "form-control","accept":".jpg, .jpeg, .png"}),
         }
-        
+    def clean_identity_front(self):
+        file = self.cleaned_data.get('identity_front')
+        if file:
+            ext = file.name.split('.')[-1]  # Get the file extension
+            if ext.lower() not in ['jpg', 'png', 'jpeg']:
+                raise ValidationError('Unsupported file extension.')
+        return file
+
+    def clean_identity_back(self):
+        file = self.cleaned_data.get('identity_back')
+        if file:
+            ext = file.name.split('.')[-1]  # Get the file extension
+            if ext.lower() not in ['jpg', 'png', 'jpeg']:
+                raise ValidationError('Unsupported file extension.')
+        return file
 
 class LoginForm(forms.ModelForm):
     class Meta:
