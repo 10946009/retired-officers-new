@@ -197,6 +197,8 @@ LOGIN_URL = "student_login"
 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 
+DOMAIN = env("DOMAIN")
+
 # 使用電子郵件進行登錄
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
