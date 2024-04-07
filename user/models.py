@@ -112,7 +112,7 @@ class Student(models.Model):
         (3, "四年制"),
         (4, "五年制"),
     ]
-    SERVICE_TYPE_CHOICES = [(1, ""), (2, "一類"), (3, "二類")]
+    SERVICE_TYPE_CHOICES = [(1, ""), (2, "榮民"), (3, "二類")]
 
     # 性別,出生年月日,身分證字號,地址,郵遞區號,家用電話,手機
     gender = models.IntegerField(choices=gender_CHOICES, blank=False, null=False)

@@ -91,9 +91,9 @@ class StudentForm(forms.ModelForm):
             "military_service": "軍種",
             "military_rank": "階級",
             "military_retired_date": "退伍日期",
-            "military_service_years_int": "年資",
-            "military_service_years": "服役年資",
-            "military_type": "幾類",
+            "military_service_years_int": "服役年資",
+            "military_service_years": "取得報考學歷資格後年資計分",
+            "military_type": "類別",
             "identity_front": "身分證正面(選填)",
             "identity_back": "身分證反面(選填)",
         }
