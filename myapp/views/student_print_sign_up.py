@@ -34,7 +34,7 @@ def student_print_sign_up(request,activity_id):
     identity_back_text = "【此處請黏貼身分證反面影本】"
     identity_front = identity_front_text if user.identity_front == "" else InlineImage(doc,user.get_identity_front, width=Mm(80))
     identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.get_identity_back, width=Mm(80))
-    education = f'{user.graduated_school}  {user.graduated_department} {user.get_education_display()}'
+    education = f'{user.graduated_school.name}  {user.school_department} {user.get_education_display()}'
     # data宣告
     data = {
         'activity_year' : activity.get_year_tw(),
