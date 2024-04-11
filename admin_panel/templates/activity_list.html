@@ -5,7 +5,7 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">活動管理</h1>
     <ol class="breadcrumb mb-4">
-        <!-- <li class="breadcrumb-item"><a href="/">Dashboard</a></li> -->
+        
         <li class="breadcrumb-item active">Activity Management</li>
     </ol>
     <div class="card mb-4">
@@ -25,12 +25,11 @@
                 <thead>
                     <tr>
                         <th>活動名稱</th>
-                        <th>活動開始時間</th>
-                        <th>活動結束時間</th>
-                        <th>報名開始時間</th>
-                        <th>報名結束時間</th>
-                        <th>結束列印報名表</th>
-                        <th>成績公布時間</th>
+                        <th>活動開始</th>
+                        <th>活動結束</th>
+                        <th>報名開始</th>
+                        <th>報名結束</th>
+                        <th>成績公布</th>
 
                     </tr>
                 </thead>
@@ -42,7 +41,6 @@
                         <td>{{ activity.activity_end_time }}</td>
                         <td>{{ activity.sign_up_start_time }}</td>
                         <td>{{ activity.sign_up_end_time }}</td>
-                        <td>{{ activity.sign_up_print_end_time }}</td>
                         <td>{{ activity.score_open_time }}</td>
 
                         <td>

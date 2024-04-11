@@ -1,31 +1,22 @@
+# 退除役官兵系統
+用來給予退伍後的官兵報名用的系統
+首頁:https://study.ntub.edu.tw/veteran
 
+## 安裝步驟
+透過docker安裝
 
-# 開發步驟
+docker build -t retired .
+docker run -idt --name retired0330 -v "$(pwd):/app" -p 8000:8000  retired
 
-## 使用devcontainer的話
-進入到虛擬機之後
+## 使用說明
+有分為使用者和管理者：
+### 使用者
+    - 使用者可以註冊>登入>報名活動
+    - 報名後才可以列印報名表
+    - 成績公布後可查看成績單
+### 管理者
+    - 管理者可以增刪改查活動&報名者
+    - 資料審查功能可以登記報名者的報名狀態
+    - 有報名編號後，可以輸入成績
 
-### 切換到root
-1.  su root
-
-### 安裝poetry
-2. curl -sSL https://install.python-poetry.org | python3 -
-
-### 設定poetry變數
-3. expot PATH="${PATH}:${HOME}/.local/bin" 
-
-### 設定poetry 不要創建虛擬機
-4. poetry config virtualenvs.create false
-
-檢查設定是否成功
-poetry config --list
-
-### 安裝套件
-5. poetry install
-
-### 執行程式
-5. python manage.py runserver
-
-
-### 執行後進入admin頁面
-創建school-admin的group，把管理者的帳號加上school-admin的group
+    

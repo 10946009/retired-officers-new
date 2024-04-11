@@ -16,7 +16,8 @@ urlpatterns = [
     #test...
     path('2BkSDAqYaRhXRfIU/', index, name='index'),
     # 正式
-    # path('veteran/', index, name='index'),
+    # path('', veteran, name='veteran'),
+    # path('veteran', index, name='index'),
     path('register/', register, name='register'),
     path('student_login/', student_login, name='student_login'),
     path('logout/', logout, name='user_logout'),

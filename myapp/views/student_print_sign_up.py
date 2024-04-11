@@ -31,6 +31,7 @@ def student_print_sign_up(request,activity_id):
     identity_back_text = "【此處請黏貼身分證反面影本】"
     identity_front = identity_front_text if user.identity_front == "" else InlineImage(doc,user.get_identity_front, width=Mm(80))
     identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.get_identity_back, width=Mm(80))
+    education = user.graduated_school + user.graduated_department + user.get_education_display()
     data = {
         'activity_year' : activity.get_year_tw(),
         'number':user.activitystudents_set.get(activity_id=activity_id).join_number,
@@ -46,13 +47,14 @@ def student_print_sign_up(request,activity_id):
         'emergency_contact':user.emergency_contact,
         'emergency_contact_relationship':user.emergency_contact_relationship,
         'emergency_contact_phone':user.emergency_contact_phone,
-        'education': user.get_education_display(),
+        'education':education,
         'military_service_number': user.military_service_number,
         'military_service':user.military_service,
         'military_rank':user.military_rank,
         'military_retired_year':user.date_of_military_retired_tw()[0],
         'military_retired_month':user.date_of_military_retired_tw()[1],
         'military_retired_day':user.date_of_military_retired_tw()[2],
+        'military_service_years_int':user.military_service_years_int,
         'military_service_years':user.get_military_service_years_display(),
         'identity_front':identity_front,   
         'identity_back':identity_back,

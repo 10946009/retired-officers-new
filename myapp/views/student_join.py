@@ -5,7 +5,7 @@ from myapp.models import Activity
 from user.models import ActivityStudents
 #forms
 from myapp.forms import UserEditForm, StudentForm
-
+from django.urls import reverse
 default_number = 1000
 
 @login_required
@@ -41,7 +41,7 @@ def student_join(request,activity_id):
                     join_number = default_number + ActivityStudents.objects.count() + 1
                     activty_student = ActivityStudents.objects.create(activity=activity, student=student, join_number=join_number,checked_number="")
                     activty_student.save()
-                    return render(request, "message.html", {"next": "/", "message": "報名成功!至首頁列印報名表"})
+                    return render(request, "message.html", {"next": reverse("index"), "message": "報名成功!至首頁列印報名表"})
                 else:
                     return render(request, "message.html", {"next": f"/student_join/{activity_id}", "message": "儲存成功"})
     content = {"user_form": user_form, "student_form": student_form, "activity_id": activity_id}

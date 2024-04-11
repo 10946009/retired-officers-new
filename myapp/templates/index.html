@@ -20,10 +20,9 @@
         <tr>
           <th>狀態</th>
           <th>活動名稱</th>
-          <th>開始報名時間</th>
-          <th>結束報名時間</th>
-          <th>結束報名表繳交時間</th>
-          <th>成績公布時間</th>
+          <th>開始報名</th>
+          <th>結束報名</th>
+          <th>成績公告</th>
           <th></th>
         </tr>
       </thead>
@@ -36,7 +35,6 @@
             <td data-th="活動名稱">{{ activity.name }}</td>
             <td data-th="開始報名時間">{{ activity.sign_up_start_time }}</td>
             <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
-            <td data-th="結束報名表繳交時間">{{ activity.sign_up_print_end_time }}</td>
             <td data-th="成績公布時間">{{ activity.score_open_time }}</td>
             <td id="no-width">
               {% if activity in request.user.student.activity.all %}

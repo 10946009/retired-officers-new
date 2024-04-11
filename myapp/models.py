@@ -21,7 +21,6 @@ class Activity(models.Model):
     activity_end_time = models.DateTimeField(blank=False, null=False)
     sign_up_start_time = models.DateTimeField(blank=False, null=False)
     sign_up_end_time = models.DateTimeField(blank=False, null=False)
-    sign_up_print_end_time = models.DateTimeField(blank=False, null=False)
     score_open_time = models.DateTimeField(blank=False, null=False)
     score_min = models.FloatField(blank=False, null=False, default=0)
 

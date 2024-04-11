@@ -39,10 +39,15 @@ class ActivityStudentJoinForm(forms.ModelForm):
         
     def clean(self):
         cleaned_data = super().clean()
+        is_get_print = cleaned_data.get("is_get_print")
         is_checked = cleaned_data.get("is_checked")
         checked_number = cleaned_data.get("checked_number")
-        if is_checked and not checked_number:
-            raise forms.ValidationError("請輸入審核編號")
+        if  is_checked and is_get_print:
+            if not checked_number:
+                raise forms.ValidationError("請輸入審核編號")
+        else:
+            cleaned_data["checked_number"] = ""
+
         return cleaned_data
 
 StudentFormSet = forms.modelformset_factory(ActivityStudents, form=ActivityStudentJoinForm, extra=0)

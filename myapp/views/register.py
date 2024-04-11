@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from myapp.forms import UserForm
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-
+from django.urls import reverse
 def register(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
@@ -23,7 +23,7 @@ def register(request):
             user.set_password(user.password)
             user.save()
             print("success")
-            return redirect('/student_login')
+            return render(request, "message.html", {"next": reverse("student_login"), "message": "註冊成功"})
     else:
         user_form = UserForm()
 
