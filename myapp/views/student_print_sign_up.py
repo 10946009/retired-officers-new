@@ -9,6 +9,9 @@ from myapp.views.print_data import generate_pdf,generate_docx,file_response
 
 @login_required
 def student_print_sign_up(request,activity_id):
+    '''
+    學生列印報名表
+    '''
     if not request.user.is_authenticated:
         return redirect("/student_login")
     if request.user.student is None:
@@ -31,7 +34,8 @@ def student_print_sign_up(request,activity_id):
     identity_back_text = "【此處請黏貼身分證反面影本】"
     identity_front = identity_front_text if user.identity_front == "" else InlineImage(doc,user.get_identity_front, width=Mm(80))
     identity_back = identity_back_text if user.identity_back == "" else InlineImage(doc,user.get_identity_back, width=Mm(80))
-    education = user.graduated_school + user.graduated_department + user.get_education_display()
+    education = f'{user.graduated_school}  {user.graduated_department} {user.get_education_display()}'
+    # data宣告
     data = {
         'activity_year' : activity.get_year_tw(),
         'number':user.activitystudents_set.get(activity_id=activity_id).join_number,
@@ -59,7 +63,7 @@ def student_print_sign_up(request,activity_id):
         'identity_front':identity_front,   
         'identity_back':identity_back,
     }
-
+    
     generate_docx(doc,data,file_name)
     # generate_pdf(f'static/{file_name}.docx', 'static')
     generate_pdf(os.path.join(os.getcwd(), 'static',f'{file_name}.docx'), os.path.join(os.getcwd(), 'static'))

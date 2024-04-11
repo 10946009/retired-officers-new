@@ -38,7 +38,7 @@
             <td data-th="成績公布時間">{{ activity.score_open_time }}</td>
             <td id="no-width">
               {% if activity in request.user.student.activity.all %}
-                {% if activity.is_sign_up_print_open %}
+                {% if activity.is_sign_up_open %}
                 <button class="btn btn-bg col-sm-5 col-12 btn-success mt-1" onclick="printData('{% url 'student_print_sign_up' activity.id %}')">
                   <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-sign-up" >
                   </div>列印報名表</button>
