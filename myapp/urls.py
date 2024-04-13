@@ -24,7 +24,7 @@ urlpatterns = [
     # about activity
     path('student_join/<int:activity_id>', student_join, name='student_join'),
     path('student_print_sign_up/<int:activity_id>', student_print_sign_up, name='student_print_sign_up'),
-    path('api/student_print_sign_up/<int:user_id>/<int:activity_id>', api_student_print_sign_up, name='api_student_print_sign_up'),
+    path('api/student_print_sign_up', api_student_print_sign_up, name='api_student_print_sign_up'),
     path('student_print_score/<int:activity_id>', student_print_score, name='student_print_score'),
 
     # google login

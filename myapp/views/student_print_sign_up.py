@@ -75,10 +75,15 @@ def student_print_sign_up(request,activity_id):
 
 
 
-def api_student_print_sign_up(request,user_id,activity_id):
+def api_student_print_sign_up(request):
     '''
-    學生列印報名表
+    學生列印報名表 API
     '''
+    user_id = request.GET.get('user_id')
+    activity_id = request.GET.get('activity_id')
+    if user_id is None or activity_id is None:
+        return JsonResponse({'error': 'Invalid parameters'}, status=400)
+    # 檢查用戶是否已經認證
     check_auth = request.headers.get('Authorization')
     if check_auth != HEADER_TOKEN:
         return JsonResponse({'error': 'Invalid credentials'}, status=401)
