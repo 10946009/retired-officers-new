@@ -8,7 +8,6 @@
     <ol class="breadcrumb mb-4">
         
         <li class="breadcrumb-item active">確認學生資料</li>
-        <li class="breadcrumb-item active">收件紀錄與審核狀況須都打勾後，才能修改報名證號！</li>
     </ol>
     <div class="card mb-4">
 
@@ -65,35 +64,6 @@
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
-<script>
-    // if isGetPrint radio and isChecked radio is true, then checkedNumber can be edit
-    window.onload = function() {
-        // 取得元素
-        let trChecked = document.querySelectorAll('#trChecked');
-        for(let i = 0; i < trChecked.length; i++) {
-            // get radio element class = is-get-print, is-checked
-            let isGetPrint = trChecked[i].querySelectorAll('[type="radio"][class="is-get-print"]')[1];
-            let isChecked = trChecked[i].querySelectorAll('[type="radio"][class="is-checked"]')[1];
-            let isGetPrint_2 = trChecked[i].querySelectorAll('[type="radio"][class="is-get-print"]')[0];
-            let isChecked_2 = trChecked[i].querySelectorAll('[type="radio"][class="is-checked"]')[0];
-            let checkedNumber = trChecked[i].querySelector('.checked-number-input');
-
-            function updateCheckedNumberState() {
-                console.log(isGetPrint.checked, isChecked.checked);
-                checkedNumber.disabled = !(isGetPrint.checked && isChecked.checked);
-            }
-
-            isGetPrint.addEventListener('change', updateCheckedNumberState);
-            isChecked.addEventListener('change', updateCheckedNumberState);
-            isGetPrint_2.addEventListener('change', updateCheckedNumberState);
-            isChecked_2.addEventListener('change', updateCheckedNumberState);
-
-            // 初始化狀態
-            updateCheckedNumberState();
-        }
-    };
-
-</script>
 
 {% endblock %}
 
