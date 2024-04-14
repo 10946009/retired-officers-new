@@ -59,7 +59,8 @@ def score_list(request, activity_id):
                 "total": total_score,
             }
         )
-
+    # student_with_scores sort for total
+    student_with_scores = sorted(student_with_scores, key=lambda x: x["total"], reverse=True)
     return render(
         request,
         "score_list.html",
