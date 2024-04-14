@@ -18,10 +18,12 @@ def student_print_score(request,activity_id):
     # models 成績&活動
     score = Score.objects.get(student=request.user.student,activity=activity_id)
     activity = Activity.objects.get(id=activity_id)
+    rank = activity.get_activity_student_score_rank(request.user.student.id)
+    
     # docx宣告
     docx_path = os.path.join(os.getcwd(), 'static',sample_name)
     doc = DocxTemplate(docx_path)
-
+    
     # user宣告 & 檔名宣告
     user = request.user.student
     file_name = f"score{user.id}"
@@ -31,15 +33,16 @@ def student_print_score(request,activity_id):
         "number" : user.get_checked_number(activity_id),
         "name" : user.get_username(),
         "label_1" : activity.score_label.label1,
-        "score1" : score.score1,
+        "score1" : format(score.score1, '.2f'),
         "label_2" : activity.score_label.label2,
-        "score2" : score.score2,
+        "score2" : format(score.score2, '.2f'),
         "label_3" : activity.score_label.label3,
-        "score3" : score.score3,
-        "score_total" : score.get_total_score(),
+        "score3" : format(score.score3, '.2f'),
+        "score_total" : format(score.get_total_score(), '.2f'),
+        "rank": rank,
         "score_min" : activity.score_min,
     }
-
+    
     generate_docx(doc,data,file_name)
     generate_pdf(f'static/{file_name}.docx', 'static')
     return file_response(file_name)

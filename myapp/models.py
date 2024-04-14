@@ -27,6 +27,16 @@ class Activity(models.Model):
     def __str__(self):
         return self.name
 
+    def get_activity_student_score_rank(self, student_id):
+        # 計算出學生的總分後，再計算出排名
+        student_score = Score.objects.get(student_id=student_id, activity_id=self.id)
+        student_score_total = student_score.get_total_score()
+        rank = 1
+        for score in Score.objects.filter(activity_id=self.id):
+            if score.get_total_score() > student_score_total:
+                rank += 1
+        return rank
+    
     def get_year_tw(self):
         return self.activity_start_time.year - 1911
     
