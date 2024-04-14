@@ -94,9 +94,9 @@ def export_score_sample(request, activity_id):
             "報名證號",
             "姓名",
             "email",
-            "取得報考學歷(力)資格後年資審查(10%)",
-            "書面審查／(1)學習能力(45%)",
-            "書面審查／(2)職涯發展(45%)",
+            activity.score_label.label1,
+            activity.score_label.label2,
+            activity.score_label.label3,
         ]
     )
     for student in students:
