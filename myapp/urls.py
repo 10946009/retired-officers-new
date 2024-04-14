@@ -2,7 +2,8 @@ from myapp.views.index import index
 from myapp.views.register import register
 from myapp.views.student_login import student_login
 from myapp.views.logout import logout
-from myapp.views.student_print_sign_up import student_print_sign_up,api_student_print_sign_up
+from myapp.views.student_print_sign_up import student_print_sign_up
+from myapp.views.api_data import api_student_print_sign_up, api_student_print_score
 from myapp.views.student_print_score import student_print_score
 from myapp.views.student_join import student_join
 from myapp.views.password_reset import PasswordReset
@@ -23,8 +24,12 @@ urlpatterns = [
     path('logout/', logout, name='user_logout'),
     # about activity
     path('student_join/<int:activity_id>', student_join, name='student_join'),
+    #old
     path('student_print_sign_up/<int:activity_id>', student_print_sign_up, name='student_print_sign_up'),
+
+    # api get data
     path('api/student_print_sign_up', api_student_print_sign_up, name='api_student_print_sign_up'),
+    path('api/student_print_score', api_student_print_score, name='api_student_print_score'),
     path('student_print_score/<int:activity_id>', student_print_score, name='student_print_score'),
 
     # google login

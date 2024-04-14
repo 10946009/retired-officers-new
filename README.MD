@@ -18,5 +18,7 @@ docker run -idt --name retired0330 -v "$(pwd):/app" -p 8000:8000  retired
     - 管理者可以增刪改查活動&報名者
     - 資料審查功能可以登記報名者的報名狀態
     - 有報名編號後，可以輸入成績
-
-    
+### superadmin
+    - superadmin可以至django後台新增管理者
+        1.先創建使用者
+        2.加入admin-school群組

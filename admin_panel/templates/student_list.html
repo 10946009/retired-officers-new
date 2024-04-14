@@ -39,13 +39,17 @@
                         <td>{{ student.user.email }}</td>
                         <td>{{ student.date_of_birth }}</td>
 
-                        <td>
+                        <td width="30%">
                             <a class="btn btn-sm btn-warning" href="{% url 'student_update' activity_id=activity_id student_id=student.id %}">
                                 <span class="fa fa-edit"></span> 更新</a>
-                            <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
-                                {% csrf_token %}
-                                <button class="btn btn-sm btn-danger" onclick="studentDeleteButton.call(this)"><span class="fa fa-trash"></span> 刪除</button>
-                            </form>
+                                <form action="{% url 'get_student_join_print' student.user.id activity_id %}" method="get" style="display: inline;">
+                                    <button class="btn btn-sm btn-success" type="submit">
+                                        查看報名表</button>
+                                    </form>
+                                    <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
+                                        {% csrf_token %}
+                                        <button class="btn btn-sm btn-danger" onclick="studentDeleteButton.call(this)"><span class="fa fa-trash"></span> 刪除</button>
+                                    </form>
                         </td>
                     </tr>
                     {% endfor %}
