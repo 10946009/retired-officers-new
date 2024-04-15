@@ -37,14 +37,18 @@
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.get_gender_display }}</td>
                         <td>{{ student.user.email }}</td>
-                        <td>{{ student.date_of_birth }}</td>
+                        <td>{{ student.get_birth_tw }}</td>
 
                         <td width="30%">
                             <a class="btn btn-sm btn-warning" href="{% url 'student_update' activity_id=activity_id student_id=student.id %}">
                                 <span class="fa fa-edit"></span> 更新</a>
-                                <form action="{% url 'get_student_join_print' student.user.id activity_id %}" method="get" style="display: inline;">
-                                    <button class="btn btn-sm btn-success" type="submit">
-                                        查看報名表</button>
+                                    <form action="{% url 'get_student_join_print' student.user.id activity_id %}" method="get" style="display: inline;">
+                                        <button class="btn btn-sm btn-success" type="submit">
+                                            查看報名表</button>
+                                    </form>
+                                    <form action="{% url 'get_student_score_print' student.user.id activity_id %}" method="get" style="display: inline;">
+                                        <button class="btn btn-sm btn-success" type="submit">
+                                            查看成績單</button>
                                     </form>
                                     <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
                                         {% csrf_token %}
