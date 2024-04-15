@@ -19,7 +19,7 @@ class UploadExcelForm(forms.Form):
 class ActivityStudentJoinForm(forms.ModelForm):
     class Meta:
         model = ActivityStudents
-        fields = ["is_get_print", "is_checked", "checked_number"]
+        fields = ["id","is_get_print", "is_checked", "checked_number"]
         
         widgets={
             "checked_number": forms.NumberInput(attrs={"class": "form-control, checked-number-input"}),

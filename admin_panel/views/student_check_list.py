@@ -2,18 +2,22 @@ from django.shortcuts import render
 from user.models import ActivityStudents
 from django.contrib.auth.decorators import permission_required
 from admin_panel.forms import StudentFormSet
-
+from django.urls import reverse
 @permission_required("myapp.view_activity", login_url="/403")
 def student_check_list(request, activity_id):
-    activity_students = ActivityStudents.objects.filter(activity_id=activity_id)
+    activity_students = ActivityStudents.objects.filter(activity=activity_id).order_by('id')
+    
     if request.method == "POST":
         print(request.POST)
         formset = StudentFormSet(request.POST)
         print (formset.is_valid())
         print(formset.errors)
+
         if formset.is_valid():
             formset.save()
-            return render(request, "message.html", {"next": f"/admin_panel/activity_tool_menu/{activity_id}", "message": "儲存成功"})
+            return render(request, "message.html", {"next":reverse('student_check_list', args=[activity_id]), "message": "儲存成功"})
+        else:
+            return render(request, "message.html", {"next":reverse('student_check_list', args=[activity_id]), "message": "儲存失敗"})
             # Redirect or show a success message
 
     else:

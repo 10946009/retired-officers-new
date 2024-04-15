@@ -87,11 +87,13 @@ def export_score_sample(request, activity_id):
 
     # find all students for this activity
     activity = Activity.objects.get(id=activity_id)
-    students = activity.student.all()
+    # 取得該活動而且已經確認OK的學生資料
+    students  = ActivityStudents.get_is_checked_student(activity_id)
 
     ws.append(
         [
             "ID",
+            "報名編號",
             "報名證號",
             "姓名",
             "email",
@@ -101,8 +103,11 @@ def export_score_sample(request, activity_id):
         ]
     )
     for student in students:
-        join_number = student.get_checked_number(activity_id)
-        ws.append([student.id,join_number, student.user.username, student.user.email, 0, 0, 0])
+        join_number = student.join_number
+        checked_number = student.checked_number
+        student = student.student
+        score1, score2, score3 = get_student_score(student, activity)
+        ws.append([student.id,join_number,checked_number, student.user.username, student.user.email, score1, score2, score3])
 
     # 將工作簿保存到響應中
     response = HttpResponse(
@@ -132,8 +137,8 @@ def upload_and_read_excel(request, activity_id):
             activity = Activity.objects.get(id=activity_id)
             student_ids = [row[0] for row in data]
 
-            # 預先獲取所有學生和成績對象
-            students = Student.objects.filter(id__in=student_ids)
+            # 先取得有確認OK的學生
+            students = ActivityStudents.get_is_checked_student(activity_id)
 
             scores = Score.objects.filter(
                 activity=activity, student__id__in=student_ids
@@ -144,12 +149,8 @@ def upload_and_read_excel(request, activity_id):
 
             with transaction.atomic():
                 for row in data:
-                    student_id, score1, score2, score3 = row[0], Decimal(row[4]), Decimal(row[5]), Decimal(row[6])
-                    print(score1, score2, score3)
-                    student = next(
-                        (stu for stu in students if stu.id == student_id),
-                        None,
-                    )
+                    student_id, score1, score2, score3 = row[0], Decimal(row[5]), Decimal(row[6]), Decimal(row[7])
+                    student = next((st for st in students if st.student.id == student_id), None)
                     # check if student exists
                     if student is None:
                         messages.error(

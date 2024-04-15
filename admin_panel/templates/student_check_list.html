@@ -26,7 +26,7 @@
                 {{ formset.management_form }}
                 {{ formset.non_form_errors }}
                 {% for form in formset %}
-                <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.id }}">
+                
                 {% endfor %}
                 <table id="datatablesSimple" class="rwd-table">
                     <thead>
@@ -44,14 +44,15 @@
                     <!-- for activity_students loop -->
                     
                     {% for form,activity_student in formset.forms|zip_lists:activity_students %}
+                    
                         <tr id="trChecked" >
-                        <td data-th="人次">{{forloop.counter}}</td>
+                        <td data-th="人次">{{form.id}}{{forloop.counter}}</td>
                         <td data-th="姓名">{{ activity_student.student.user.username }}</td>
                         <td data-th="報名編號">{{ activity_student.join_number }}</td>
                         <td data-th="報名時間">{{ activity_student.get_join_time }}</td>
-                        <td id="checkedNumber" data-th="報名證號">{{ form.checked_number }}</td>
-                        <td id="isGetPrint" data-th="收件紀錄">{{ form.is_get_print }}</td>
-                        <td id="isChecked" data-th="審核狀況">{{ form.is_checked }}</td>
+                        <td data-th="報名證號">{{ form.checked_number }}</td>
+                        <td data-th="收件紀錄">{{ form.is_get_print }}</td>
+                        <td data-th="審核狀況">{{ form.is_checked }}</td>
                         </tr>
                         {% endfor %}
                         
