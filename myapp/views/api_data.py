@@ -79,7 +79,7 @@ def api_student_print_sign_up(request):
         # 身分證正反面宣告(避免有人沒上傳圖片)
         identity_front = None if user.identity_front == "" else user.identity_front.url
         identity_back = None if user.identity_back == "" else user.identity_back.url
-        education = f"{user.graduated_school.name}  {user.school_department} {user.get_education_display()}"
+        education = f"{user.graduated_school.name}  {user.school_department}"
         # data宣告
         data = {
             "activity_year": activity.get_year_tw(),
@@ -99,6 +99,7 @@ def api_student_print_sign_up(request):
             "emergency_contact_relationship": user.emergency_contact_relationship,
             "emergency_contact_phone": user.emergency_contact_phone,
             "education": education,
+            "same_education": user.get_education_display(),
             "education_year_month": user.get_graduated_year_month_tw(),
             "military_service_number": user.military_service_number,
             "military_service": user.military_service,
