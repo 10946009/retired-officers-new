@@ -17,24 +17,14 @@ class UploadExcelForm(forms.Form):
     excel_file = forms.FileField()
 
 class ActivityStudentJoinForm(forms.ModelForm):
-    is_get_print = forms.TypedChoiceField(
-        coerce=lambda x: x == 'True',
-        choices=((False, '未收到'), (True, '收到')),
-        widget=forms.RadioSelect(attrs={"class": "is-get-print"}),
-        initial='False',
-    )
-    is_checked = forms.TypedChoiceField(
-        coerce=lambda x: x == 'True',
-        choices=((False, '待審'), (True, '審畢')),
-        widget=forms.RadioSelect(attrs={"class": "is-checked"}),
-        initial='False',
-    )
     class Meta:
         model = ActivityStudents
         fields = ["is_get_print", "is_checked", "checked_number"]
         
         widgets={
             "checked_number": forms.NumberInput(attrs={"class": "form-control, checked-number-input"}),
+            "is_get_print": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "is_checked": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
         
 

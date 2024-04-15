@@ -1,15 +1,16 @@
-from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
-from django.http import  JsonResponse
+from django.http import  FileResponse, JsonResponse
+import requests
 from myapp.models import Activity,Score
-from user.models import User
+from user.models import ActivityStudents, User
 import os
-from myapp.views.print_data import generate_pdf, generate_docx, file_response
-from django.contrib.auth import authenticate
 from django.http import JsonResponse
 
+# 環境變數
+JASPER_USER=os.environ.get("JASPER_USER")
+JASPER_PASSWORD=os.environ.get("JASPER_PASSWORD")
 HEADER_TOKEN = os.environ.get("HEADER_TOKEN")
 
+# return JSON
 def api_student_print_score(request):
     """
     學生列印成績單API，得到學生JSON資料。params: user_id, activity_id
@@ -50,7 +51,7 @@ def api_student_print_score(request):
     }
     return JsonResponse(data)
 
-
+# return JSON
 def api_student_print_sign_up(request):
     """
     學生列印報名表 API，得到學生JSON資料。params: user_id, activity_id
@@ -116,3 +117,71 @@ def api_student_print_sign_up(request):
         print(e)
         return JsonResponse({e}, status=500)
     return JsonResponse(data)
+
+
+# return PDF
+def get_student_join_print_PDF(activity_id, user_id):
+    """
+    請求jaspersoft的學生報名表資料，得到PDF
+    """
+    student = User.objects.get(id=user_id)
+
+    # 檢查用戶是否已經認證，檢查是否有報名這個活動
+    activity_student = ActivityStudents.objects.get(
+        student=student.student, activity_id=activity_id
+    )
+    if activity_student is None:
+        return JsonResponse({"error": "User is not a student"}, status=400)
+
+    try:
+        params = {"user_id": user_id, "activity_id": activity_id}
+        response = requests.get(
+            "http://140.131.116.201:8080/jasperserver/rest_v2/reports/reports/RetiredOfficers/RetiredOfficersJoin.pdf",
+            params=params,
+            auth=(JASPER_USER, JASPER_PASSWORD),
+        )
+
+        if response:
+            return FileResponse(
+                response, content_type="application/pdf", filename="report.pdf"
+            )
+        else:
+            return JsonResponse("no pdf return", status=400)
+    except:
+        return JsonResponse("return pdf wrong", status=400)
+    
+# return PDF
+def get_student_score_print_PDF(activity_id, user_id):
+    """
+    請求jaspersoft的學生報名表資料，得到PDF
+    """
+    student = User.objects.get(id=user_id)
+
+    # 檢查用戶是否已經認證，檢查是否有報名這個活動
+    activity_student = ActivityStudents.objects.get(
+        student=student.student, activity_id=activity_id
+    )
+    if activity_student is None:
+        return JsonResponse({"error": "User is not a student"}, status=400)
+
+    # 檢查用戶有沒有成績
+    score = Score.objects.get(student=student.student, activity_id=activity_id)
+    if score is None:
+        return JsonResponse({"error": "沒有成績"}, status=400)
+    
+    try:
+        params = {"user_id": user_id, "activity_id": activity_id}
+        response = requests.get(
+            "http://140.131.116.201:8080/jasperserver/rest_v2/reports/reports/RetiredOfficers/RetiredOfficersScore.pdf",
+            params=params,
+            auth=(JASPER_USER, JASPER_PASSWORD),
+        )
+
+        if response:
+            return FileResponse(
+                response, content_type="application/pdf", filename="report.pdf"
+            )
+        else:
+            return JsonResponse("no pdf return", status=400)
+    except:
+        return JsonResponse("return pdf wrong", status=400)

@@ -13,7 +13,7 @@ from admin_panel.views.student_update import student_update
 from admin_panel.views.redirect_user import redirect_user
 from admin_panel.views.score_label_list import score_label_list, score_label_delete
 from admin_panel.views.score_label_create import score_label_create, score_label_update
-from admin_panel.views.get_student_join_print import get_student_join_print
+from admin_panel.views.get_student_join_print import get_student_join_print, get_student_score_print
 from admin_panel.views.score_list import (
     score_list,
     export_score_sample,
@@ -56,12 +56,20 @@ urlpatterns = [
         student_list,
         name="student_list",
     ),
-    # get student join by jaspersoft report 
+    # ---------get student join by jaspersoft report ------------
+    
     path(
         "activity_tool_menu/get_student_join_print/<int:user_id>/<int:activity_id>",
         get_student_join_print,
         name="get_student_join_print",
     ),
+    path(
+        "activity_tool_menu/get_student_score_print/<int:user_id>/<int:activity_id>",
+        get_student_score_print,
+        name="get_student_score_print",
+    ),
+
+    # ---------get student join by jaspersoft report ------------
     path(
         "student_update/<int:activity_id>/<int:student_id>",
         student_update,
