@@ -1,7 +1,4 @@
 import subprocess
-from django.contrib.auth.decorators import login_required
-from docxtpl import DocxTemplate,InlineImage
-from docx.shared import Mm
 from django.http import FileResponse
 import os
 
