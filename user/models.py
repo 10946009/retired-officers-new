@@ -1,4 +1,3 @@
-from datetime import date
 import io
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
@@ -7,7 +6,7 @@ from django.forms import ValidationError
 import requests
 from user.check_identity import is_valid_id_or_rc_number
 from django.core.validators import FileExtensionValidator
-
+from django.utils import timezone
 def file_size_check(value):  # add this to some file where you can import it from
     limit = 10485760
     if value.size > limit:
@@ -60,6 +59,13 @@ class ActivityStudents(models.Model):
         students = ActivityStudents.objects.filter(activity=activity,is_checked=True).select_related('student')
         return students
 
+    def get_join_time(self):
+        # Convert join_time to local time
+        local_join_time = timezone.localtime(self.join_time)
+
+        # year - 1911, month, day, hour, minute
+        time24 = local_join_time.strftime("%H:%M")
+        return f'{local_join_time.year-1911}年{local_join_time.month}月{local_join_time.day}日 {time24}'
 class Admin(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 

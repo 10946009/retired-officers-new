@@ -6,7 +6,7 @@
 透過docker安裝
 
 docker build -t retired .
-docker run -idt --name retired0330 -v "$(pwd):/app" -p 8000:8000  retired
+docker run -idt --name retired-container -v "$(pwd):/app" -p 8000:8000  retired
 
 ## 使用說明
 有分為使用者和管理者：
