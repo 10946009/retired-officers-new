@@ -1,6 +1,8 @@
 from django.utils import timezone
 from django.db import models
 
+from user.models import ActivityStudents
+
 
 class School(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False, default="")
@@ -28,14 +30,26 @@ class Activity(models.Model):
         return self.name
 
     def get_activity_student_score_rank(self, student_id):
-        # 計算出學生的總分後，再計算出排名
-        student_score = Score.objects.get(student_id=student_id, activity_id=self.id)
-        student_score_total = student_score.get_total_score()
+        students = ActivityStudents.get_is_checked_student(self)
+        try:
+            self_student_score = Score.objects.get(student_id=student_id, activity_id=self.id)
+        except Score.DoesNotExist:
+            return None
+        
+        self_student_score_total = self_student_score.get_total_score()
+        
+        # Check if the student associated with the score is in the list of students
+        if not any(student.student_id == self_student_score.student_id for student in students):
+            return None
         rank = 1
-        for score in Score.objects.filter(activity_id=self.id):
-            if score.get_total_score() > student_score_total:
+        # # 計算出學生的總分後，再計算出排名
+        for student in students:
+            student_score = Score.objects.get(student_id=student.student.id, activity_id=self.id)
+            student_score_total = student_score.get_total_score()
+            if student_score_total > self_student_score_total:
                 rank += 1
         return rank
+
     
     def get_year_tw(self):
         return self.activity_start_time.year - 1911

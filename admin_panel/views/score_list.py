@@ -106,8 +106,7 @@ def export_score_sample(request, activity_id):
         join_number = student.join_number
         checked_number = student.checked_number
         student = student.student
-        score1, score2, score3 = get_student_score(student, activity)
-        ws.append([student.id,join_number,checked_number, student.user.username, student.user.email, score1, score2, score3])
+        ws.append([student.id,join_number,checked_number, student.user.username, student.user.email, 0, 0, 0])
 
     # 將工作簿保存到響應中
     response = HttpResponse(

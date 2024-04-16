@@ -33,7 +33,8 @@ def api_student_print_score(request):
     score = Score.objects.get(student=user,activity=activity_id)
     activity = Activity.objects.get(id=activity_id)
     rank = activity.get_activity_student_score_rank(user.id)
-    
+    if rank is None:
+        return JsonResponse({"error": "沒有成績!"}, status=400)
 
     data = {
         'activity_year' : activity.get_year_tw(),
@@ -168,7 +169,7 @@ def get_student_score_print_PDF(activity_id, user_id):
     score = Score.objects.get(student=student.student, activity_id=activity_id)
     if score is None:
         return JsonResponse({"error": "沒有成績"}, status=400)
-    
+     
     try:
         params = {"user_id": user_id, "activity_id": activity_id}
         response = requests.get(
