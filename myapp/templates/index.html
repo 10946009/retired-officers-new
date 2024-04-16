@@ -1,6 +1,7 @@
 {% extends 'layout/app_student.html' %}
 
 {% load static %}
+{% load zip %}
 {% block body %}
   <div class="container-fluid px-4">
     <h1 class="mt-4">退除役官兵 二年制進修部甄試招生報名系統</h1>
@@ -33,9 +34,9 @@
           <tr>
             <td data-th="狀態">{{activity.get_status}}</td>
             <td data-th="活動名稱">{{ activity.name }}</td>
-            <td data-th="開始報名時間">{{ activity.sign_up_start_time }}</td>
-            <td data-th="結束報名時間">{{ activity.sign_up_end_time }}</td>
-            <td data-th="成績公布時間">{{ activity.score_open_time }}</td>
+            <td data-th="開始報名時間">{{ activity.sign_up_start_time|to_roc_year }}</td>
+            <td data-th="結束報名時間">{{ activity.sign_up_end_time|to_roc_year }}</td>
+            <td data-th="成績公布時間">{{ activity.score_open_time|to_roc_year }}</td>
             <td id="no-width">
               {% if activity in request.user.student.activity.all %}
                 {% if activity.is_sign_up_open %}
