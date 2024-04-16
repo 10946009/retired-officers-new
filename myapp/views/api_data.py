@@ -166,9 +166,12 @@ def get_student_score_print_PDF(activity_id, user_id):
         return JsonResponse({"error": "User is not a student"}, status=400)
 
     # 檢查用戶有沒有成績
+    rank = activity_student.activity.get_activity_student_score_rank(student.student.id)
+    if rank is None:
+        return JsonResponse({"error": "no rank!"}, status=400)
     score = Score.objects.get(student=student.student, activity_id=activity_id)
     if score is None:
-        return JsonResponse({"error": "沒有成績"}, status=400)
+        return JsonResponse({"error": "no score!"}, status=400)
      
     try:
         params = {"user_id": user_id, "activity_id": activity_id}
@@ -183,6 +186,6 @@ def get_student_score_print_PDF(activity_id, user_id):
                 response, content_type="application/pdf", filename="report.pdf"
             )
         else:
-            return JsonResponse("no pdf return", status=400)
+            return JsonResponse({"error":"no pdf return"}, status=400)
     except:
-        return JsonResponse("return pdf wrong", status=400)
+        return JsonResponse({"error":"return pdf wrong"}, status=400)

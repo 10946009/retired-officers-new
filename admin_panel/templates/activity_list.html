@@ -1,6 +1,7 @@
 {% extends 'layout/app_admin.html' %}
 
 {% load static %}
+{% load zip %}
 {% block body %}
 <div class="container-fluid px-4">
     <h1 class="mt-4">活動管理</h1>
@@ -37,11 +38,11 @@
                     {% for activity in activities %}
                     <tr>
                         <td>{{ activity.name }}</td>
-                        <td>{{ activity.activity_start_time }}</td>
-                        <td>{{ activity.activity_end_time }}</td>
-                        <td>{{ activity.sign_up_start_time }}</td>
-                        <td>{{ activity.sign_up_end_time }}</td>
-                        <td>{{ activity.score_open_time }}</td>
+                        <td>{{ activity.activity_start_time|to_roc_year }}</td>
+                        <td>{{ activity.activity_end_time|to_roc_year }}</td>
+                        <td>{{ activity.sign_up_start_time|to_roc_year }}</td>
+                        <td>{{ activity.sign_up_end_time|to_roc_year }}</td>
+                        <td>{{ activity.score_open_time|to_roc_year }}</td>
 
                         <td>
                             <a class="btn btn-sm btn-warning"
