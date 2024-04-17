@@ -1,42 +1,19 @@
-{% extends 'layout/app_student.html' %}
+{% extends 'layout/login.html' %}
 
 {% load static %}
-
 {% block body %}
-<div id="content-wrapper">
-
-  <div class="container-fluid">
-
-    <!-- Breadcrumbs-->
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="/">Dashboard</a>
-      </li>
-      <li class="breadcrumb-item active">404 Error</li>
-    </ol>
-
-    <!-- Page Content -->
-    <h1 class="display-1">403</h1>
-    <p class="lead">沒有權限訪問此頁面，請聯絡相關技術人員。 You can
-      <a href="javascript:history.back()">go back</a>
-      to the previous page, or
-      <a href="/">return home</a>.
-    </p>
-
-  </div>
-  <!-- /.container-fluid -->
-
-  <!-- Sticky Footer -->
-  <footer class="sticky-footer">
-    <div class="container my-auto">
-      <div class="copyright text-center my-auto">
-        <span>Copyright © Your Website 2019</span>
-      </div>
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">403</div>
+            <div class="card-body">
+                <h1 class="display-1 text-center">403</h1>
+                <p class="lead text-center">沒有權限</p>
+                <a class="d-block small mt-3 text-center" href="{% url 'student_login' %}">Login Page</a>
+            </div>
+        </div>
     </div>
-  </footer>
-
-</div>
 {% endblock %}
 {% block javascript %}
-
+    <script type="text/javascript">
+    </script>
 {% endblock %}

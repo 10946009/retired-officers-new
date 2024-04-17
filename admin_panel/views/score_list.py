@@ -138,7 +138,6 @@ def upload_and_read_excel(request, activity_id):
 
             # 先取得有確認OK的學生
             students = ActivityStudents.get_is_checked_student(activity_id)
-
             scores = Score.objects.filter(
                 activity=activity, student__id__in=student_ids
             ).prefetch_related("student")
@@ -149,7 +148,7 @@ def upload_and_read_excel(request, activity_id):
             with transaction.atomic():
                 for row in data:
                     student_id, score1, score2, score3 = row[0], Decimal(row[5]), Decimal(row[6]), Decimal(row[7])
-                    student = next((st for st in students if st.student.id == student_id), None)
+                    student = next((st.student for st in students if st.student.id == student_id), None)
                     # check if student exists
                     if student is None:
                         messages.error(

@@ -51,12 +51,12 @@
                 <button class="btn btn-bg col-sm-5 col-12 btn-success mt-1" onclick="printData('{% url 'student_print_score' activity.id %}')">
                   <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-score" >
                   </div>
-                  查看成績</button>
+                  成績查詢</button>
                   {% else %}
                   <button class="btn btn-bg col-sm-5 col-12 btn-secondary mt-1" disabled>
                     <div class="spinner-border spinner-border-sm float-left" style="display: none;" role="status" id="spinner-score" >
                     </div>
-                    查看成績</button>
+                    成績查詢</button>
                   {% endif %}
               {% else %}
               {% if activity.is_sign_up_open %}

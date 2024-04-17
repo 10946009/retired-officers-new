@@ -42,6 +42,9 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(unique=False, max_length=10, blank=False, null=False)
     objects = UserManager()
+def is_school_admin(self):
+    # if user in admin-school group
+    return self.groups.filter(name='admin-school').exists()
 
 class ActivityStudents(models.Model):
     activity = models.ForeignKey('myapp.Activity', on_delete=models.CASCADE)
@@ -56,6 +59,10 @@ class ActivityStudents(models.Model):
     
     @classmethod
     def get_is_checked_student(self,activity):
+        '''
+        Get students who have been checked, data type is "ActivityStudents" object, not "Student" object
+        use ActivityStudents.student to get Student object
+        '''
         students = ActivityStudents.objects.filter(activity=activity,is_checked=True).select_related('student')
         return students
 
@@ -225,6 +232,9 @@ class Student(models.Model):
             self.military_retired_date.month,
             self.military_retired_date.day,
         )
+
+    def get_military_retired_tw(self):
+        return f"{self.military_retired_date.year - 1911}年{self.military_retired_date.month}月{self.military_retired_date.day}日"
 
     def get_birth_tw(self):
         return f"{self.date_of_birth.year - 1911}年{self.date_of_birth.month}月{self.date_of_birth.day}日"

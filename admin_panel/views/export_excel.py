@@ -49,8 +49,7 @@ def export_excel(request, activity_id):
         "階級",
         "退伍日期",
         "服役年資",
-        "榮民",
-        "二類",
+        "類別",
         "備註",
     ]
     ws.append(title_list)  # 將標題資料寫入工作表
@@ -59,8 +58,6 @@ def export_excel(request, activity_id):
     students = Activity.objects.get(id=activity_id).student.all()  # 取得報名學生資料
     # get student join_time
     for student in students:
-        military_type1 = "榮民" if student.military_type == 1 else ""
-        military_type2 = "二類" if student.military_type == 2 else ""
         
         print(student.get_join_time(activity_id))
         student_list = [
@@ -95,10 +92,9 @@ def export_excel(request, activity_id):
             student.military_service_number,  # "兵籍號碼",
             student.military_service,  # "軍種",
             student.military_rank,  # "階級",
-            student.military_retired_date,  # "退伍日期",
+            student.get_military_retired_tw(),  # "退伍日期",
             student.military_service_years_int,  # "服役年資",
-            military_type1,  # "榮民",
-            military_type2,  # "二類",
+            student.get_military_type_display(),  # "類別:榮民 二類",
             student.notes,  # "備註",
         ]
         ws.append(student_list)
