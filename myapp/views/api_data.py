@@ -9,23 +9,20 @@ from django.http import JsonResponse
 JASPER_USER=os.environ.get("JASPER_USER")
 JASPER_PASSWORD=os.environ.get("JASPER_PASSWORD")
 HEADER_TOKEN = os.environ.get("HEADER_TOKEN")
-TEST_ID = 0 
+TEST_ID = "0" 
 # return JSON
 def api_student_print_score(request):
     """
     學生列印成績單API，得到學生JSON資料。params: user_id, activity_id
     """
-
-    user_id = request.GET.get("user_id")
-    activity_id = request.GET.get("activity_id")
-    if user_id is None or activity_id is None:
-        return JsonResponse({"error": "Invalid parameters"}, status=400)
-    
-    # 檢查用戶是否已經認證
+    # 確認TOKEN
     check_auth = request.headers.get("Authorization")
     if check_auth != HEADER_TOKEN:
         return JsonResponse({"error": "TOKEN error"}, status=401)
     
+    user_id = request.GET.get("user_id")
+    activity_id = request.GET.get("activity_id")
+    # test data
     if user_id == TEST_ID and activity_id == TEST_ID:
         data = {
             'activity_year' : "110年",
@@ -42,6 +39,16 @@ def api_student_print_score(request):
             "score_min" : "85.55",
         }
         return JsonResponse(data)
+
+    if user_id is None or activity_id is None:
+        return JsonResponse({"error": "Invalid parameters"}, status=400)
+    
+    # 檢查用戶是否已經認證
+    check_auth = request.headers.get("Authorization")
+    if check_auth != HEADER_TOKEN:
+        return JsonResponse({"error": "TOKEN error"}, status=401)
+    
+    
     # user宣告 
     user = User.objects.get(id=user_id).student
     
@@ -73,27 +80,13 @@ def api_student_print_sign_up(request):
     """
     學生列印報名表 API，得到學生JSON資料。params: user_id, activity_id
     """
-    user_id = request.GET.get("user_id")
-    activity_id = request.GET.get("activity_id")
-    if user_id is None or activity_id is None:
-        return JsonResponse({"error": "Invalid parameters"}, status=400)
-    # 檢查用戶是否已經認證
+    # 確認TOKEN
     check_auth = request.headers.get("Authorization")
     if check_auth != HEADER_TOKEN:
         return JsonResponse({"error": "TOKEN error"}, status=401)
 
-    try:
-        activity = Activity.objects.get(id=activity_id)
-    except Activity.DoesNotExist:
-        print("Activity does not exist")
-        return JsonResponse({"error": "Activity does not exist"}, status=404)
-    # user宣告 & 檔名宣告
-    user = User.objects.get(id=user_id)
-    if not hasattr(user, "student"):
-        print("User is not a student")
-        return JsonResponse({"error": "User is not a student"}, status=400)
-    
-    
+    user_id = request.GET.get("user_id")
+    activity_id = request.GET.get("activity_id")
     if user_id == TEST_ID and activity_id == TEST_ID:
         data = {
             "activity_year": "113年",
@@ -124,6 +117,26 @@ def api_student_print_sign_up(request):
             "identity_front": None, 
             "identity_back": None,
         }
+        return JsonResponse(data)
+    
+    if user_id is None or activity_id is None:
+        return JsonResponse({"error": "Invalid parameters"}, status=400)
+    # 檢查用戶是否已經認證
+ 
+
+    try:
+        activity = Activity.objects.get(id=activity_id)
+    except Activity.DoesNotExist:
+        print("Activity does not exist")
+        return JsonResponse({"error": "Activity does not exist"}, status=404)
+    # user宣告 & 檔名宣告
+    user = User.objects.get(id=user_id)
+    if not hasattr(user, "student"):
+        print("User is not a student")
+        return JsonResponse({"error": "User is not a student"}, status=400)
+    
+    
+    
     user = user.student
     try:
         # 身分證正反面宣告(避免有人沒上傳圖片)
