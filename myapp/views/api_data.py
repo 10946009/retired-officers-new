@@ -9,7 +9,7 @@ from django.http import JsonResponse
 JASPER_USER=os.environ.get("JASPER_USER")
 JASPER_PASSWORD=os.environ.get("JASPER_PASSWORD")
 HEADER_TOKEN = os.environ.get("HEADER_TOKEN")
-
+TEST_ID = 0 
 # return JSON
 def api_student_print_score(request):
     """
@@ -25,7 +25,23 @@ def api_student_print_score(request):
     check_auth = request.headers.get("Authorization")
     if check_auth != HEADER_TOKEN:
         return JsonResponse({"error": "TOKEN error"}, status=401)
-
+    
+    if user_id == TEST_ID and activity_id == TEST_ID:
+        data = {
+            'activity_year' : "110年",
+            "number" : "110000",
+            "name" : "測試用戶",
+            "label_1" : "label1",
+            "score1" : "10",
+            "label_2" : "label2",
+            "score2" : "40",
+            "label_3" : "label3",
+            "score3" : "50",
+            "score_total" : "100",
+            "rank": "1",
+            "score_min" : "85.55",
+        }
+        return JsonResponse(data)
     # user宣告 
     user = User.objects.get(id=user_id).student
     
@@ -76,6 +92,38 @@ def api_student_print_sign_up(request):
     if not hasattr(user, "student"):
         print("User is not a student")
         return JsonResponse({"error": "User is not a student"}, status=400)
+    
+    
+    if user_id == TEST_ID and activity_id == TEST_ID:
+        data = {
+            "activity_year": "113年",
+            "number": "1000",
+            "year": "65",
+            "month": "10",
+            "day": "10",
+            "name": "測試用戶",
+            "idnumber": "A123456789",
+            "address": "台北市中正區",
+            "home_phone": "0222222222",
+            "mobile_phone": "0912345678",
+            "email": "study_test@gmail.com",
+            "emergency_contact": "測試人",
+            "emergency_contact_relationship": "母",
+            "emergency_contact_phone": "0912345678",
+            "education": "國立中山大學  資訊工程學系",
+            "same_education": "是",
+            "education_year_month": "65年10月",
+            "military_service_number": "A123456789",
+            "military_service": "陸軍",
+            "military_rank": "上士",
+            "military_retired_year": "65",
+            "military_retired_month": "10",
+            "military_retired_day": "10",
+            "military_service_years_int": "10",
+            "military_service_years": "10年",
+            "identity_front": None, 
+            "identity_back": None,
+        }
     user = user.student
     try:
         # 身分證正反面宣告(避免有人沒上傳圖片)
