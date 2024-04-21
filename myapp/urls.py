@@ -11,13 +11,13 @@ from django.urls import path , include
 from django.contrib.auth import views as auth_views
 urlpatterns = [
         #test...
-    path('',not_open),
-    path('veteran',not_open,name='veteran'),
+    # path('',not_open),
+    # path('veteran',not_open,name='veteran'),
     #test...
-    path('2BkSDAqYaRhXRfIU/', index, name='index'),
+    # path('2BkSDAqYaRhXRfIU', index, name='index'),
     # 正式
-    # path('', veteran, name='veteran'),
-    # path('veteran', index, name='index'),
+    path('', veteran, name='veteran'),
+    path('veteran', index, name='index'),
     path('register/', register, name='register'),
     path('student_login/', student_login, name='student_login'),
     path('logout/', logout, name='user_logout'),
@@ -40,7 +40,7 @@ urlpatterns = [
      auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
      name='password_reset_confirm'),
     path('accounts/password/reset/key/done/',auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),name='password_reset_complete'),
-    # path('accounts/', include('allauth.urls')),
+    # google login
     path('accounts/', include('allauth.socialaccount.providers.google.urls')),
     #social/ google/
     #social/ google/login/token/ [name='google_login_by_token']
