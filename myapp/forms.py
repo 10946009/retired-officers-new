@@ -129,6 +129,9 @@ class StudentForm(forms.ModelForm):
             "identity_front": forms.FileInput(attrs={"class": "form-control","accept":".jpg, .jpeg, .png"}),
             "identity_back": forms.FileInput(attrs={"class": "form-control","accept":".jpg, .jpeg, .png"}),
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['graduated_school'].queryset = School.objects.order_by('id')
     def clean_identity_front(self):
         file = self.cleaned_data.get('identity_front')
         if file:

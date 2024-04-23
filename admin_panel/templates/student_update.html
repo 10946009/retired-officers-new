@@ -152,8 +152,10 @@
   <script type="text/javascript">
   // To style only selects with the my-select class
   $(document).ready(function () {
-    var choices = new Choices('.choices');
+    var choices = new Choices('.choices', {
+      shouldSort: false,
   });
+});
   // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
       'use strict'
