@@ -48,9 +48,9 @@
                             <a class="btn btn-sm btn-warning"
                                 href="{% url 'activity_tool_menu' activity_id=activity.id %}"> <span
                                     class="fa fa-edit"></span> 編輯</a>
-                            <a class="btn btn-sm btn-danger"
+                            {% comment %} <a class="btn btn-sm btn-danger"
                                 href="{% url 'activity_delete' activity_id=activity.id %}"><span
-                                    class="fa fa-trash"></span> 刪除</a>
+                                    class="fa fa-trash"></span> 刪除</a> {% endcomment %}
                         </td>
                     </tr>
                     {% endfor %}

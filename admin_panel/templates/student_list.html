@@ -52,7 +52,7 @@
                                     </form>
                                     <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
                                         {% csrf_token %}
-                                        <button class="btn btn-sm btn-danger" onclick="studentDeleteButton.call(this)"><span class="fa fa-trash"></span> 刪除</button>
+                                        {% comment %} <button class="btn btn-sm btn-danger" onclick="studentDeleteButton.call(this)"><span class="fa fa-trash"></span> 刪除</button> {% endcomment %}
                                     </form>
                         </td>
                     </tr>
