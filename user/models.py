@@ -73,6 +73,8 @@ class ActivityStudents(models.Model):
         # year - 1911, month, day, hour, minute
         time24 = local_join_time.strftime("%H:%M")
         return f'{local_join_time.year-1911}年{local_join_time.month}月{local_join_time.day}日 {time24}'
+    
+    
 class Admin(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -249,10 +251,10 @@ class Student(models.Model):
         return f'{self.graduated_year_month.year - 1911}年{self.graduated_year_month.month}月'
 
     def get_join_time(self, activity_id):
+        # taiwan time, type:2024/05/20 下午 01:35:32
         join_time = ActivityStudents.objects.get(activity_id=activity_id, student_id=self.id).join_time
-        # 格式為2022/5/23 下午 07:11:49
-        join_time = join_time.strftime("%Y/%m/%d %p %I:%M:%S")
-        join_time = join_time.replace("AM", "上午").replace("PM", "下午")
+        join_time = timezone.localtime(join_time)
+        join_time = join_time.strftime("%Y/%m/%d %p %I:%M:%S").replace("PM", "下午").replace("AM", "上午")
         return join_time
     
     def clean(self):
