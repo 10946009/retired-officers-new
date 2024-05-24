@@ -20,7 +20,7 @@ def get_student_score(student, activity):
         score = student.score_set.get(activity=activity)
         return score.score1, score.score2, score.score3
     except Score.DoesNotExist:
-        print("Score does not exist for this student and activity.")
+        # print("Score does not exist for this student and activity.")
         return 0, 0, 0
 
 
@@ -37,7 +37,7 @@ def score_list(request, activity_id):
     # get have checked_number student
     score_label = activity.score_label
     students  = ActivityStudents.get_is_checked_student(activity_id)
-    print(students)
+    # print(students)
     
     # get all students with their scores
 
@@ -129,7 +129,6 @@ def upload_and_read_excel(request, activity_id):
             excel_file = request.FILES["excel_file"]
             wb = openpyxl.load_workbook(excel_file)
             ws = wb.active
-            print("111")
             # 初始化數據列表並跳過首行
             data = [row for row in ws.iter_rows(values_only=True) if row[0] != "ID"]
             print(data)

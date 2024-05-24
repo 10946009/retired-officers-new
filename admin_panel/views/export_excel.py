@@ -59,7 +59,7 @@ def export_excel(request, activity_id):
     # get student join_time
     for student in students:
         
-        print(student.get_join_time(activity_id))
+        # print(student.get_join_time(activity_id))
         student_list = [
             student.get_join_number(activity_id),  # "編號",
             student.user.username,  # "姓名",

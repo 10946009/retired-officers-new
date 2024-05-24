@@ -12,7 +12,7 @@ def generate_pdf(doc_path, path):
                      path,
                      doc_path])
     except Exception as e:
-        print(f"生成 PDF 失敗: {e}")
+        # print(f"生成 PDF 失敗: {e}")
         return None
     return doc_path
 # soffice --convert-to pdf --outdir ./ ./sign_up_sample.docx

@@ -17,7 +17,7 @@ def score_label_delete(request, score_label_id):
     delete score label
     '''
     score_label = ScoreLabel.objects.get(id=score_label_id)
-    print(score_label_id, score_label.id, score_label.label1, score_label.label2, score_label.label3)
+    # print(score_label_id, score_label.id, score_label.label1, score_label.label2, score_label.label3)
     if request.method == 'POST':
         score_label.delete()
         return render(request, 'message.html', {'next':reverse('score_label_list'), 'message': '刪除成功'} )

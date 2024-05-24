@@ -63,7 +63,7 @@ class Activity(models.Model):
 
     def get_status(self):
         now = timezone.now()
-        print(now,"and",self.activity_start_time)
+        # print(now,"and",self.activity_start_time)
         if now < self.sign_up_start_time:
             return "尚未開始"
         elif now >= self.sign_up_start_time and now < self.sign_up_end_time:

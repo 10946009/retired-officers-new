@@ -10,18 +10,18 @@ default_number = 1000
 
 @login_required
 def student_join(request,activity_id):
-    print(request.POST)
+    # print(request.POST)
     if request.user.is_authenticated:
         # 如果活動不存在，就導回首頁
         if not Activity.objects.filter(id=activity_id).exists():
-            print("活動不存在")
+            # print("活動不存在")
             return render(request, "message.html", {"next": reverse("index"), "message": "活動不存在"})
         
         #如果不在活動時間內，就導回首頁
         activity = Activity.objects.get(id=activity_id)
-        print("activity.is_sign_up_open",activity.is_sign_up_open())
+        # print("activity.is_sign_up_open",activity.is_sign_up_open())
         if not activity.is_sign_up_open() :
-            print("不在報名時間內")
+            # print("不在報名時間內")
             return render(request, "message.html", {"next": reverse("index"), "message": "不在報名時間內"})
 
         # 定義表單

@@ -127,12 +127,12 @@ def api_student_print_sign_up(request):
     try:
         activity = Activity.objects.get(id=activity_id)
     except Activity.DoesNotExist:
-        print("Activity does not exist")
+        # print("Activity does not exist")
         return JsonResponse({"error": "Activity does not exist"}, status=404)
     # user宣告 & 檔名宣告
     user = User.objects.get(id=user_id)
     if not hasattr(user, "student"):
-        print("User is not a student")
+        # print("User is not a student")
         return JsonResponse({"error": "User is not a student"}, status=400)
     
     
@@ -176,7 +176,7 @@ def api_student_print_sign_up(request):
             "identity_back": identity_back,
         }
     except Exception as e:
-        print(e)
+        # print(e)
         return JsonResponse({e}, status=500)
     return JsonResponse(data)
 

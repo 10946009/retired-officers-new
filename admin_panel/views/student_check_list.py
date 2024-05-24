@@ -8,10 +8,8 @@ def student_check_list(request, activity_id):
     activity_students = ActivityStudents.objects.filter(activity=activity_id).order_by('id')
     
     if request.method == "POST":
-        print(request.POST)
         formset = StudentFormSet(request.POST)
-        print (formset.is_valid())
-        print(formset.errors)
+        # print(formset.is_valid())
 
         if formset.is_valid():
             formset.save()

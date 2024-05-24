@@ -22,7 +22,7 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            print("success")
+            # print("success")
             return render(request, "message.html", {"next": reverse("student_login"), "message": "註冊成功"})
     else:
         user_form = UserForm()

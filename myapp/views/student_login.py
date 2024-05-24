@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 def student_login(request):
     message = None
-    print('request.user',request.user)
+    # print('request.user',request.user)
     if request.user.is_authenticated:
         return redirect("index")
     # 如果該email尚未被註冊

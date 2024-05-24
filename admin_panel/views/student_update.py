@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 @permission_required('myapp.view_activity', login_url='/403')
 def student_update(request,activity_id,student_id):
-    print(request.POST)
+    # print(request.POST)
     if request.user.is_authenticated:
         # 定義表單
         student = Student.objects.get(id=student_id)

@@ -14,10 +14,10 @@ from admin_panel import urls as admin_panel_urls
 from myapp.views import veteran
 def handler404(request, exception):
     if request.user.is_authenticated:
-        print('True')
+        # print('True')
         return render(request, '404.html')
     else:
-        print('Fail')
+        # print('Fail')
         return render(request, '1404.html')
 
 
