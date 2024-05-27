@@ -54,11 +54,11 @@ def export_excel(request, activity_id):
     ]
     ws.append(title_list)  # 將標題資料寫入工作表
 
-    # 將學生資料寫入工作表
+    # 將學生資料寫入工作表，照join number排序
     students = Activity.objects.get(id=activity_id).student.all()  # 取得報名學生資料
+    sort_data = list()
     # get student join_time
     for student in students:
-        
         # print(student.get_join_time(activity_id))
         student_list = [
             student.get_join_number(activity_id),  # "編號",
@@ -97,7 +97,11 @@ def export_excel(request, activity_id):
             student.get_military_type_display(),  # "類別:榮民 二類",
             student.notes,  # "備註",
         ]
-        ws.append(student_list)
+        sort_data.append(student_list)
+
+    sort_data.sort(key=lambda x: x[0])  # 依照編號排序
+    for data in sort_data:
+        ws.append(data)
 
     # 將工作簿保存到響應中
     response = HttpResponse(
