@@ -22,35 +22,38 @@
                 {{ message }}
             </div>
             {% endfor %}
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table id="datatablesSimple" class="table table-bordered"  width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>報名編號</th>
                         <th>學生姓名</th>
                         <th>性別</th>
                         <th>Email</th>
                         <th>生日</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for student in students %}
                     <tr>
-                        <td>{{ student.user.username }}</td>
-                        <td>{{ student.get_gender_display }}</td>
-                        <td>{{ student.user.email }}</td>
-                        <td>{{ student.get_birth_tw }}</td>
+                        <td>{{ student.join_number }}</td>
+                        <td>{{ student.student.user.username }}</td>
+                        <td>{{ student.student.get_gender_display }}</td>
+                        <td>{{ student.student.user.email }}</td>
+                        <td>{{ student.student.get_birth_tw }}</td>
 
                         <td width="30%">
-                            <a class="btn btn-sm btn-warning" href="{% url 'student_update' activity_id=activity_id student_id=student.id %}">
+                            <a class="btn btn-sm btn-warning" href="{% url 'student_update' activity_id=activity_id student_id=student.student.id %}">
                                 <span class="fa fa-edit"></span> 更新</a>
-                                    <form action="{% url 'get_student_join_print' student.user.id activity_id %}" method="get" style="display: inline;">
+                                    <form action="{% url 'get_student_join_print' student.student.user.id activity_id %}" method="get" style="display: inline;">
                                         <button class="btn btn-sm btn-success" type="submit">
                                             查看報名表</button>
                                     </form>
-                                    <form action="{% url 'get_student_score_print' student.user.id activity_id %}" method="get" style="display: inline;">
+                                    <form action="{% url 'get_student_score_print' student.student.user.id activity_id %}" method="get" style="display: inline;">
                                         <button class="btn btn-sm btn-success" type="submit">
                                             查看成績單</button>
                                     </form>
-                                    <form action="{% url 'student_delete' activity_id=activity_id student_id=student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
+                                    <form action="{% url 'student_delete' activity_id=activity_id student_id=student.student.id %}" method="post" style="display: inline;" id="studentDeleteForm">
                                         {% csrf_token %}
                                         {% comment %} <button class="btn btn-sm btn-danger" onclick="studentDeleteButton.call(this)"><span class="fa fa-trash"></span> 刪除</button> {% endcomment %}
                                     </form>
@@ -63,14 +66,17 @@
     </div>
 </div>
 {% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{% static 'js/datatables-simple-demo.js' %}"></script>
 <script type="text/javascript">
-function studentDeleteButton() {
+{% comment %} function studentDeleteButton() {
     // if confirm is true, submit form
     event.preventDefault();
     if (confirm("確定要刪除學生資料嗎?")) {
         this.form.submit();
     }
-}
+} {% endcomment %}
 </script>
 {% endblock %}
 {% endblock %}

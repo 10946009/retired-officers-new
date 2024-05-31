@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', event => {
     let options = {
         info: false,
         paging: false,
-        searchable: false,
+        searchable: true,
         
     };
     if (datatablesSimple) {
