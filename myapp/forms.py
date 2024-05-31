@@ -70,7 +70,7 @@ class StudentForm(forms.ModelForm):
         # 設定css
         labels = {
             "gender": "性別",
-            "date_of_birth": "出生年月日",
+            "date_of_birth": "出生年月日(西元)",
             "address": "地址",
             "postal_code": "郵遞區號",
             "identity": "身分證字號",
