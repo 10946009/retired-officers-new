@@ -6,11 +6,15 @@ window.addEventListener('DOMContentLoaded', event => {
     let options = {
         info: false,
         paging: false,
-        searchable: true,
-        
+        searchable: true, // Default to true
     };
-    if (datatablesSimple) {
-        new simpleDatatables.DataTable(datatablesSimple,options);
 
+    // Check if the datatablesSimple element has a 'search' attribute
+    if (datatablesSimple && datatablesSimple.getAttribute('search') === 'false') {
+        options.searchable = false;
+    }
+
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple, options);
     }
 });
