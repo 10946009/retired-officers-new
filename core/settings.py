@@ -37,7 +37,7 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
-# CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS").split(",")
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS").split(",")
 # Application definition
 
 INSTALLED_APPS = [
@@ -104,6 +104,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# database configuratio DATABASE_URL=psql://user:password@host:port/database
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",  # PostgreSQL
