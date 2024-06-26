@@ -61,8 +61,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     # AWS
     "storages",
-    # corsheaders
-    'corsheaders',
 ]
 
 SITE_ID = 1
@@ -71,7 +69,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware", # whitenoise
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -248,8 +245,3 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-
-
-# CORS
-CORS_ALLOW_METHODS = ['GET', 'POST']
-CORS_ALLOW_HEADERS = ['content-type', 'authorization']
