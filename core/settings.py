@@ -41,6 +41,7 @@ CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -67,6 +68,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware", # whitenoise
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -246,3 +248,7 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
+
+# cors
+CORS_ALLOWED_ORIGINS = env.list("ALLOWED_HOSTS")
