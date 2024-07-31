@@ -21,7 +21,7 @@ class UserForm(forms.ModelForm):
         widgets = {
             
             "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+            "password": forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
         }
         error_messages = {
             "email": {
@@ -159,7 +159,7 @@ class LoginForm(forms.ModelForm):
         }
         widgets = {
             "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+            "password": forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
         }
         help_texts ={
             "email": None,
