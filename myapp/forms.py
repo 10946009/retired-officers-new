@@ -7,6 +7,8 @@ from .models import *
 from user.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
+from captcha.fields import CaptchaField
+
 
 class UserForm(forms.ModelForm):
     password2 = forms.CharField(label="確認密碼", widget=forms.PasswordInput(attrs={"class": "form-control"}))
@@ -148,31 +150,22 @@ class StudentForm(forms.ModelForm):
                 raise ValidationError('Unsupported file extension.')
         return file
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ["email", "password"]
-        # 設定css
-        labels = {
-            "email": "Email",
-            "password": "密碼",
-        }
-        widgets = {
-            "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "password": forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
-        }
-        help_texts ={
-            "email": None,
-        }
-        error_messages = {
-            "email": {
-                "required": "請輸入帳號",
-            },
-            "password": {
-                "required": "請輸入密碼",
-            },
-        }
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(attrs={"class": "form-control"}),
+        error_messages={"required": "請輸入帳號"},
+    )
+    password = forms.CharField(
+        label="密碼",
+        widget=forms.PasswordInput(attrs={"class": "form-control", "autocomplete": "off"}),
+        error_messages={"required": "請輸入密碼"},
+    )
+    captcha = CaptchaField(label='')
 
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['captcha'] = CaptchaField(label='')  # 動態添加 CAPTCHA 字段
 class PasswordResetForm(forms.ModelForm):
     class Meta:
         model = User

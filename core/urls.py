@@ -30,19 +30,12 @@ urlpatterns = [
     # path('accounts/', include('allauth.urls')),  # django-allauth網址
     path('403', TemplateView.as_view(template_name='403.html'), name='403'),
     
-    # path("accounts/login/", RedirectView.as_view(pattern_name="index")),
-    # path('myapp/', include(myapp_urls)),
-
+    # 驗證碼
+    path('captcha/', include('captcha.urls')),
 ] 
 
 handler404 = handler404
 
-urlpatterns += static(
-    settings.STATIC_URL,
-    document_root=settings.STATIC_ROOT,
-)
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT,
-)
-
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

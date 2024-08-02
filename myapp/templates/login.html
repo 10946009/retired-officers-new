@@ -15,7 +15,11 @@
                                     <form method="POST" action="{% url 'student_login' %}">
                                         <div class="form-group">
                                             {% csrf_token %}
-                                            {{ login_form }}
+                                            {{ login_form.email.label }}
+                                            {{ login_form.email }}
+                                            {{ login_form.password.label }}
+                                            {{ login_form.password }}
+                                            {{ login_form.captcha }}
                                             {% if message %}
                                             <div class="alert alert-danger" role="alert">
                                                 {{ message }}

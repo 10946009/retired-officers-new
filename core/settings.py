@@ -73,6 +73,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     # AWS
     "storages",
+    # captcha
+    "captcha",
 ]
 
 SITE_ID = 1
@@ -258,9 +260,20 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
 AWS_QUERYSTRING_AUTH = True
 
+# captcha
+CAPTCHA_LENGTH = 4
+CAPTCHA_FONT_SIZE = 30
+CAPTCHA_LETTER_ROTATION = None
+CAPTCHA_FOREGROUND_COLOR = "#333"
+CAPTCHA_NOISE_FUNCTIONS = []
+CAPTCHA_TIMEOUT = 10
+
+
 if not DEBUG:
     import logging
     import sys
 
     logging.basicConfig(stream=sys.stderr)
     logger = logging.getLogger(__name__)
+
+
