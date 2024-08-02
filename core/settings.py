@@ -13,6 +13,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://08778c0f5afe4252a626d40fe7f0dcb8@inc-sentry.ntub.edu.tw/16",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 env = environ.Env(
     # set casting, default value
@@ -244,5 +256,11 @@ AWS_S3_ENDPOINT_URL = env.str("AWS_S3_ENDPOINT_URL")
 AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
+AWS_QUERYSTRING_AUTH = True
 
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+if not DEBUG:
+    import logging
+    import sys
+
+    logging.basicConfig(stream=sys.stderr)
+    logger = logging.getLogger(__name__)
