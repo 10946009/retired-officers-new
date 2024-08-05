@@ -97,3 +97,21 @@ class Score(models.Model):
         return self.score1 + self.score2 + self.score3
     class Meta:
         unique_together = ("student", "activity")
+
+
+class VoluntaryYear(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=False, default="")
+
+    def __str__(self):
+        return self.name
+class VoluntarySchool(models.Model):
+    voluntary_year = models.ForeignKey("VoluntaryYear", on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False, null=False, default="")
+    academic = models.CharField(max_length=100, blank=False, null=False, default="")
+    category = models.CharField(max_length=100, blank=False, null=False, default="")
+    department = models.CharField(max_length=100, blank=False, null=False, default="")
+    quota = models.IntegerField(blank=False, null=False, default=0)
+    code = models.CharField(max_length=100, blank=False, null=False, default="")
+
+    def __str__(self):
+        return self.name
