@@ -5,6 +5,7 @@ from admin_panel.views.activity_create import activity_create
 from admin_panel.views.activity_update import activity_update
 from admin_panel.views.activity_delete import activity_delete
 from admin_panel.views.student_check_list import student_check_list
+from admin_panel.views.voluntary_school import voluntary_school,export_voluntary_sample
 from admin_panel.views.student_activity_list import student_activity_list
 from admin_panel.views.student_list import student_list
 from admin_panel.views.export_excel import export_excel
@@ -48,6 +49,13 @@ urlpatterns = [
     ),
     path(
         "activity_tool_menu/score_list/<int:activity_id>", score_list, name="score_list"
+    ),
+    # ----------------志願學校-------------------------------
+    path(
+        "activity_tool_menu/voluntary_school/<int:activity_id>", voluntary_school, name="voluntary_school"
+    ),
+    path(
+        "activity_tool_menu/export_voluntary_sample/<int:activity_id>", export_voluntary_sample, name="export_voluntary_sample"
     ),
     # student
     path("student_activity_list/", student_activity_list, name="student_activity_list"),

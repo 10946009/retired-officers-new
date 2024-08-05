@@ -40,6 +40,12 @@ def activity_tool_menu(request, activity_id):
             "icon": "fas fa-user-plus",
             "style": "info",
         },
+        {
+            "name": "志願匯入",
+            "url": "voluntary_school",
+            "icon": "fas fa-school",
+            "style": "info",
+        },
     ]
 
     content = {"activity": activity, "tools": tools}

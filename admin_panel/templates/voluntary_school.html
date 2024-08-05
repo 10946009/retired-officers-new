@@ -1,0 +1,81 @@
+{% extends 'layout/app_admin.html' %}
+
+{% load static %}
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">志願學校匯入</h1>
+    <ol class="breadcrumb mb-4">
+        
+        <li class="breadcrumb-item active">Volunteer school input</li>
+        <li class="breadcrumb-item active">將提供的志願學校匯入</li>
+    </ol>
+
+    <a href="{% url 'export_voluntary_sample' activity_id=activity_id %}" class="btn btn-primary">下載學校志願範本</a>
+
+    <form action="{% url 'upload_and_read_excel' activity_id=activity_id %}" method="POST" enctype="multipart/form-data"
+        style="display: inline;">
+        {% csrf_token %}
+        <input type="file" name="excel_file">
+        <button class="btn btn-warning btn-block" type="submit">上傳學校志願</button>
+    </form>
+
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            志願學校列表
+        </div>
+        <div class="card-body">
+            {% if formset.errors %}
+            <div class="alert alert-danger">
+                {{ formset.errors.0 }}
+            </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {{ formset.non_form_errors }}
+                {% for form in formset %}
+                
+                {% endfor %}
+                <table id="datatablesSimple" class="rwd-table">
+                    <thead>
+                    <tr>
+                        <th>校名</th>
+                        <th>學制</th>
+                        <th>類別</th>
+                        <th>系組</th>
+                        <th>核定名額</th>
+                        <th>志願代碼</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- for activity_students loop -->
+                    
+                    {% for form,activity_student in formset.forms %}
+                    
+                        <tr id="trChecked" >
+                            <td data-th="校名">{{form.id}}{{forloop.counter}}</td>
+                            <td data-th="學制">{{ activity_student.student.user.username }}</td>
+                            <td data-th="類別">{{ activity_student.join_number }}</td>
+                            <td data-th="系組">{{ activity_student.get_join_time }}</td>
+                            <td data-th="核定名額">{{ form.checked_number }}</td>
+                            <td data-th="志願代碼">{{ form.is_get_print }}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                    
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+
+{% endblock %}
+{% endblock %}
