@@ -128,6 +128,9 @@ class Student(models.Model):
         (4, "五年制"),
     ]
     SERVICE_TYPE_CHOICES = [(1, ""), (2, "榮民"), (3, "二類")]
+    SERVICE_CARD_CHOICES = [(1, "權益卡"), (2, "榮民證")]
+
+    GRADUATED_EDUCATION_CHOICES = [(1,"高中"),(2,"專科"),(3,"大學")]
 
     # 性別,出生年月日(西元),身分證字號,地址,郵遞區號,家用電話,手機
     gender = models.IntegerField(choices=gender_CHOICES, blank=False, null=False)
@@ -138,7 +141,7 @@ class Student(models.Model):
     home_phone = models.CharField(max_length=15, blank=False, null=False, default="")
     mobile_phone = models.CharField(max_length=15, blank=False, null=False, default="")
 
-    # 畢業學校,畢肄業,畢業部別,畢業年制,同等學力,畢業系所組,學校備註
+    # 畢業學校,畢肄業,畢業部別,畢業年制,同等學力,畢業系所組,學校備註,學歷,畢業年月
     graduated_school = models.ForeignKey(
         "myapp.School", on_delete=models.SET_NULL, blank=False, null=True
     )
@@ -157,6 +160,7 @@ class Student(models.Model):
     school_department = models.CharField(
         max_length=50, blank=False, null=False, default=""
     )
+    graduated_educational = models.IntegerField(choices=GRADUATED_EDUCATION_CHOICES, blank=False, null=False, default=1)
     graduated_year_month = models.DateField()
     school_notes = models.CharField(max_length=150, blank=True, null=False, default="")
 
@@ -183,6 +187,10 @@ class Student(models.Model):
     # 第一類 第二類
     military_type = models.IntegerField(
         choices=SERVICE_TYPE_CHOICES, blank=False, null=False, default=1
+    )
+    # 榮民證 權益卡
+    military_card_type = models.IntegerField(
+        choices=SERVICE_CARD_CHOICES, blank=False, null=False, default=1
     )
 
     # 身分證正面 身分證反面

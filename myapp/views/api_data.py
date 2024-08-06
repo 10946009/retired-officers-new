@@ -104,6 +104,7 @@ def api_student_print_sign_up(request):
             "emergency_contact_relationship": "母",
             "emergency_contact_phone": "0912345678",
             "education": "國立中山大學  資訊工程學系",
+            "graduated_educational":"大學",
             "same_education": "是",
             "education_year_month": "65年10月",
             "military_service_number": "A123456789",
@@ -114,6 +115,7 @@ def api_student_print_sign_up(request):
             "military_retired_day": "10",
             "military_service_years_int": "10",
             "military_service_years": "10年",
+            "military_card_type": "榮民卡",
             "identity_front": None, 
             "identity_back": None,
         }
@@ -162,6 +164,7 @@ def api_student_print_sign_up(request):
             "emergency_contact_relationship": user.emergency_contact_relationship,
             "emergency_contact_phone": user.emergency_contact_phone,
             "education": education,
+            "graduated_educational": user.get_graduated_educational_display(),
             "same_education": user.get_education_display(),
             "education_year_month": user.get_graduated_year_month_tw(),
             "military_service_number": user.military_service_number,
@@ -172,6 +175,7 @@ def api_student_print_sign_up(request):
             "military_retired_day": user.date_of_military_retired_tw()[2],
             "military_service_years_int": user.military_service_years_int,
             "military_service_years": user.get_military_service_years_display(),
+            "military_card_type": user.get_military_card_type_display(),
             "identity_front": identity_front,
             "identity_back": identity_back,
         }

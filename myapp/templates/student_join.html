@@ -84,6 +84,8 @@
                           {{ student_form.is_graduated }}</div>
                         <div class="col-md-1">{{ student_form.graduated_year.label }}
                           {{ student_form.graduated_year }}</div>
+                        <div class="col-md-2">{{ student_form.graduated_educational.label }}
+                          {{ student_form.graduated_educational }}</div>
                         <div class="col-md-2">{{ student_form.graduated_year_month.label }}
                           {{ student_form.graduated_year_month }}</div>
                         <div class="col-md-4">{{ student_form.education.label }}
@@ -111,31 +113,18 @@
                         </div>
                       
                       <div class="row">
-                        <div class="col-md-3">{{ student_form.military_retired_date.label }}
+                        <div class="col-md-2">{{ student_form.military_retired_date.label }}
                           {{ student_form.military_retired_date }}</div>
-                        <div class="col-md-5">{{ student_form.military_service_years.label }}
+                        <div class="col-md-4">{{ student_form.military_service_years.label }}
                           {{ student_form.military_service_years }}</div>
                         <div class="col-md-2">{{ student_form.military_service_years_int.label }}
                           {{ student_form.military_service_years_int }}</div>
                           <div class="col-md-2">{{ student_form.military_type.label }}
                             {{ student_form.military_type }}</div>
+                          <div class="col-md-2">{{ student_form.military_card_type.label }}
+                            {{ student_form.military_card_type }}</div>
                       </div>
-                      <h3 class="text-right font-weight-bold mt-4">身分證正反面上傳</h3>
-                      需清晰可辨，上傳後於報名表列印時，則可不用再黏貼身分證正反面。
-                      限jpg、png、jpeg格式，檔案大小不得超過10MB。
-                      <div class="row">
-                        <div class="col-md-6">{{ student_form.identity_front.label }}
-                          {% if request.user.student.identity_front.url != "" %}
-                          <img src="{{ request.user.student.identity_front.url }}" class="img-thumbnail" alt="identity_front">
-                          {% endif %}
-                          {{ student_form.identity_front }}</div>
-                          <div class="col-md-6">{{ student_form.identity_back.label }}
-                            {% if request.user.student.identity_back.url != ""%}
-                            <img src="{{ request.user.student.identity_back.url }}" class="img-thumbnail" alt="identity_back">
-                            {% endif %}
-                            {{ student_form.identity_back }}</div>
-                      </div>
-                    </div>
+                      
                     <div class="mt-4 mb-0 container">
                       <div class="row justify-content-between">
                         <input type="hidden" id="saveValue" name="saveValue" value="1">
