@@ -99,13 +99,9 @@ class Score(models.Model):
         unique_together = ("student", "activity")
 
 
-class VoluntaryYear(models.Model):
-    name = models.CharField(max_length=100, blank=False, null=False, default="")
 
-    def __str__(self):
-        return self.name
 class VoluntarySchool(models.Model):
-    voluntary_year = models.ForeignKey("VoluntaryYear", on_delete=models.CASCADE)
+    activity = models.ForeignKey("Activity", on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False, null=False, default="")
     academic = models.CharField(max_length=100, blank=False, null=False, default="")
     category = models.CharField(max_length=100, blank=False, null=False, default="")
