@@ -5,7 +5,7 @@ from admin_panel.views.activity_create import activity_create
 from admin_panel.views.activity_update import activity_update
 from admin_panel.views.activity_delete import activity_delete
 from admin_panel.views.student_check_list import student_check_list
-from admin_panel.views.voluntary_school import voluntary_school,export_voluntary_sample
+from admin_panel.views.voluntary_school import upload_voluntary_excel, voluntary_school,export_voluntary_sample
 from admin_panel.views.student_activity_list import student_activity_list
 from admin_panel.views.student_list import student_list
 from admin_panel.views.export_excel import export_excel
@@ -63,6 +63,11 @@ urlpatterns = [
         "activity_tool_menu/student_list/<int:activity_id>",
         student_list,
         name="student_list",
+    ),
+    path(
+        "upload_voluntary_excel/<int:activity_id>",
+        upload_voluntary_excel,
+        name="upload_voluntary_excel",
     ),
     # ---------get student join by jaspersoft report ------------
     
