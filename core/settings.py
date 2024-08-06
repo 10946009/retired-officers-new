@@ -136,7 +136,7 @@ if DEBUG:
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
-
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

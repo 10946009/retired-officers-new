@@ -8,7 +8,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 # import custom User model
-from user.models import Student, User,ActivityStudents
+from user.models import ActivityStudents
 from decimal import Decimal
 
 

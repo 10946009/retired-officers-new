@@ -10,7 +10,6 @@ from django.shortcuts import render
 # import views directly from the app
 from myapp import urls as student_urls
 from admin_panel import urls as admin_panel_urls
-from admin_panel import urls as admin_panel_urls
 from myapp.views import veteran
 def handler404(request, exception):
     if request.user.is_authenticated:
